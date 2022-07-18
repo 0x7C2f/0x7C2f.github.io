@@ -1,0 +1,9 @@
+- name: Installing Neofetch
+  package:
+    name:
+      - neofetch
+    extra_args: --noconfirm --needed
+- name: neofetch
+  template:
+    dest: $HOME/.config/neofetch/config.conf
+    src: config.j2

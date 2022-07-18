@@ -1,0 +1,7 @@
+! Title: 0x7C2f Blocklist/Formatter
+! Expires: 1 Days (Update Frequency)
+! Last modified: %timestamp%
+! Description: See through my eyes
+
+! Prevents Overflow of images
+*##img:style(max-width: 100%;overflow:auto; !important)

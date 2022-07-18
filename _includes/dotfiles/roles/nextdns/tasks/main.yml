@@ -1,0 +1,17 @@
+- name: Remove old resolved.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+    owner: root
+    group: root
+- name: Update/create block if needed. Create file if not exists
+  blockinfile:
+    path: /etc/systemd/resolved.conf
+    block: |
+      [Resolve]
+      DNS=[REDACTED]
+      DNS=[REDACTED]
+      DNS=[REDACTED]
+      DNS=[REDACTED]
+      DNS=[REDACTED]
+    create: true

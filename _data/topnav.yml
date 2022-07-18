@@ -1,0 +1,22 @@
+topnav:
+- title: Topnav
+  items:
+    - title: Github
+      external_url: https://github.com/0x7C2f
+    - title: Gitlab
+      external_url: https://gitlab.com/0x7C2f
+    - title: Twitter
+      external_url: https://twitter.com/0x7C2f
+    - title: News
+      url: /news
+topnav_dropdowns:
+- title: Topnav dropdowns
+  folders:
+    - title: Mirrors
+      folderitems:
+        - title: Github
+          external_url: https://0x7C2f.github.io
+        - title: Gitlab
+          external_url: https://0x7C2f.gitlab.io
+        - title: Neocities
+          external_url: https://0x7c2f.neocities.org/

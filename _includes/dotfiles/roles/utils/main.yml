@@ -1,0 +1,6 @@
+- name: Installing Pacman Packages
+  package:
+    name:
+      - unzip
+      - imlib2
+    extra_args: --noconfirm --needed

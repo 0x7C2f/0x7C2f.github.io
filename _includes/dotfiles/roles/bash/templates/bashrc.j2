@@ -1,0 +1,34 @@
+neofetch
+
+# Exports
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+export PATH="$PATH:$GEM_HOME/bin"
+
+# Aliases
+alias pia=pia_connect
+alias timestamp=time_stamp
+alias capture=screen_capture
+alias clone='git clone'
+alias htop='sudo htop'
+#alias autoremove='sudo pacman -Qdttq |sudo pacman -Rs -'
+
+# Functions
+pia_connect () {
+     vpn_config_dir="/etc/openvpn/client/"
+     configs="$(ls -A "$vpn_config_dir")"
+     PS3="Select an OpenVPN configuration: "zz
+     select config_name in ${configs};
+     do
+          echo "You selected ${config_name}"
+          openvpn --daemon --config ${vpn_config_dir}${config_name}
+	     break;
+     done
+}
+
+time_stamp () {
+     echo $(date "+%F-%H-%M-%S")
+}
+
+screen_capture () {
+     scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.jpeg
+}

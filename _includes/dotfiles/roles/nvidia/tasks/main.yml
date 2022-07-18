@@ -1,0 +1,22 @@
+- name: Setting up Nvidia
+  package:
+    name:
+      - nvidia-settings
+      - nvtop
+    extra_args: --noconfirm --needed
+- name:  nvidia xorg configuration
+  template:
+    dest: /etc/X11/xorg.conf.d/20-nvidia.conf
+    src: 20-nvidia.j2
+- name: blacklist-nvidia-nouveau
+  template:
+    dest: /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+    src: blacklist-nvidia-nouveau.j2
+- name: nvidia hook
+  template:
+    dest: /etc/pacman.d/hooks/nvidia.hook
+    src: nvidia.j2
+- name: nvidia-settings-rc
+  template:
+    dest: $HOME/.nvidia-settings-rc
+    src: nvidia-settings-rc.j2

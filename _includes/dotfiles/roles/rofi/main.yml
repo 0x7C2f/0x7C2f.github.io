@@ -1,0 +1,4 @@
+- name: picom
+  template:
+    dest: $HOME/.config/rofi/config.rasi
+    src: config.j2

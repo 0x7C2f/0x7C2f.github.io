@@ -1,0 +1,5 @@
+- name: Installing thefuck
+  package:
+    name:
+      - thefuck
+    extra_args: --noconfirm --needed

@@ -1,0 +1,5 @@
+- name: Installing thunar
+  package:
+    name:
+      - thunar
+    extra_args: --noconfirm --needed

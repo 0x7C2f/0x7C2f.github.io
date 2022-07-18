@@ -1,0 +1,6 @@
+- name: git-auto
+  template:
+    dest: /usr/bin/git-auto
+    src: git-auto.j2
+- name: Make git-auto executable
+  ansible.builtin.shell: chmod +x /usr/bin/git-auto

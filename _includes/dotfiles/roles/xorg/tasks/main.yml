@@ -1,0 +1,10 @@
+- name: Installing xorg
+  package:
+    name:
+      - xorg
+      - xorg-xbacklight
+    extra_args: --noconfirm --needed
+- name: xinitrc
+  template:
+    dest: $HOME/.xinitrc
+    src: xinitrc.j2

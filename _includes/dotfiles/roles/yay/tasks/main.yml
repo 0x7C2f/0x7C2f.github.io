@@ -1,0 +1,21 @@
+- name: Installing yay
+  package:
+    name:
+      - yay
+#- yay: 
+#    name:
+#      - spicetify-cli
+#      - spotify
+#      - i3lock-color
+#      - betterlockscreen
+#      - freetube-bin
+#      - 
+#      - ttf-google-fonts-git
+#      - spotify-tui
+#      - nerd-fonts-hack
+#      - joplin-desktop
+#      - betterdiscord-installer
+#      - lidarr
+#      - radarr
+#      - sonarr
+#       state=present

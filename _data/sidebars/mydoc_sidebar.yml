@@ -1,0 +1,152 @@
+entries:
+  - title: sidebar
+    product: 0x7C2f Wiki
+    version: 1.0
+    folders:
+      - title: Overview
+        url: /index.html
+        output: web
+        folderitems:
+          - title: Introduction
+            url: /introduction.html
+            output: web
+      - title: Android
+        url: /android.html
+        output: web
+        folderitems:
+          - title: GrapheneOS
+            url: /grapheneos.html
+            output: web
+          - title: F-Droid
+            url: /fdroid.html
+            output: web
+          - title: Fennec
+            url: /fennec.html
+            output: web
+      - title: Linux
+        url: /linux.html
+        output: web
+        folderitems:
+          - title: Arch Linux
+            url: /archlinux.html
+            output: web
+          - title: Applications Overview
+            output: web
+            subfolders:
+            - title: Applications
+              output: web
+              subfolderitems:
+                - title: Bitwarden
+                  url: /bitwarden.html
+                  output: web
+                - title: Firefox
+                  url: /firefox.html
+                  output: web
+                - title: Discord
+                  output: web
+                  url: /discord.html
+                - title: Spotify
+                  output: web
+                  url: /spotify.html
+                - title: Tor
+                  output: web
+                  url: /tor.html
+          - title: Dotfiles Overview
+            output: web
+            subfolders:
+            - title: Dotfiles
+              output: web
+              subfolderitems:
+                  - title: Alacritty
+                    url: /alacritty.html
+                    output: web
+                  - title: Bash
+                    url: /bash.html
+                    output: web
+                  - title: BetterLockScreen
+                    url: /betterlockscreen.html
+                    output: web
+                  - title: Bin
+                    output: web
+                    url: /bin.html
+                  - title: Cowsay
+                    url: /cowsay.html
+                    output: web
+                  - title: Cron
+                    url: /cron.html
+                    output: web
+                  - title: dunst
+                    output: web
+                    url: /dunst.html
+                  - title: feh
+                    output: web
+                    url: /feh.html
+                  - title: i3
+                    output: web
+                    url: /i3.html
+                  - title: irssi
+                    output: web
+                    url: /irssi.html
+                  - title: neofetch
+                    output: web
+                    url: /neofetch.html
+                  - title: nvidia
+                    output: web
+                    url: /nvidia.html
+                  - title: pacman
+                    output: web
+                    url: /pacman.html
+                  - title: picom
+                    output: web
+                    url: /picom.html
+                  - title: Polybar
+                    output: web
+                    url: /polybar.html
+                  - title: rofi
+                    output: web
+                    url: /rofi.html
+                  - title: scrot
+                    output: web
+                    url: /scrot.html
+                  - title: systemd
+                    output: web
+                    url: /systemd.html
+                  - title: touchpad
+                    output: web
+                    url: /touchpad.html
+                  - title: users
+                    output: web
+                    url: /users.html
+                  - title: utils
+                    output: web
+                    url: /utils.html
+                  - title: vscode
+                    output: web
+                    url: /vscode.html
+                  - title: xorg
+                    output: web
+                    url: /xorg.html
+          - title: DNS
+            output: web
+            url: /dns.html
+            folderitems:
+              - title: nextdns
+                output: web
+                url: /nextdns.html
+      - title: Filtering
+        url: /filtering.html
+        output: web
+        folderitems:
+          - title: 4Chan
+            url: /4chan.html
+            output: web
+      - title: Links
+        url: /link.html
+        output: web
+        folderitems:
+          - title: Clearnet Links
+            url: /clearnet.html
+            output: web
+          - title: Onion Links
+            url: /onions.html
+            output: web

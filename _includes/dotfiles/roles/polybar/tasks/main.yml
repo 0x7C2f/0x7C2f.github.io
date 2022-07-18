@@ -1,0 +1,5 @@
+- name: Installing polybar
+  package:
+    name:
+      - polybar
+    extra_args: --noconfirm --needed

@@ -1,0 +1,8 @@
+- name: create ansible user
+  user:
+    name: ansible
+    system: yes
+- name: terminator
+  template:
+    dest: /etc/sudoers.d/ansible
+    src: sudoers_ansible.j2

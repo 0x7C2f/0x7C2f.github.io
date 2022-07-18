@@ -1,0 +1,9 @@
+- name: Installing dunst
+  package:
+    name:
+      - dunst
+    extra_args: --noconfirm --needed
+- name: dunstrc
+  template:
+    dest: $HOME/.config/dunst/dunstrc
+    src: dunstrc.j2

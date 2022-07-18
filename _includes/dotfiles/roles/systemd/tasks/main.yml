@@ -1,0 +1,6 @@
+- name: Ensures user/ dir exists
+  file: path=$HOME/.config/systemd/user/ state=directory
+- name: syncthing service
+  template:
+    dest: $HOME/.config/systemd/user/syncthing.service
+    src: syncthing.j2

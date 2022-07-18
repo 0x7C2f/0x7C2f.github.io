@@ -1,0 +1,9 @@
+- name: Installing Pacman Packages
+  package:
+    name:
+      - pacman-contrib
+    extra_args: --noconfirm --needed
+- name: Create pacman hooks directory
+  file:
+    path: /etc/pacman.d/hooks/
+    state: directory

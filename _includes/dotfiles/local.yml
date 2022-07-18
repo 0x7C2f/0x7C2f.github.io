@@ -1,0 +1,44 @@
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+      - update
+      - alacritty
+      - android
+      - bash
+      - bin
+      - betterlockscreen
+      - bitwarden
+      - cowsay
+      - cron
+      - discord
+      - dunst
+      - feh
+      - systemd
+      - firefox
+      - i3
+      - irssi
+      - neofetch
+      - nextdns
+      - nvidia
+      - pacman
+      - picom
+      - polybar
+      - python
+      - rofi
+      - scrot
+      - signal
+      - terminator
+      - thefuck
+      - thunar
+      - tor
+      - touchpad
+      - tree
+      - users
+      - utils
+      - vlc
+      - vscode
+      - xorg
+      - yay
+#        
+#        when: ansible_os_family == 'Windows'

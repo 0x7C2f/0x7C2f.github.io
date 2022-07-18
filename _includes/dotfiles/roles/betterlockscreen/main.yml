@@ -1,0 +1,4 @@
+- name: betterlockscreenrc
+  template:
+    dest: $HOME/.config/betterlockscreenrc
+    src: betterlockscreenrc.j2

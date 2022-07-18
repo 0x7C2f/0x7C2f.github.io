@@ -1,0 +1,5 @@
+- name: Installing tree
+  package:
+    name:
+      - tree
+    extra_args: --noconfirm --needed

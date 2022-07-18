@@ -1,0 +1,4 @@
+- name: i3
+  template:
+    dest: $HOME/.config/i3/config
+    src: config.j2

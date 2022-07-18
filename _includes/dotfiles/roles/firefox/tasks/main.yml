@@ -1,0 +1,15 @@
+- name: Installing Firefox
+  package:
+    name:
+      - firefox
+    extra_args: --noconfirm --needed
+  when: ansible_os_family == 'Archlinux'
+- name: local-settings
+  template:
+    dest: /usr/lib/firefox/defaults/pref/local-settings.js
+    src: local-settings.j2
+- name: mozilla
+  template:
+    dest: /usr/lib/firefox/mozilla.cfg
+    src: mozilla.j2
+  when: ansible_os_family == 'Archlinux'

@@ -1,0 +1,11 @@
+- name: Installing Cronie
+  package:
+    name:
+      - cronie
+    extra_args: --noconfirm --needed
+#- name: install cron job (ansible pull)
+#  cron:
+#    user: ansible
+#    name: ansible provision
+#    minute: "*/10"
+#    job: /usr/bin/ansible-pull -o -U https://github.com/0x7C2f/setup.git

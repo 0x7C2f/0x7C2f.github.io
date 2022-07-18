@@ -1,0 +1,63 @@
+repository: tomjoht/documentation-theme-jekyll
+output: web
+topnav_title: 0x7C2f Wiki
+site_title: 0x7C2f Wiki
+company_name: 0x7C2f Wiki
+github_editme_path: 0x7C2f/0x7C2f.github.io/blob/main/
+host: 127.0.0.1
+port: 4000
+exclude:
+  - .idea/
+  - .gitignore
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - gulpfile.js
+  - package.json
+feedback_subject_line: null
+feedback_email: null
+feedback_disable: true
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  syntax_highlighter: rouge
+collections:
+  tooltips:
+    output: false
+defaults:
+  - scope:
+      path: ''
+      type: pages
+    values:
+      layout: page
+      comments: false
+      search: true
+      sidebar: home_sidebar
+      topnav: topnav
+  - scope:
+      path: ''
+      type: tooltips
+    values:
+      layout: page
+      search: true
+      tooltip: true
+  - scope:
+      path: ''
+      type: posts
+    values:
+      layout: post
+      comments: false
+      search: true
+      sidebar: home_sidebar
+      topnav: topnav
+sidebars:
+  - home_sidebar
+  - mydoc_sidebar
+  - other
+description: Intended as a one stop shop for all my personal configurations.
+github:
+  - metadata

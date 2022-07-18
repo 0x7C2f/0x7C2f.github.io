@@ -1,0 +1,4 @@
+- name: vlcrc
+  template:
+    dest: $HOME/.config/vlc/vlcrc
+    src: vlcrc.j2

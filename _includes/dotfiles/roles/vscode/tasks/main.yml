@@ -1,0 +1,3 @@
+- yay: 
+    name: vscodium-bin
+    state: present

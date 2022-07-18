@@ -1,0 +1,4 @@
+- name: picom
+  template:
+    dest: $HOME/.config/picom/picom.conf
+    src: picom.j2

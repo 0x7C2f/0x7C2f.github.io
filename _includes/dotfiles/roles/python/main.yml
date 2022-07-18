@@ -1,0 +1,6 @@
+- name: Installing Pacman Packages
+  package:
+    name:
+      - python
+      - python-pip
+    extra_args: --noconfirm --needed

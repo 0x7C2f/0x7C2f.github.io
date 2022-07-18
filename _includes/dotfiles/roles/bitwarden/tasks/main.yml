@@ -1,0 +1,5 @@
+- name: Installing bitwarden
+  package:
+    name:
+      - bitwarden
+    extra_args: --noconfirm --needed

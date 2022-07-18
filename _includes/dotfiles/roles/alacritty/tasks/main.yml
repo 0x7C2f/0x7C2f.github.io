@@ -1,0 +1,9 @@
+- name: Installing Alacritty
+  package:
+    name:
+      - alacritty
+    extra_args: --noconfirm --needed
+- name: Setting up Alacritty config file
+  template:
+    dest: $HOME/.config/alacritty/alacritty.yml
+    src: alacritty.j2

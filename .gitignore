@@ -6,3 +6,8 @@ _pdf
 .idea
 vendor/
 .bundle/
+NextDNS.py
+.tmp
+__pycache__
+.pyc
+.vscode

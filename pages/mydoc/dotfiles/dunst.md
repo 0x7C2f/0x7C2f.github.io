@@ -1,5 +1,5 @@
 ---
-title: dunst
+title: Dunst
 tags: dunst
 keywords: dunst
 last_updated: July 18, 2022

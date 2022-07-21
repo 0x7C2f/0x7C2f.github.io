@@ -1,5 +1,5 @@
 ---
-title: firefox
+title: Firefox
 tags: firefox
 keywords: firefox
 last_updated: July 18, 2022

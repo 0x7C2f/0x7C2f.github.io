@@ -75,62 +75,53 @@ entries:
                   - title: Cron
                     url: /cron.html
                     output: web
-                  - title: dunst
+                  - title: Dunst
                     output: web
                     url: /dunst.html
-                  - title: feh
+                  - title: Feh
                     output: web
                     url: /feh.html
-                  - title: i3
+                  - title: I3
                     output: web
                     url: /i3.html
-                  - title: irssi
+                  - title: Irssi
                     output: web
                     url: /irssi.html
-                  - title: neofetch
+                  - title: Neofetch
                     output: web
                     url: /neofetch.html
-                  - title: nvidia
+                  - title: Nvidia
                     output: web
                     url: /nvidia.html
-                  - title: pacman
+                  - title: Pacman
                     output: web
                     url: /pacman.html
-                  - title: picom
+                  - title: Picom
                     output: web
                     url: /picom.html
                   - title: Polybar
                     output: web
                     url: /polybar.html
-                  - title: rofi
+                  - title: Rofi
                     output: web
                     url: /rofi.html
-                  - title: scrot
+                  - title: Scrot
                     output: web
                     url: /scrot.html
-                  - title: systemd
-                    output: web
-                    url: /systemd.html
-                  - title: touchpad
+                  - title: Touchpad
                     output: web
                     url: /touchpad.html
-                  - title: users
-                    output: web
-                    url: /users.html
-                  - title: utils
-                    output: web
-                    url: /utils.html
-                  - title: vscode
+                  - title: VSCode
                     output: web
                     url: /vscode.html
-                  - title: xorg
+                  - title: Xorg
                     output: web
                     url: /xorg.html
           - title: DNS
             output: web
             url: /dns.html
             folderitems:
-              - title: nextdns
+              - title: NextDNS
                 output: web
                 url: /nextdns.html
       - title: Filtering

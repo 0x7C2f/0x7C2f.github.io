@@ -1,5 +1,5 @@
 ---
-title: touchpad
+title: Touchpad
 tags: touchpad
 keywords: touchpad
 last_updated: July 18, 2022

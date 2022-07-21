@@ -8,7 +8,7 @@ permalink: xorg.html
 ---
 ## Keyboard Backlight
 ```yml
-{% include dotfiles/roles/xorg/templates/20-intel.conf %}
+{% include dotfiles/roles/xorg/files/20-intel.conf %}
 ```
 ## xorg init
 ```yml

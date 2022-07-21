@@ -7,5 +7,5 @@ sidebar: mydoc_sidebar
 permalink: bin.html
 ---
 ```yml
-{% include dotfiles/roles/bash/templates/git-auto.j2 %}
+{% include dotfiles/roles/bin/templates/git-auto.j2 %}
 ```

@@ -6,7 +6,6 @@ variables:
 test:
   stage: test
   script:
-  - sh ./var/build.sh
   - bundle exec jekyll build -d test
   artifacts:
     paths:
@@ -17,7 +16,6 @@ test:
 pages:
   stage: deploy
   script:
-  - sh ./var/build.sh
   - bundle exec jekyll build -d public
   artifacts:
     paths:

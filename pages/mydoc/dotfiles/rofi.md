@@ -7,5 +7,5 @@ sidebar: mydoc_sidebar
 permalink: rofi.html
 ---
 ```yml
-{% include dotfiles/roles/rofi/templates/rofi.j2 %}
+{% include dotfiles/roles/rofi/templates/config.j2 %}
 ```

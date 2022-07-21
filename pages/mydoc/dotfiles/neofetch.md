@@ -1,5 +1,5 @@
 ---
-title: neofetch
+title: Neofetch
 tags: neofetch
 keywords: neofetch
 last_updated: July 18, 2022

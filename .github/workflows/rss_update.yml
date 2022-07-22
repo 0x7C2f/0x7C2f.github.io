@@ -20,23 +20,20 @@ jobs:
           ruby-version: 3.1
       - name: Install dependencies
         run: bundle install
-      - name: Update Feed.ini
-        run: pluto update feed.ini    
-      - name: Create Post
-        run: ruby planet.rb
-      - name: Adding Email
-        run: git config --global user.email "automation@runthisboi.com"
-      - name: Adding Username
-        run: git config --global user.name "0x7C2f"
-      - name: switching from HTTPS to SSH
-        run: git remote set-url origin ${{ secrets.ssh_url }}
-      - name: check for changes
-        run: git status
-      - name: stage changed files
-        run: git add .
-      - name: commit changed files
-        run: git commit -m "Auto updating RSS"
-      - name: fetch from master
-        run: GIT_SSH_COMMAND="ssh -i ${{secrets.ssh}}" git fetch origin master
-      - name: push code to master
-        run: GIT_SSH_COMMAND="ssh -i ${{secrets.ssh}}" git push origin HEAD:master
+      - name: Create Local Changes
+        run: |
+          pluto update feed.ini    
+          ruby planet.rb
+      - name: Github Actions
+        run: |
+          git config --global user.email "automation@runthisboi.com"
+          git config --global user.name "0x7C2f"
+          git remote set-url origin ${{ secrets.ssh_url }}
+          git status
+          git add .
+          git commit -am "Auto updating RSS"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          ssh: true
+          github_token: ${{ secrets.TOKEN }}

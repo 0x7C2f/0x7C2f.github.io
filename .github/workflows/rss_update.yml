@@ -7,7 +7,7 @@ on:
   #schedule:
   #  - cron: '10 * * * *'
 jobs:
-  ruby:
+  RSS-Update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,8 +17,6 @@ jobs:
           ruby-version: 3.1
       - name: Install dependencies
         run: bundle install
-      - name: Run tests
-        run: bundle exec rake
       - name: Update Feed.ini
         run: pluto update Feed.ini    
       - name: Create Post

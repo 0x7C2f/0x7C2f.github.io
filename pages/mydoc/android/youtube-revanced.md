@@ -38,7 +38,7 @@ You now can build ReVanced with revanced-builder!
  
 🧩 [Official patches by ReVanced](https://github.com/revanced/revanced-patches/blob/main/README.md)
  
-# List of available patches
+### List of available patches
  
 | 💊 Patch | 📜 Description | 🎯 Target Package | 🏹 Target Version |
 |:--------:|:--------------:|:-----------------:|:-----------------:|

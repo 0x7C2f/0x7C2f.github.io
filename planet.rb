@@ -24,12 +24,12 @@ class Planet
     private def generate_blog_post( item )
             posts_root = "./_posts"
             FileUtils.mkdir_p( posts_root )  ## make sure path exists
-            fn = "#{posts_root}/#{item.published.strftime('%Y-%m-%d')}-#{title_to_key("twitter-0x7C2f")}.md"
+            fn = "#{posts_root}/#{item.published.strftime('%Y-%m-%d-%H:%M:%S')}-#{title_to_key("twitter-0x7C2f")}.md"
             frontmatter = {
                 'title'      => item.title,
                 'author'     => item.feed.title,
                 'layout'     => 'post',
-                'permalink'  => "#{item.published.strftime('%Y-%m-%d')}-#{title_to_key("twitter-0x7C2f")}.html"
+                'permalink'  => "#{item.published.strftime('%Y-%m-%d-%H:%M:%S')}-#{title_to_key("twitter-0x7C2f")}.html"
             }
             frontmatter['original_link'] = item.url unless item.url.empty?
             File.open( fn, 'w:utf-8' ) do |f|

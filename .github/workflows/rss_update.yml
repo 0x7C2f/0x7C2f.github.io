@@ -22,13 +22,7 @@ jobs:
         run: bundle install
       - name: Run tests
         run: bundle exec rake
-  update_feed_ini:
-    name: Update Feed.ini
-    runs-on: ubuntu-latest
-    steps:
-      - run: pluto update Feed.ini
-  create_post:
-    name: Create Post
-    runs-on: ubuntu-latest
-    steps:
-      - run: ruby planet.rb
+      - name: Update Feed.ini
+        run: pluto update Feed.ini    
+      - name: Create Post
+        run: ruby planet.rb

@@ -24,7 +24,7 @@ class Planet
     private def generate_blog_post( item )
             posts_root = "./_posts"
             FileUtils.mkdir_p( posts_root )  ## make sure path exists
-            fn = "#{posts_root}/#{item.published.strftime('%Y-%m-%d')}-#{title_to_key(item.title)}.md"
+            fn = "#{posts_root}/#{item.published.strftime('%Y-%m-%d')}-#{title_to_key("twitter-0x7C2f")}.md"
             frontmatter = {
                 'title'      => item.title,
                 'author'     => item.feed.title,

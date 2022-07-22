@@ -26,7 +26,6 @@ jobs:
         ruby planet.rb
     - name: Github Actions
       run: |
-        git remote set-url origin ${{ secrets.SSH_URL }}
         git status
         git add .
         git commit -am "Auto updating RSS"

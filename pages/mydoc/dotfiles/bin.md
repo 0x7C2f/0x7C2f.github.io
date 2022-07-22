@@ -1,5 +1,5 @@
 ---
-title: bin
+title: Bin
 tags: bin
 keywords: bin
 last_updated: July 18, 2022

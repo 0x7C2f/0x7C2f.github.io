@@ -1,15 +1,17 @@
 name: RSS Update
 on:
-#  push:
-#    branches: [ main ]
+  push:
+    branches: [ main ]
 #  pull_request:
 #    branches: [ main ]
-  schedule:
-    - cron: '10 * * * *'
+  #schedule:
+  #  - cron: '10 * * * *'
 jobs:
   RSS-Update:
     runs-on: ubuntu-latest
     steps:
+      - name: test
+        run: ls
       - uses: actions/checkout@v3
       - name: Set up Ruby
         uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108

@@ -23,10 +23,10 @@ class Planet
     end
     private def generate_blog_post( item )
             posts_root = "./_posts"
-            FileUtils.mkdir_p( posts_root )  ## make sure path exists
+            FileUtils.mkdir_p( posts_root )
             fn = "#{posts_root}/#{item.published.strftime('%Y-%m-%d')}-#{title_to_key("twitter-0x7C2f")}.md"
             frontmatter = {
-                'title'      => '0x7C2f - Twitter - %Y-%m-%d-%H-%M',
+                'title'      => 'item.title',
                 'author'     => item.feed.title,
                 'layout'     => 'post',
                 'permalink'  => "#{item.published.strftime('%Y-%m-%d-%H-%M)}-#{title_to_key("twitter-0x7C2f")}.html"

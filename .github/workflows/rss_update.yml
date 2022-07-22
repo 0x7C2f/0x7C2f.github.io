@@ -1,0 +1,15 @@
+name: RSS Update
+on:  
+  schedule:
+    - cron: '10 * * * *'
+jobs:
+  update_feed_ini:
+    name: Update Feed.ini
+    runs-on: ubuntu-latest
+    steps:
+      - run: pluto update Feed.ini
+  create_post:
+    name: Create Post
+    runs-on: ubuntu-latest
+    steps:
+      - run: ruby ./planet.rb

@@ -1,7 +1,6 @@
 body {
     font-size:15px;
 }
-
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
@@ -82,7 +81,6 @@ dt[id]{
 padding-top: 60px;
 margin-top: -40px
 }
-
 .post-content img {
     margin: 12px 0px 3px 0px;
     width: auto;

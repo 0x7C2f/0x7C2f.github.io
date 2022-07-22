@@ -8,8 +8,11 @@ permalink: index.html
 summary: These brief overview as to what I am running system wise.
 ---
 
-## [Introduction](introduction.html)
-## [Android](android.html)
-## [Linux](linux.html)
-## [Clearnet](clearnet.html)
-## [Onions](onions.html)
+# Latest Posts
+<ul>
+    {% for post in site.posts %}
+        <li>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+</ul>

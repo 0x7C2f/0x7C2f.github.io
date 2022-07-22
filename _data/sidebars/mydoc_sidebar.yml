@@ -20,6 +20,9 @@ entries:
           - title: F-Droid
             url: /fdroid.html
             output: web
+          - title: YouTube Revanced
+            url: /youtube-revanced.html
+            output: web
           - title: Fennec
             url: /fennec.html
             output: web

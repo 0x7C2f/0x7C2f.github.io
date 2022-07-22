@@ -10,3 +10,4 @@ gem "webrick", "~> 1.7"
 gem 'reverse_markdown'
 gem 'neocities'
 gem 'jekyll-twitter-plugin'
+gem 'pluto'

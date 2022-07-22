@@ -12,4 +12,4 @@ jobs:
     name: Create Post
     runs-on: ubuntu-latest
     steps:
-      - run: ruby ./planet.rb
+      - run: ruby planet.rb

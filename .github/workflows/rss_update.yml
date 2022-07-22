@@ -12,6 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
+        repository: 0x7C2f/0x7C2f.github.io
         ssh-key: ${{ secrets.ssh }}
     - name: Set up Ruby
       uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108

@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: bundle install
       - name: Update Feed.ini
-        run: pluto update Feed.ini    
+        run: pluto update feed.ini    
       - name: Create Post
         run: ruby planet.rb

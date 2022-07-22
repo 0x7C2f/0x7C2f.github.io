@@ -12,7 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        persist-credentials: false
+        ssh-key: ${{ secrets.ssh }}
+        persist-credentials: true
         fetch-depth: 0
     - name: Set up Ruby
       uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
@@ -36,4 +37,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         ssh: true
-        github_token: ${{ secrets.TOKEN }}
+        branch: ${{ github.ref }}

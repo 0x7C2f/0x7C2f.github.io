@@ -29,7 +29,7 @@ class Planet
                 'title'      => 'item.title',
                 'author'     => item.feed.title,
                 'layout'     => 'post',
-                'permalink'  => "#{item.published.strftime('%Y-%m-%d-%H-%M')}-#{title_to_key("twitter-0x7C2f")}.html"
+                'permalink'  => "#{item.published.strftime('%Y-%m-%d-%H-%M:%S')}-#{title_to_key("twitter-0x7C2f")}.html"
             }
             frontmatter['original_link'] = item.url unless item.url.empty?
             File.open( fn, 'w:utf-8' ) do |f|

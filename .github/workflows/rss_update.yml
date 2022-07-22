@@ -32,8 +32,4 @@ jobs:
         git status
         git add .
         git commit -am "Auto updating RSS"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        ssh: true
-        branch: ${{ github.ref }}
+        git push

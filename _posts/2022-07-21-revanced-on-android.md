@@ -24,3 +24,5 @@ node .
 After running `node .`, revanced-builder will install OpenJDK 17 if its missing and also aapt2.
 
 You now can build ReVanced with revanced-builder!
+
+See my [YouTube-Revanced](YouTube-Revanced.html) page for more!

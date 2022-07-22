@@ -35,6 +35,7 @@ class Planet
             File.open( fn, 'w:utf-8' ) do |f|
                 f.write frontmatter.to_yaml   # note: to_vaml starts yaml "document" with ---
                 f.write "---\n\n"
+                f.write "{% twitter item.url %}"
                 if item.content
                     result = ReverseMarkdown.convert(item.content, unknown_tags: :drop, github_flavored: true)
                     f.write result

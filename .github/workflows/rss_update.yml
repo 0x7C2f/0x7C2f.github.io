@@ -1,11 +1,8 @@
 name: RSS Update
 on:
   push:
-    branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
-  #schedule:
-  #  - cron: '10 * * * *'
+  schedule:
+    - cron: '10 * * * *'
 jobs:
   RSS-Update:
     runs-on: ubuntu-latest

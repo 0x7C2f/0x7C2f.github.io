@@ -14,26 +14,26 @@ jobs:
       with:
         persist-credentials: false
         fetch-depth: 0
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
-        with:
-          ruby-version: 3.1
-      - name: Bundle Ruby
-        run: bundle install
-      - name: Create Local Changes
-        run: |
-          pluto update feed.ini    
-          ruby planet.rb
-      - name: Github Actions
-        run: |
-          git config --global user.email "automation@runthisboi.com"
-          git config --global user.name "0x7C2f"
-          git remote set-url origin ${{ secrets.ssh_url }}
-          git status
-          git add .
-          git commit -am "Auto updating RSS"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          ssh: true
-          github_token: ${{ secrets.TOKEN }}
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+      with:
+        ruby-version: 3.1
+    - name: Bundle Ruby
+      run: bundle install
+    - name: Create Local Changes
+      run: |
+        pluto update feed.ini    
+        ruby planet.rb
+    - name: Github Actions
+      run: |
+        git config --global user.email "automation@runthisboi.com"
+        git config --global user.name "0x7C2f"
+        git remote set-url origin ${{ secrets.ssh_url }}
+        git status
+        git add .
+        git commit -am "Auto updating RSS"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        ssh: true
+        github_token: ${{ secrets.TOKEN }}

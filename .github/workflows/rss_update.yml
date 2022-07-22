@@ -24,6 +24,10 @@ jobs:
         run: pluto update feed.ini    
       - name: Create Post
         run: ruby planet.rb
+      - name: Adding Email
+        run: git config --global user.email "automation@runthisboi.com"
+      - name: Adding Username
+        run: git config --global user.name "0x7C2f"
       - name: switching from HTTPS to SSH
         run: git remote set-url origin ${{ secrets.ssh_url }}
       - name: check for changes

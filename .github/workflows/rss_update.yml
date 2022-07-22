@@ -1,6 +1,9 @@
 name: RSS Update
 on:
-  status
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   #schedule:
   #  - cron: '10 * * * *'
 jobs:

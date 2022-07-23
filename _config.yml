@@ -10,11 +10,7 @@ exclude:
   - .idea/
   - .gitignore
   - vendor
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
   - gulpfile.js
-  - package.json
 feedback_subject_line: null
 feedback_email: null
 feedback_disable: true

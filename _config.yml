@@ -19,6 +19,7 @@ feedback_subject_line: null
 feedback_email: null
 feedback_disable: true
 highlighter: rouge
+plugins: ['jekyll-twitter-plugin']
 markdown: kramdown
 kramdown:
   input: GFM

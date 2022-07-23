@@ -1,6 +1,5 @@
-
 source 'https://rubygems.org'
-gem jekyll
+gem 'jekyll'
 group :jekyll_plugins do
     gem 'github-pages'
     gem "webrick", "~> 1.7"

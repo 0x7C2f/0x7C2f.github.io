@@ -1,13 +1,30 @@
-source "https://rubygems.org"
 
-# to publish on github page
-gem 'github-pages', group: :jekyll_plugins
 
-# to publich without github page
-gem "jekyll"
+source 'https://rubygems.org'
+group :jekyll_plugins do
+    gem jekyll
+    gem 'github-pages'
+    gem "webrick", "~> 1.7"
+    gem 'reverse_markdown'
+    gem 'neocities'
+    gem 'jekyll-twitter-plugin'
+    gem 'pluto'
+end
 
-gem "webrick", "~> 1.7"
-gem 'reverse_markdown'
-gem 'neocities'
-gem 'jekyll-twitter-plugin'
-gem 'pluto'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

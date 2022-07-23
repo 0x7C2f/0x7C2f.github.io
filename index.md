@@ -20,12 +20,6 @@ summary: These brief overview as to what I am running system wise.
 </ul>
 
 
-
-div class='jekyll-twitter-plugin' align="center">
-    {% twitter https://twitter.com/0x7C2f maxwidth=500 limit=5 %}
-</div
-
-
 # Twitter
 
 

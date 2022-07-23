@@ -9,6 +9,9 @@ port: 4000
 exclude:
   - .idea/
   - .gitignore
+  - node_modules
+  - gemfile
+  - gemfile.lock
   - vendor
   - gulpfile.js
 feedback_subject_line: null

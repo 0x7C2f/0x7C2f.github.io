@@ -9,6 +9,7 @@ group :jekyll_plugins do
     gem 'neocities'
     gem 'jekyll-twitter-plugin'
     gem 'pluto'
+    gem 'jekyll-gist'
 end
 
 

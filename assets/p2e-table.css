@@ -1,0 +1,11 @@
+table {
+  margin: 0 auto; /* Center table horizontally */
+  text-align: center; /* Center table content horizontally */
+  width: 100%; /* Set table width to 100% */
+}
+
+th, td {
+  padding: 8px; /* Add padding for better readability */
+}
+
+/*# sourceMappingURL=p2e-table.css.map */

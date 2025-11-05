@@ -105,3 +105,433 @@ servers:
       - "memory"
       - "knowledge-graph"
       - "storage"
+
+  - name: "Postgres Server"
+    description: "Query and manage PostgreSQL databases"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Execute SQL queries"
+      - "Schema inspection"
+      - "Database management"
+    tags:
+      - "database"
+      - "postgresql"
+      - "sql"
+
+  - name: "Slack Server"
+    description: "Interact with Slack workspaces, channels, and messages"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Read channels and messages"
+      - "Post messages"
+      - "Search conversations"
+    tags:
+      - "slack"
+      - "communication"
+      - "api"
+
+  - name: "Puppeteer Server"
+    description: "Browser automation and web scraping with Puppeteer"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Web page navigation"
+      - "Screenshot capture"
+      - "Content extraction"
+    tags:
+      - "automation"
+      - "browser"
+      - "scraping"
+
+  - name: "Fetch Server"
+    description: "Make HTTP requests to fetch web content and APIs"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "HTTP GET/POST requests"
+      - "Custom headers"
+      - "Response parsing"
+    tags:
+      - "http"
+      - "api"
+      - "web"
+
+  - name: "Git Server"
+    description: "Interact with Git repositories - read, search, and analyze"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Repository operations"
+      - "Commit history"
+      - "File content access"
+    tags:
+      - "git"
+      - "version-control"
+      - "scm"
+
+  - name: "Sentry Server"
+    description: "Monitor and query Sentry error tracking data"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Query issues"
+      - "Error analysis"
+      - "Project management"
+    tags:
+      - "monitoring"
+      - "errors"
+      - "debugging"
+
+  - name: "Sequential Thinking Server"
+    description: "Extended chain-of-thought reasoning for complex problems"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Step-by-step reasoning"
+      - "Problem decomposition"
+      - "Thought organization"
+    tags:
+      - "reasoning"
+      - "thinking"
+      - "ai"
+
+  - name: "EverArt Server"
+    description: "AI image generation using EverArt API"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Image generation"
+      - "Style customization"
+      - "Prompt engineering"
+    tags:
+      - "ai"
+      - "images"
+      - "art"
+
+  - name: "Filesystem Server"
+    description: "Advanced file system operations with safety controls"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "Python"
+    features:
+      - "File operations"
+      - "Directory traversal"
+      - "Permission control"
+    tags:
+      - "filesystem"
+      - "python"
+      - "utilities"
+
+  - name: "AWS KB Retrieval Server"
+    description: "Query AWS Knowledge Bases for Bedrock"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "Python"
+    features:
+      - "Knowledge base queries"
+      - "Document retrieval"
+      - "AWS integration"
+    tags:
+      - "aws"
+      - "knowledge-base"
+      - "retrieval"
+
+  - name: "Exa Search Server"
+    description: "Neural search engine API integration"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Semantic search"
+      - "Web content discovery"
+      - "AI-powered results"
+    tags:
+      - "search"
+      - "ai"
+      - "web"
+
+  - name: "Google Maps Server"
+    description: "Location data, directions, and place information"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Geocoding"
+      - "Directions"
+      - "Place search"
+    tags:
+      - "maps"
+      - "location"
+      - "google"
+
+  - name: "Time Server"
+    description: "Get current time in different timezones"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "World clock"
+      - "Timezone conversion"
+      - "Time calculations"
+    tags:
+      - "time"
+      - "timezone"
+      - "utilities"
+
+  - name: "Cloudflare MCP Server"
+    description: "Manage Cloudflare resources - KV, R2, D1, Workers"
+    repository: "https://github.com/cloudflare/mcp-server-cloudflare"
+    language: "TypeScript"
+    features:
+      - "KV storage operations"
+      - "R2 bucket management"
+      - "D1 database queries"
+      - "Workers deployment"
+    tags:
+      - "cloudflare"
+      - "infrastructure"
+      - "cloud"
+
+  - name: "Linear Server"
+    description: "Manage Linear issues, projects, and workflows"
+    repository: "https://github.com/jerhadf/linear-mcp-server"
+    language: "TypeScript"
+    features:
+      - "Issue management"
+      - "Project tracking"
+      - "Team workflows"
+    tags:
+      - "linear"
+      - "project-management"
+      - "productivity"
+
+  - name: "Docker MCP Server"
+    description: "Manage Docker containers, images, and volumes"
+    repository: "https://github.com/ckreiling/mcp-server-docker"
+    language: "TypeScript"
+    features:
+      - "Container management"
+      - "Image operations"
+      - "Volume control"
+    tags:
+      - "docker"
+      - "containers"
+      - "devops"
+
+  - name: "Kubernetes MCP Server"
+    description: "Interact with Kubernetes clusters and resources"
+    repository: "https://github.com/Flux159/mcp-server-kubernetes"
+    language: "Python"
+    features:
+      - "Pod management"
+      - "Deployment operations"
+      - "Service discovery"
+    tags:
+      - "kubernetes"
+      - "k8s"
+      - "devops"
+
+  - name: "Notion Server"
+    description: "Read and search Notion pages and databases"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Page reading"
+      - "Database queries"
+      - "Content search"
+    tags:
+      - "notion"
+      - "productivity"
+      - "notes"
+
+  - name: "Spotify Server"
+    description: "Control Spotify playback and access music library"
+    repository: "https://github.com/varunneal/spotify-mcp"
+    language: "TypeScript"
+    features:
+      - "Playback control"
+      - "Playlist management"
+      - "Music search"
+    tags:
+      - "spotify"
+      - "music"
+      - "entertainment"
+
+  - name: "YouTube Transcript Server"
+    description: "Fetch and search YouTube video transcripts"
+    repository: "https://github.com/kimtaeyoon83/mcp-server-youtube-transcript"
+    language: "TypeScript"
+    features:
+      - "Transcript retrieval"
+      - "Multiple languages"
+      - "Timestamp support"
+    tags:
+      - "youtube"
+      - "transcripts"
+      - "video"
+
+  - name: "Obsidian MCP Server"
+    description: "Interact with Obsidian vault - notes and knowledge base"
+    repository: "https://github.com/calclavia/mcp-obsidian"
+    language: "TypeScript"
+    features:
+      - "Note reading"
+      - "Vault search"
+      - "Markdown parsing"
+    tags:
+      - "obsidian"
+      - "notes"
+      - "knowledge-management"
+
+  - name: "Everart Image Generation"
+    description: "Generate images using AI with various styles"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Text-to-image"
+      - "Style presets"
+      - "High resolution output"
+    tags:
+      - "ai"
+      - "image-generation"
+      - "creative"
+
+  - name: "Axiom MCP Server"
+    description: "Query and analyze logs with Axiom"
+    repository: "https://github.com/axiomhq/mcp-server-axiom"
+    language: "TypeScript"
+    features:
+      - "Log querying"
+      - "Analytics"
+      - "Real-time data"
+    tags:
+      - "logging"
+      - "analytics"
+      - "monitoring"
+
+  - name: "Neon Database Server"
+    description: "Serverless Postgres with Neon"
+    repository: "https://github.com/neondatabase/mcp-server-neon"
+    language: "TypeScript"
+    features:
+      - "Database operations"
+      - "Branching"
+      - "Serverless scaling"
+    tags:
+      - "database"
+      - "postgresql"
+      - "serverless"
+
+  - name: "Raygun MCP Server"
+    description: "Error monitoring and crash reporting"
+    repository: "https://github.com/MindscapeHQ/mcp-server-raygun"
+    language: "TypeScript"
+    features:
+      - "Error tracking"
+      - "Crash reports"
+      - "Performance monitoring"
+    tags:
+      - "monitoring"
+      - "errors"
+      - "performance"
+
+  - name: "Qdrant MCP Server"
+    description: "Vector database operations and similarity search"
+    repository: "https://github.com/qdrant/mcp-server-qdrant"
+    language: "Python"
+    features:
+      - "Vector storage"
+      - "Similarity search"
+      - "Collection management"
+    tags:
+      - "vector-database"
+      - "ai"
+      - "search"
+
+  - name: "Tinybird MCP Server"
+    description: "Real-time data analytics platform"
+    repository: "https://github.com/tinybirdco/mcp-tinybird"
+    language: "TypeScript"
+    features:
+      - "Real-time queries"
+      - "Data pipelines"
+      - "Analytics APIs"
+    tags:
+      - "analytics"
+      - "real-time"
+      - "data"
+
+  - name: "E2B Code Interpreter"
+    description: "Execute code in secure sandboxed environments"
+    repository: "https://github.com/e2b-dev/mcp-server"
+    language: "TypeScript"
+    features:
+      - "Code execution"
+      - "Multiple languages"
+      - "Sandboxed runtime"
+    tags:
+      - "code-execution"
+      - "sandbox"
+      - "development"
+
+  - name: "MongoDB Server"
+    description: "Query and manage MongoDB databases"
+    repository: "https://github.com/kiliczsh/mcp-mongo-server"
+    language: "TypeScript"
+    features:
+      - "Document queries"
+      - "Collection management"
+      - "Aggregation pipelines"
+    tags:
+      - "mongodb"
+      - "database"
+      - "nosql"
+
+  - name: "BigQuery Server"
+    description: "Query Google BigQuery data warehouse"
+    repository: "https://github.com/LucasHild/mcp-server-bigquery"
+    language: "Python"
+    features:
+      - "SQL queries"
+      - "Dataset exploration"
+      - "Job management"
+    tags:
+      - "bigquery"
+      - "google"
+      - "data-warehouse"
+
+  - name: "Tavily Search Server"
+    description: "AI-optimized search API for research"
+    repository: "https://github.com/RamXX/mcp-tavily"
+    language: "Python"
+    features:
+      - "Research-focused search"
+      - "Source extraction"
+      - "Content summarization"
+    tags:
+      - "search"
+      - "research"
+      - "ai"
+
+  - name: "Browserbase Server"
+    description: "Headless browser automation platform"
+    repository: "https://github.com/browserbase/mcp-server-browserbase"
+    language: "TypeScript"
+    features:
+      - "Browser automation"
+      - "Session management"
+      - "Screenshot capture"
+    tags:
+      - "browser"
+      - "automation"
+      - "scraping"
+
+  - name: "Snowflake MCP Server"
+    description: "Query Snowflake data cloud"
+    repository: "https://github.com/datawiz168/mcp-snowflake"
+    language: "Python"
+    features:
+      - "SQL queries"
+      - "Data warehouse access"
+      - "Result caching"
+    tags:
+      - "snowflake"
+      - "data-warehouse"
+      - "analytics"

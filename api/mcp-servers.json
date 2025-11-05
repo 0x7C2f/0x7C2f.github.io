@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /api/mcp-servers.json
+---
+{{ site.data.mcp_servers | jsonify }}

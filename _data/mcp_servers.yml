@@ -1,0 +1,107 @@
+# MCP Server Repository List
+# Add new MCP servers to this file to include them in the API and web listing
+
+servers:
+  - name: "Weather Server"
+    description: "Get weather forecasts and alerts using the National Weather Service API"
+    repository: "https://github.com/modelcontextprotocol/quickstart-resources"
+    language: "TypeScript"
+    features:
+      - "Weather alerts by state"
+      - "Forecast by coordinates"
+    tags:
+      - "weather"
+      - "api"
+      - "nws"
+    
+  - name: "Weather Server (Python)"
+    description: "Python implementation of weather server with NWS API integration"
+    repository: "https://github.com/modelcontextprotocol/quickstart-resources"
+    language: "Python"
+    features:
+      - "Weather alerts by state"
+      - "Forecast by coordinates"
+    tags:
+      - "weather"
+      - "api"
+      - "nws"
+      - "python"
+
+  - name: "File System Server"
+    description: "Interact with local file system - read, write, and manage files"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Read files"
+      - "Write files"
+      - "List directories"
+      - "Search files"
+    tags:
+      - "filesystem"
+      - "files"
+      - "utilities"
+
+  - name: "GitHub Server"
+    description: "Interact with GitHub repositories, issues, and pull requests"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Repository operations"
+      - "Issue management"
+      - "Pull request handling"
+      - "Code search"
+    tags:
+      - "github"
+      - "git"
+      - "api"
+
+  - name: "SQLite Server"
+    description: "Query and manage SQLite databases"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Execute SQL queries"
+      - "Schema inspection"
+      - "Data manipulation"
+    tags:
+      - "database"
+      - "sqlite"
+      - "sql"
+
+  - name: "Google Drive Server"
+    description: "Access and manage Google Drive files and folders"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "File access"
+      - "Folder navigation"
+      - "Search capabilities"
+    tags:
+      - "google"
+      - "drive"
+      - "storage"
+
+  - name: "Brave Search Server"
+    description: "Search the web using Brave Search API"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Web search"
+      - "Result filtering"
+    tags:
+      - "search"
+      - "brave"
+      - "web"
+
+  - name: "Memory Server"
+    description: "Knowledge graph-based persistent memory system"
+    repository: "https://github.com/modelcontextprotocol/servers"
+    language: "TypeScript"
+    features:
+      - "Create entities and relations"
+      - "Knowledge graph queries"
+      - "Persistent storage"
+    tags:
+      - "memory"
+      - "knowledge-graph"
+      - "storage"

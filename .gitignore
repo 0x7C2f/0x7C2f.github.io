@@ -8,3 +8,4 @@ node_modules
 .obsidian
 .trash
 Gemfile.lock
+vendor/

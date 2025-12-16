@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["about.scss"],"names":[],"mappings":"AAAA,SACE,gBACA,WAEF,oCACE,kBACE,gBACA,WACA","sourcesContent":[".theme-b {\n background: #447;\n color: #bbd;\n}\n@media (prefers-color-scheme: light) {\n .theme-b.adaptive {\n background: #bcd;\n color: #334;\n outline: 5px dotted #000;\n }\n}\n"],"file":"about.css"}

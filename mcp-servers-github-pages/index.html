@@ -1,0 +1,304 @@
+<!DOCTYPE html> <html lang="en"> <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com; X-Content-Type-Options: nosniff connect-src 'self'; media-src 'self'; object-src 'self'; child-src 'self'; form-action 'none'; base-uri 'self'"/> <meta http-equiv="X-XSS-Protection" content="1;mode=block" always> <meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head> <meta charset="utf-8"/> <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/> <meta http-equiv="X-Content-Type-Options" content="nosniff"/> <meta http-equiv="X-Frame-Options" content="DENY"/> <meta http-equiv="X-XSS-Protection" content="1; mode=block"/> <meta name="referrer" content="no-referrer"/> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/> <link rel="stylesheet" href="/assets/main-dark.css"> <link rel="preload" href="/assets/header-search.js" as="script"> <title>Can You Run MCP Servers on GitHub Pages?</title> <meta name="robots" content="index, follow"/> <meta property="og:image" content="/images/profile_picture.jpg"/> <meta name="twitter:image" content="/images/profile_picture.jpg"/> <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Can You Run MCP Servers on GitHub Pages?",
+      "author": {
+        "@type": "Person",
+        "name": "0x7C2f"
+      },
+      "datePublished": "2025-11-05T00:00:00+00:00",
+      "dateModified": "2025-11-05T00:00:00+00:00",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/mcp-servers-github-pages/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "0x7C2f",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "/images/profile_picture.jpg"
+        }
+      }
+    }
+    </script> <title>Can You Run MCP Servers on GitHub Pages?</title> <meta name="generator" content="Jekyll v4.4.1"/> <meta property="og:title" content="Can You Run MCP Servers on GitHub Pages?"/> <meta property="og:locale" content="en_US"/> <meta name="description" content="Can You Run MCP Servers on GitHub Pages?"/> <meta property="og:description" content="Can You Run MCP Servers on GitHub Pages?"/> <meta property="og:type" content="article"/> <meta property="article:published_time" content="2025-11-05T00:00:00+00:00"/> <meta name="twitter:card" content="summary"/> <meta property="twitter:title" content="Can You Run MCP Servers on GitHub Pages?"/> <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-11-05T00:00:00+00:00","datePublished":"2025-11-05T00:00:00+00:00","description":"Can You Run MCP Servers on GitHub Pages?","headline":"Can You Run MCP Servers on GitHub Pages?","mainEntityOfPage":{"@type":"WebPage","@id":"/mcp-servers-github-pages/"},"url":"/mcp-servers-github-pages/"}</script> </head> <body><a href="#main-content" class="skip-link">Skip to main content</a> <header> <div class="menu"> <ul><li><a href="/">Home</a> |</li><li><a href="/files/">Files</a> |</li><li><a href="/about/">About</a> |</li><li><a href="/">Home</a> |</li><li><a href="/files/">Files</a> |</li><li><a href="/about/">About</a> |</li><li><input type="text" id="search-input" placeholder="Search..." aria-label="Search site content"/></li> </ul> </div> </header> <div class="container"> <div class="container-left"> </div> <div class="container-center"> <main id="main-content"> <h1 id="can-you-run-mcp-servers-on-github-pages">Can You Run MCP Servers on GitHub Pages?</h1> <p>If you’re exploring the Model Context Protocol (MCP) and wondering whether you can host an MCP server on GitHub Pages, this post will clarify the technical constraints and provide alternative solutions.</p> <h2 id="the-short-answer">The Short Answer</h2> <p><strong>No, you cannot run MCP servers (TypeScript/Node.js or Python variants) directly on GitHub Pages.</strong></p> <p>GitHub Pages is a static site hosting service. It serves HTML, CSS, JavaScript, and other static assets but does not provide a runtime environment for server-side code execution.</p> <h2 id="why-mcp-servers-wont-work-on-github-pages">Why MCP Servers Won’t Work on GitHub Pages</h2> <h3 id="1-github-pages-only-serves-static-content">1. <strong>GitHub Pages Only Serves Static Content</strong></h3> <p>GitHub Pages is designed to host static websites built with tools like Jekyll, Hugo, or plain HTML/CSS/JS. It doesn’t support:</p> <ul> <li>Running Node.js processes</li> <li>Executing Python scripts</li> <li>Maintaining persistent server connections</li> <li>WebSocket connections (required for MCP)</li> </ul> <h3 id="2-mcp-servers-require-active-runtime">2. <strong>MCP Servers Require Active Runtime</strong></h3> <p>MCP servers need to:</p> <ul> <li>Run continuously to accept and respond to requests</li> <li>Maintain stateful connections</li> <li>Execute server-side code dynamically</li> <li>Use STDIO or HTTP transport protocols</li> </ul> <p>These requirements are fundamentally incompatible with static hosting.</p> <h2 id="alternative-solutions">Alternative Solutions</h2> <p>While you can’t run the server on GitHub Pages, you have several options:</p> <h3 id="option-1-host-your-server-elsewhere">Option 1: Host Your Server Elsewhere</h3> <p>You can host your MCP server on platforms that support server-side execution and use GitHub Pages for documentation:</p> <p><strong>Recommended Hosting Platforms:</strong></p> <ol> <li><strong>Cloud Platforms</strong> <ul> <li>AWS (EC2, Lambda)</li> <li>Google Cloud Platform (Compute Engine, Cloud Functions)</li> <li>Azure (Virtual Machines, Azure Functions)</li> <li>DigitalOcean Droplets</li> </ul> </li> <li><strong>Platform-as-a-Service (PaaS)</strong> <ul> <li>Heroku</li> <li>Railway.app</li> <li>Render.com</li> <li>Fly.io</li> </ul> </li> <li><strong>Serverless Options</strong> <ul> <li>Vercel (for Next.js-based implementations)</li> <li>Netlify Functions</li> <li>AWS Lambda</li> </ul> </li> </ol> <h3 id="option-2-use-github-pages-for-documentation-only">Option 2: Use GitHub Pages for Documentation Only</h3> <p>You can use your GitHub Pages site to:</p> <ul> <li>Document your MCP server implementation</li> <li>Provide setup instructions</li> <li>Share API documentation</li> <li>Link to your hosted server</li> <li>Tutorial guides for users</li> </ul> <h3 id="option-3-local-development">Option 3: Local Development</h3> <p>For personal use or development:</p> <ul> <li>Run the MCP server locally on your machine</li> <li>Connect it to Claude for Desktop or other MCP clients</li> <li>Use GitHub Pages to share your code and documentation</li> </ul> <h2 id="example-typescript-mcp-server-setup">Example: TypeScript MCP Server Setup</h2> <p>Here’s how you would set up a TypeScript MCP server (for local use or remote hosting):</p> <h3 id="prerequisites">Prerequisites</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Verify Node.js installation</span>
+node <span class="nt">--version</span>  <span class="c"># Should be 16 or higher</span>
+npm <span class="nt">--version</span>
+</code></pre></div></div> <h3 id="project-setup">Project Setup</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create project directory</span>
+<span class="nb">mkdir </span>weather-mcp-server
+<span class="nb">cd </span>weather-mcp-server
+
+<span class="c"># Initialize npm project</span>
+npm init <span class="nt">-y</span>
+
+<span class="c"># Install dependencies</span>
+npm <span class="nb">install</span> @modelcontextprotocol/sdk zod@3
+npm <span class="nb">install</span> <span class="nt">-D</span> @types/node typescript
+</code></pre></div></div> <h3 id="typescript-configuration">TypeScript Configuration</h3> <p>Create <code class="language-plaintext highlighter-rouge">tsconfig.json</code>:</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"compilerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES2022"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node16"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"moduleResolution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node16"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./build"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rootDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"strict"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"esModuleInterop"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipLibCheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceConsistentCasingInFileNames"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"include"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src/**/*"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"exclude"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"node_modules"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <h3 id="update-packagejson">Update package.json</h3> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"module"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"weather"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./build/index.js"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tsc &amp;&amp; chmod 755 build/index.js"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"build"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <h3 id="server-implementation">Server Implementation</h3> <p>Create <code class="language-plaintext highlighter-rouge">src/index.ts</code>:</p> <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#!/usr/bin/env node
+</span><span class="k">import</span> <span class="p">{</span> <span class="nx">McpServer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@modelcontextprotocol/sdk/server/mcp.js</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">StdioServerTransport</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@modelcontextprotocol/sdk/server/stdio.js</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">z</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">zod</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">NWS_API_BASE</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://api.weather.gov</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">USER_AGENT</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">weather-app/1.0</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// Create server instance</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">McpServer</span><span class="p">({</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">weather</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.0.0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">capabilities</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">resources</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="na">tools</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="c1">// Helper function for API requests</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">makeNWSRequest</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">url</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span> <span class="o">|</span> <span class="kc">null</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">User-Agent</span><span class="dl">"</span><span class="p">:</span> <span class="nx">USER_AGENT</span><span class="p">,</span>
+    <span class="na">Accept</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/geo+json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">headers</span> <span class="p">});</span>
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`HTTP error! status: </span><span class="p">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return </span><span class="p">(</span><span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span> <span class="kd">as </span><span class="nx">T</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error making NWS request:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Type definitions</span>
+<span class="kr">interface</span> <span class="nx">AlertFeature</span> <span class="p">{</span>
+  <span class="nl">properties</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">areaDesc</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">severity</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">status</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">headline</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">AlertsResponse</span> <span class="p">{</span>
+  <span class="nl">features</span><span class="p">:</span> <span class="nx">AlertFeature</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">PointsResponse</span> <span class="p">{</span>
+  <span class="nl">properties</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">forecast</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">ForecastPeriod</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">temperature</span><span class="p">?:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">temperatureUnit</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">windSpeed</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">windDirection</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">shortForecast</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">detailedForecast</span><span class="p">?:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">ForecastResponse</span> <span class="p">{</span>
+  <span class="nl">properties</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">periods</span><span class="p">:</span> <span class="nx">ForecastPeriod</span><span class="p">[];</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// Format alert data</span>
+<span class="kd">function</span> <span class="nf">formatAlert</span><span class="p">(</span><span class="nx">feature</span><span class="p">:</span> <span class="nx">AlertFeature</span><span class="p">):</span> <span class="kr">string</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">.</span><span class="nx">properties</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">[</span>
+    <span class="s2">`Event: </span><span class="p">${</span><span class="nx">props</span><span class="p">.</span><span class="nx">event</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Unknown</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="s2">`Area: </span><span class="p">${</span><span class="nx">props</span><span class="p">.</span><span class="nx">areaDesc</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Unknown</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="s2">`Severity: </span><span class="p">${</span><span class="nx">props</span><span class="p">.</span><span class="nx">severity</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Unknown</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="s2">`Status: </span><span class="p">${</span><span class="nx">props</span><span class="p">.</span><span class="nx">status</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">Unknown</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="s2">`Headline: </span><span class="p">${</span><span class="nx">props</span><span class="p">.</span><span class="nx">headline</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">No headline</span><span class="dl">"</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">---</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Register get_alerts tool</span>
+<span class="nx">server</span><span class="p">.</span><span class="nf">tool</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">get_alerts</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Get weather alerts for a state</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="na">state</span><span class="p">:</span> <span class="nx">z</span><span class="p">.</span><span class="nf">string</span><span class="p">().</span><span class="nf">length</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Two-letter state code (e.g. CA, NY)</span><span class="dl">"</span><span class="p">),</span>
+  <span class="p">},</span>
+  <span class="k">async </span><span class="p">({</span> <span class="nx">state</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">stateCode</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nf">toUpperCase</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">alertsUrl</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">NWS_API_BASE</span><span class="p">}</span><span class="s2">/alerts?area=</span><span class="p">${</span><span class="nx">stateCode</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">alertsData</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">makeNWSRequest</span><span class="o">&lt;</span><span class="nx">AlertsResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">alertsUrl</span><span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">alertsData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Failed to retrieve alerts data</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">features</span> <span class="o">=</span> <span class="nx">alertsData</span><span class="p">.</span><span class="nx">features</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">features</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="s2">`No active alerts for </span><span class="p">${</span><span class="nx">stateCode</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">formattedAlerts</span> <span class="o">=</span> <span class="nx">features</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">formatAlert</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">alertsText</span> <span class="o">=</span> <span class="s2">`Active alerts for </span><span class="p">${</span><span class="nx">stateCode</span><span class="p">}</span><span class="s2">:\n\n</span><span class="p">${</span><span class="nx">formattedAlerts</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="se">\n</span><span class="dl">"</span><span class="p">)}</span><span class="s2">`</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">text</span><span class="p">:</span> <span class="nx">alertsText</span><span class="p">,</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+<span class="p">);</span>
+
+<span class="c1">// Register get_forecast tool</span>
+<span class="nx">server</span><span class="p">.</span><span class="nf">tool</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">get_forecast</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">Get weather forecast for a location</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="na">latitude</span><span class="p">:</span> <span class="nx">z</span><span class="p">.</span><span class="nf">number</span><span class="p">().</span><span class="nf">min</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">).</span><span class="nf">max</span><span class="p">(</span><span class="mi">90</span><span class="p">).</span><span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Latitude of the location</span><span class="dl">"</span><span class="p">),</span>
+    <span class="na">longitude</span><span class="p">:</span> <span class="nx">z</span><span class="p">.</span><span class="nf">number</span><span class="p">().</span><span class="nf">min</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">).</span><span class="nf">max</span><span class="p">(</span><span class="mi">180</span><span class="p">).</span><span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Longitude of the location</span><span class="dl">"</span><span class="p">),</span>
+  <span class="p">},</span>
+  <span class="k">async </span><span class="p">({</span> <span class="nx">latitude</span><span class="p">,</span> <span class="nx">longitude</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Get the forecast grid endpoint</span>
+    <span class="kd">const</span> <span class="nx">pointsUrl</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">NWS_API_BASE</span><span class="p">}</span><span class="s2">/points/</span><span class="p">${</span><span class="nx">latitude</span><span class="p">}</span><span class="s2">,</span><span class="p">${</span><span class="nx">longitude</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">pointsData</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">makeNWSRequest</span><span class="o">&lt;</span><span class="nx">PointsResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">pointsUrl</span><span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">pointsData</span> <span class="o">||</span> <span class="o">!</span><span class="nx">pointsData</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">forecast</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Unable to fetch forecast data for this location.</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Get the forecast</span>
+    <span class="kd">const</span> <span class="nx">forecastUrl</span> <span class="o">=</span> <span class="nx">pointsData</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">forecast</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">forecastData</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">makeNWSRequest</span><span class="o">&lt;</span><span class="nx">ForecastResponse</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">forecastUrl</span><span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">forecastData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Unable to fetch detailed forecast.</span><span class="dl">"</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">],</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Format the forecast</span>
+    <span class="kd">const</span> <span class="nx">periods</span> <span class="o">=</span> <span class="nx">forecastData</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">periods</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">forecasts</span> <span class="o">=</span> <span class="nx">periods</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">).</span><span class="nf">map</span><span class="p">((</span><span class="nx">period</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span>
+        <span class="s2">`</span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2">:`</span><span class="p">,</span>
+        <span class="s2">`Temperature: </span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">temperature</span><span class="p">}</span><span class="s2">°</span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">temperatureUnit</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+        <span class="s2">`Wind: </span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">windSpeed</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">windDirection</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+        <span class="s2">`Forecast: </span><span class="p">${</span><span class="nx">period</span><span class="p">.</span><span class="nx">detailedForecast</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+      <span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">content</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+          <span class="na">text</span><span class="p">:</span> <span class="nx">forecasts</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="se">\n</span><span class="s2">---</span><span class="se">\n</span><span class="dl">"</span><span class="p">),</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+<span class="p">);</span>
+
+<span class="c1">// Start the server</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">transport</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StdioServerTransport</span><span class="p">();</span>
+  <span class="k">await</span> <span class="nx">server</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="nx">transport</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Weather MCP Server running on stdio</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nf">main</span><span class="p">().</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Fatal error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div> <h3 id="building-and-running">Building and Running</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build the TypeScript code</span>
+npm run build
+
+<span class="c"># Run the server (for testing)</span>
+node build/index.js
+</code></pre></div></div> <h2 id="connecting-to-claude-for-desktop">Connecting to Claude for Desktop</h2> <p>To use your locally-running MCP server with Claude for Desktop:</p> <ol> <li>Edit your Claude configuration file:</li> </ol> <p><strong>macOS/Linux:</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code ~/Library/Application<span class="se">\ </span>Support/Claude/claude_desktop_config.json
+</code></pre></div></div> <p><strong>Windows:</strong></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code <span class="nv">$env</span>:AppData<span class="se">\C</span>laude<span class="se">\c</span>laude_desktop_config.json
+</code></pre></div></div> <ol> <li>Add your server configuration:</li> </ol> <p><strong>macOS/Linux:</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"weather"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"/absolute/path/to/weather-mcp-server/build/index.js"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <p><strong>Windows:</strong></p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"weather"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"C:</span><span class="se">\\</span><span class="s2">absolute</span><span class="se">\\</span><span class="s2">path</span><span class="se">\\</span><span class="s2">to</span><span class="se">\\</span><span class="s2">weather-mcp-server</span><span class="se">\\</span><span class="s2">build</span><span class="se">\\</span><span class="s2">index.js"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div> <ol> <li>Restart Claude for Desktop</li> </ol> <h2 id="important-considerations">Important Considerations</h2> <h3 id="stdio-vs-http-transport">STDIO vs HTTP Transport</h3> <ul> <li><strong>STDIO:</strong> Best for local development and direct integration with Claude for Desktop</li> <li><strong>HTTP:</strong> Better for remote hosting and web-based clients</li> </ul> <h3 id="security">Security</h3> <p>When hosting MCP servers remotely:</p> <ul> <li>Implement authentication</li> <li>Use HTTPS</li> <li>Rate limit requests</li> <li>Validate all inputs</li> <li>Monitor for abuse</li> </ul> <h3 id="logging-best-practices">Logging Best Practices</h3> <p>For STDIO-based servers:</p> <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ❌ Bad - corrupts JSON-RPC</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server started</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="c1">// ✅ Good - writes to stderr</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server started</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div> <p>For HTTP-based servers, standard output logging is fine.</p> <h2 id="conclusion">Conclusion</h2> <p>While you <strong>cannot run MCP servers directly on GitHub Pages</strong>, you have multiple alternatives:</p> <ol> <li><strong>Host the server on a cloud platform</strong> and use GitHub Pages for documentation</li> <li><strong>Run the server locally</strong> for personal use with Claude for Desktop</li> <li><strong>Use serverless functions</strong> for lightweight implementations</li> </ol> <p>GitHub Pages remains an excellent choice for:</p> <ul> <li>Documenting your MCP server</li> <li>Sharing setup instructions</li> <li>Hosting static API documentation</li> <li>Providing tutorials and guides</li> </ul> <p>The TypeScript variant of MCP servers works excellently when properly hosted—just not on static hosting platforms like GitHub Pages.</p> <h2 id="resources">Resources</h2> <ul> <li><a href="https://modelcontextprotocol.io/">MCP Official Documentation</a></li> <li><a href="https://github.com/modelcontextprotocol/typescript-sdk">MCP TypeScript SDK</a></li> <li><a href="https://claude.ai/download">Claude for Desktop</a></li> <li><a href="https://github.com/modelcontextprotocol/servers">Example MCP Servers</a></li> </ul> <hr/> <p><em>Have questions about MCP servers or need help with setup? Feel free to reach out!</em></p> </main> <div class="container-right"> </div> </div><footer> follow on <a href="https://twitter.com/0x7C2f">Twitter</a>|<a href="feed.xml">RSS Feed</a>|<a href="https://0x7c2f.github.io/startpage/">Startpage</a> <marquee scrollamount="3" loop="infinite" onmouseover="this.stop();" onmouseout="this.start();" id="webring_marquee"> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/decentralize.png" alt="Decentralize webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/digdeeper.png" alt="Dig Deeper webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/paranoid.gif" alt="Paranoid webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/protonmail.png" alt="ProtonMail webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/shadow-wiki.png" alt="Shadow Wiki webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/sizeofcat.png" alt="Size of Cat webring link"></a> <a rel="nofollow" href="" target="_blank"><img src="/images/webring/yesterweb.png" alt="Yesterweb webring link"></a> </marquee> </footer> </div> <script src="/assets/header-search.js"></script> </body> </html>

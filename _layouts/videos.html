@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
-<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
-<meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin">
-<link rel="stylesheet" type="text/css" href="{{ "/assets/videos.css" | relative_url }}">
-{%- include head.html -%}
-<body>
-  <div class="container">
-    {%- include header.html -%}
-    <main>
-      {{ title }}
-      <div class="videos">
-        {% for video in site.data.videos %}
-        <ul>
-          <iframe src="https://www.youtube.com/embed/{{video.link}}"></iframe>
-        </ul>
-        {% endfor %}
-      </div>
-    </main>
-    {%- include footer.html -%}
-    </div>
-  </body>
-</html>
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ "/assets/videos.css" | relative_url }}">
+{{ content }}
+<div class="videos">
+  {% for video in site.data.videos %}
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/{{ video.link }}"
+    title="{{ video.title | default: 'Video' }}"
+    frameborder="0"
+    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+  {% endfor %}
+</div>

@@ -1,11 +1,70 @@
 <head>
-  
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet" type="text/css" href="{{ "/assets/main-dark.css" | relative_url }}">
-  <title>{{ page.title }}</title>
-  {% if page.robots %}
-    <meta name="robots" content="{{page.robots}}" />
-  {% endif %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="no-referrer" />
+    <!-- CSP here -->
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link rel="stylesheet" href="{{ "/assets/main-dark.css" | relative_url }}">
+     <link rel="preload" href="{{ "/assets/header-search.js" | relative_url }}" as="script">
+     <title>{{ page.title | default: site.title }}</title>
+    {% if page.robots %}
+    <meta name="robots" content="{{ page.robots }}" />
+    {% endif %}
+    {% if page.description %}
+    <meta name="description" content="{{ page.description }}" />
+    {% endif %}
+    <meta property="og:image" content="{{ page.image | default: '/images/profile_picture.jpg' | absolute_url }}" />
+    <meta name="twitter:image" content="{{ page.image | default: '/images/profile_picture.jpg' | absolute_url }}" />
+    {% if page.layout == 'post' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ page.title }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author | default: '0x7C2f' }}"
+      },
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.lastmod | default: page.date | date_to_xmlschema }}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ page.url | absolute_url }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title | default: '0x7C2f' }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ '/images/profile_picture.jpg' | absolute_url }}"
+        }
+      }
+    }
+    </script>
+    {% else %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ site.title | default: '0x7C2f' }}",
+      "url": "{{ site.url | default: 'https://0x7c2f.github.io' }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title | default: '0x7C2f' }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ '/images/profile_picture.jpg' | absolute_url }}"
+        }
+      }
+    }
+    </script>
+    {% endif %}
+    {% seo %}
 </head>

@@ -9,6 +9,8 @@ group :jekyll_plugins do
     gem 'jekyll-mentions'
     gem 'jekyll-compose'
     gem 'jekyll-redirect-from'
+    gem 'jekyll-seo-tag'
+    gem 'jekyll-minifier'
     gem 'git'
 end
 

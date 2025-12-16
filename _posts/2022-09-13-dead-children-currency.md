@@ -3,6 +3,7 @@ title: Dead Children Currency
 layout: post
 permalink: /dead-children-currency/
 lastmod: 2022-09-14T19:44:00.317Z
+description: A satirical proposal for a currency based on the cost of saving children's lives, highlighting opportunity costs in spending.
 ---
 
 # Dead children currency

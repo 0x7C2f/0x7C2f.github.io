@@ -1,30 +1,33 @@
-name: Build and Deploy to Github Pages
+name: Build and Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - uses: jeffreytse/jekyll-deploy-action@v0.6.0
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Build Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          provider: 'github'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ''
-          branch: 'gh-pages'
-          jekyll_src: './'
-          jekyll_cfg: '_config.yml'
-          jekyll_baseurl: ''
-          bundler_ver: '>=0'
-          cname: ''
-          actor: ''
-          pre_build_commands: ''
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          force_orphan: true

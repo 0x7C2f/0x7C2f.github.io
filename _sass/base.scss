@@ -51,9 +51,19 @@ a:hover {
 	color: var(--background-color);
 	background-color: var(--base-color);
 }
-@media only screen and (max-device-width: 500px) {
+@media only screen and (max-width: 768px) {
 	* {
 		font-size: $mobile-font-size !important;
+	}
+	.container {
+		padding: 0 10px;
+	}
+	.menu ul li {
+		display: block;
+		margin-left: 0;
+	}
+	.menu ul li a {
+		padding: 12px;
 	}
 }
 
@@ -89,6 +99,23 @@ header p {
 }
 footer {
 	margin-bottom: 20px;
+}
+
+/**
+ * Accessibility
+ */
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 6px;
+	background: var(--base-color);
+	color: var(--background-color);
+	padding: 8px;
+	text-decoration: none;
+	z-index: 100;
+}
+.skip-link:focus {
+	top: 6px;
 }
 
 /**
@@ -192,6 +219,9 @@ footer {
 .menu ul li a {
 	text-decoration: none;
 	color: var(--text-color);
+	padding: 8px;
+	min-height: 44px;
+	display: inline-block;
 }
 .menu ul li a:hover {
 	text-decoration: none;
@@ -222,6 +252,8 @@ textarea {
 	font-size: $base-font-size;
 	font-family: $base-font-family;
 	line-height: $base-line-height;
+	min-height: 44px;
+	padding: 8px;
 }
 input,
 select,
@@ -246,13 +278,16 @@ input[type="submit"] {
 	cursor: pointer;
 	color: var(--link-color);
 	background-color: var(--background-color);
+	padding: 8px 16px;
+	min-height: 44px;
 }
 input[type="submit"]:hover {
 	color: var(--background-color);
 	background-color: var(--base-color);
 }
 *:focus {
-	outline: none;
+	outline: 2px solid var(--base-color);
+	outline-offset: 2px;
 }
 textarea {
 	vertical-align: top;

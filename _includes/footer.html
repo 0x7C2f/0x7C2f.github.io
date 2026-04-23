@@ -1,12 +1,18 @@
 <footer class="tui-footer">
-  <div class="tui-footer-links">{{ site.footer }}</div>
-  <marquee scrollamount="3" loop="infinite" onmouseover="this.stop();" onmouseout="this.start();" id="webring_marquee">
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/decentralize.png" alt="Decentralize webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/digdeeper.png" alt="Dig Deeper webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/paranoid.gif" alt="Paranoid webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/protonmail.png" alt="ProtonMail webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/shadow-wiki.png" alt="Shadow Wiki webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/sizeofcat.png" alt="Size of Cat webring link"></a>
-    <a rel="nofollow" href="" target="_blank"><img src="/images/webring/yesterweb.png" alt="Yesterweb webring link"></a>
-  </marquee>
+  <div class="tui-footer-meta">
+    <span class="tui-footer-copy">{{ site.footer }}</span>
+    <span class="tui-footer-rss"><a href="/feed.xml" title="RSS Feed">[rss]</a></span>
+  </div>
+  <div class="tui-footer-webring">
+    <span class="tui-footer-webring-label">// webring</span>
+    <marquee scrollamount="3" loop="infinite" onmouseover="this.stop();" onmouseout="this.start();" id="webring_marquee" class="webring_marquee">
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/decentralize.png" alt="Decentralize webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/digdeeper.png" alt="Dig Deeper webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/paranoid.gif" alt="Paranoid webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/protonmail.png" alt="ProtonMail webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/shadow-wiki.png" alt="Shadow Wiki webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/sizeofcat.png" alt="Size of Cat webring link"></a>
+      <a rel="nofollow" href="" target="_blank"><img src="/images/webring/yesterweb.png" alt="Yesterweb webring link"></a>
+    </marquee>
+  </div>
 </footer>

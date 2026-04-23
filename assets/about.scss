@@ -1,6 +1,84 @@
 ---
 ---
 
+/* ── About page — Knowledge Stack ─────────────────────────────── */
+
+.knowledge-title {
+  text-align: center;
+  color: #b38aff;
+  text-shadow: 0 0 6px rgba(179, 138, 255, 0.4);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.knowledge-divider {
+  border: none;
+  border-top: 1px dashed rgba(219, 219, 219, 0.3);
+  margin: 8px 0;
+}
+
+/* ── Badges table ─────────────────────────────────────────────── */
+.badges-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.badges-table td {
+  padding: 8px 12px;
+  vertical-align: middle;
+  border: none;
+}
+
+/* Category label column */
+.badges-table td:first-child {
+  white-space: nowrap;
+  min-width: 180px;
+  color: #e4e477;
+  font-weight: bold;
+  vertical-align: top;
+  padding-top: 12px;
+}
+
+/* Icon cell */
+.badges-table td:last-child {
+  line-height: 1.8;
+}
+
+/* Invert SVG icons so they show on dark background */
+.badges-table img {
+  filter: invert(1) opacity(0.75);
+  margin: 3px 4px;
+  vertical-align: middle;
+  transition: opacity 0.1s ease, filter 0.1s ease;
+}
+
+.badges-table img:hover {
+  filter: invert(1) opacity(1);
+}
+
+/* Divider rows inside table */
+.badges-table .knowledge-divider {
+  margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .badges-table,
+  .badges-table tbody,
+  .badges-table tr,
+  .badges-table td {
+    display: block;
+    width: 100%;
+  }
+  .badges-table td:first-child {
+    min-width: unset;
+    padding-bottom: 4px;
+    padding-top: 10px;
+  }
+}
+
+/* ── Theme-b helper (legacy, kept for compatibility) ──────────── */
 .theme-b {
   background: #447;
   color: #bbd;

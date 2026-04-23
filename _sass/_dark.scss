@@ -30,6 +30,16 @@
   --code-color-17: #800000;
   --code-color-18: #bbbbbb;
 
+  /* Subtle CRT-style phosphor glow on body text */
+  --body-text-shadow: 0 0 2px rgba(219, 219, 219, 0.10);
+
+  /* Accent glow for highlighted/accent elements */
+  --accent-color: #b38aff;
+  --accent-glow:  0 0 6px rgba(179, 138, 255, 0.35);
+  --green-color:  #05ca05;
+  --green-glow:   0 0 6px rgba(5, 202, 5, 0.35);
+  --yellow-color: #e4e477;
+
   /* WebTUI variable bridge — keep in sync with $base-font-size in base.scss */
   --background0: #000;
   --background1: #111;

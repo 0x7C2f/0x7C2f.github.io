@@ -37,12 +37,16 @@ h3,
 h4,
 h5,
 h6 {
-	font-size: $base-font-size;
 	margin: 0px;
 	margin-top: 22px;
 	font-weight: bold;
 	color: var(--text-color);
 }
+/* Visual hierarchy — scale headings for scannable content */
+h1 { font-size: 1.45em; }
+h2 { font-size: 1.25em; }
+h3 { font-size: 1.10em; }
+h4, h5, h6 { font-size: $base-font-size; }
 p,
 ul,
 ol {
@@ -52,6 +56,7 @@ ol {
 a {
 	text-decoration: underline;
 	color: var(--link-color);
+	transition: color 0.1s ease, background-color 0.1s ease;
 }
 a:hover {
 	color: var(--background-color);
@@ -221,6 +226,7 @@ footer {
 .tui-titlebar-left a {
 	text-decoration: none;
 	color: var(--text-color);
+	transition: color 0.1s ease, background-color 0.1s ease;
 }
 .tui-titlebar-left a:hover {
 	color: var(--background-color);
@@ -241,11 +247,18 @@ footer {
 	display: inline-block;
 	min-height: 32px;
 	line-height: 24px;
+	transition: color 0.1s ease, background-color 0.1s ease;
 }
 .tui-nav-link:hover {
 	text-decoration: none;
 	color: var(--background-color);
 	background-color: var(--base-color);
+}
+/* Active page indicator — requires aria-current="page" on the link */
+.tui-nav-link[aria-current="page"] {
+	color: var(--background-color);
+	background-color: var(--base-color);
+	font-weight: bold;
 }
 .tui-search {
 	padding: 0 8px;
@@ -335,6 +348,7 @@ input[type="submit"] {
 	background-color: var(--background-color);
 	padding: 8px 16px;
 	min-height: 44px;
+	transition: color 0.1s ease, background-color 0.1s ease;
 }
 input[type="submit"]:hover {
 	color: var(--background-color);
@@ -554,3 +568,123 @@ pre {
 .highlight .il {
 	color: var(--code-color-14);
 } /* Literal.Number.Integer.Long */
+
+/**
+ * Inline code — distinct from block pre/code
+ */
+code {
+	background-color: rgba(219, 219, 219, 0.07);
+	border: 1px solid rgba(219, 219, 219, 0.18);
+	padding: 1px 5px;
+	font-family: $base-font-family;
+	font-size: 0.92em;
+}
+/* Reset inside pre blocks so only inline code gets the treatment */
+pre code {
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: inherit;
+}
+
+/**
+ * Scrollbar — webkit terminal aesthetic
+ */
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+::-webkit-scrollbar-track {
+	background: #000;
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(219, 219, 219, 0.22);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(219, 219, 219, 0.45);
+}
+
+/**
+ * Blog post listing
+ */
+.post-list {
+	list-style: none;
+	padding-left: 0;
+	margin-top: 6px;
+}
+.post-list > li:before {
+	content: none; /* override generic li bullet */
+}
+.post-item {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	padding: 3px 0;
+	border-bottom: 1px dashed rgba(219, 219, 219, 0.12);
+}
+.post-item:last-child {
+	border-bottom: none;
+}
+.post-date {
+	color: var(--code-color-1);
+	white-space: nowrap;
+	font-size: 0.88em;
+	flex-shrink: 0;
+}
+.post-title-link {
+	color: var(--link-color);
+	text-decoration: none;
+	transition: color 0.1s ease, background-color 0.1s ease;
+}
+.post-title-link:hover {
+	color: var(--background-color);
+	background-color: var(--base-color);
+}
+
+/**
+ * Footer — improved visual structure
+ */
+.tui-footer {
+	margin-top: 32px;
+}
+.tui-footer-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 8px;
+	padding: 6px 0;
+	font-size: 0.85em;
+	border-top: dashed 1px rgba(219, 219, 219, 0.35);
+}
+.tui-footer-copy {
+	color: rgba(219, 219, 219, 0.55);
+}
+.tui-footer-rss a {
+	color: var(--yellow-color, #e4e477);
+	text-decoration: none;
+	font-size: 0.85em;
+	transition: color 0.1s ease, background-color 0.1s ease;
+}
+.tui-footer-rss a:hover {
+	color: var(--background-color);
+	background-color: var(--yellow-color, #e4e477);
+}
+.tui-footer-webring {
+	border-top: dashed 1px rgba(219, 219, 219, 0.18);
+	padding: 4px 0 2px;
+}
+.tui-footer-webring-label {
+	font-size: 0.78em;
+	color: rgba(219, 219, 219, 0.4);
+	display: block;
+	margin-bottom: 2px;
+	user-select: none;
+}
+
+/**
+ * Accent glow on active nav page indicator
+ */
+.tui-nav-link[aria-current="page"] {
+	text-shadow: var(--accent-glow, none);
+}

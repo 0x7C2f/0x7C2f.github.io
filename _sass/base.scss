@@ -259,6 +259,7 @@ footer {
 	color: var(--background-color);
 	background-color: var(--base-color);
 	font-weight: bold;
+	text-shadow: var(--accent-glow, none);
 }
 .tui-search {
 	padding: 0 8px;
@@ -679,12 +680,8 @@ pre code {
 	color: rgba(219, 219, 219, 0.4);
 	display: block;
 	margin-bottom: 2px;
-	user-select: none;
 }
 
 /**
- * Accent glow on active nav page indicator
+ * Accent glow on active nav page indicator — merged into rule at line 258
  */
-.tui-nav-link[aria-current="page"] {
-	text-shadow: var(--accent-glow, none);
-}

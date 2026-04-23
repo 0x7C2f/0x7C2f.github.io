@@ -29,4 +29,17 @@
   --code-color-16: #1e90ff;
   --code-color-17: #800000;
   --code-color-18: #bbbbbb;
+
+  /* WebTUI variable bridge — keep in sync with $base-font-size in base.scss */
+  --background0: #000;
+  --background1: #111;
+  --background2: #222;
+  --background3: #444;
+  --foreground0: #DBDBDB;
+  --foreground1: #aaaaaa;
+  --foreground2: #666;
+  --box-border-color: rgba(219, 219, 219, 0.9);
+  --separator-color: rgba(219, 219, 219, 0.9);
+  --font-family: monospace;
+  --line-height: 1.5;
 }

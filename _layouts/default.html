@@ -16,20 +16,14 @@
 <meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
 <meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer">
   {%- include head.html -%}
-  <body>
+  <body data-webtui-theme="dark">
     {%- include header.html -%}
       <div class="container">
-        <div class="container-left">
-        </div>
-         <div class="container-center">
-        <main id="main-content">
+        <main id="main-content" class="tui-main">
           {{ content }}
         </main>
-        <div class="container-right">
-        </div>
-      </div>
        {%- include footer.html -%}
-     </div>
+      </div>
      <script src="/assets/header-search.js"></script>
    </body>
 </html>

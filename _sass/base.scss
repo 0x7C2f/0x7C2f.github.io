@@ -13,6 +13,12 @@ $container-max-width: 1100px !default;
 /**
  * Global
  */
+
+/* Set WebTUI --font-size variable using the SCSS variable */
+:root {
+	--font-size: #{$base-font-size};
+}
+
 body {
 	background-color: var(--background-color);
 	margin: 0 auto;
@@ -64,9 +70,6 @@ a:hover {
 	}
 	.tui-nav {
 		flex-wrap: wrap;
-	}
-	.tui-search input {
-		min-width: 100px;
 	}
 }
 
@@ -248,10 +251,10 @@ footer {
 	padding: 0 8px;
 	border-left: var(--border);
 }
-.tui-search input {
+.tui-search input[type="text"] {
 	background-color: var(--background-color);
 	color: var(--text-color);
-	border: 1px solid var(--base-color) !important;
+	border: 1px solid var(--base-color);
 	padding: 4px 8px;
 	font-family: $base-font-family;
 	font-size: $base-font-size;
@@ -260,12 +263,18 @@ footer {
 	min-height: unset;
 	caret-color: var(--text-color);
 }
-.tui-search input::placeholder {
+.tui-search input[type="text"]::placeholder {
 	color: var(--placeholder-color);
 }
-.tui-search input:focus {
+.tui-search input[type="text"]:focus {
 	outline: 2px solid var(--base-color);
 	outline-offset: 1px;
+}
+
+@media only screen and (max-width: 768px) {
+	.tui-search input[type="text"] {
+		min-width: 100px;
+	}
 }
 
 /**

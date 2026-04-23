@@ -1,4 +1,5 @@
 *.gem
+*.tgz
 .bundle
 .sass-cache
 _site

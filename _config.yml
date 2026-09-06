@@ -22,15 +22,19 @@ header_pages:
     - pages/blog.md
     - pages/files.md
     - pages/about.md
+    - pages/awesome-pi-coding-agent.md
 
 include:
     - 'files'
+    - '_awesome-pi'
 
 exclude:
     - 'update.sh'
     - 'jekyll-theme-console.gemspec'
     - 'Rakefile'
     - 'vendor/bundle'
+    - 'awesome-pi-coding-agent'
+    - '.vscode'
 
 footer:
     - 'follow on <a href="https://twitter.com/0x7C2f">Twitter</a>'

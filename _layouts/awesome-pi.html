@@ -1,0 +1,41 @@
+---
+layout: default
+---
+<div class="awesome-pi-container">
+  <div class="awesome-pi-header">
+    <h1>Awesome Pi Coding Agent</h1>
+    <p class="awesome-pi-subtitle">
+      An auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem.
+    </p>
+    <div class="awesome-pi-stats">
+      <span id="stats-total">Loading...</span>
+      <span class="awesome-pi-last-updated" id="last-updated"></span>
+    </div>
+  </div>
+
+  <div class="awesome-pi-search">
+    <input
+      type="search"
+      id="awesome-pi-search-input"
+      placeholder="Search extensions, themes, videos, articles…"
+      autocomplete="off"
+    />
+    <span id="awesome-pi-search-count" class="awesome-pi-search-count"></span>
+  </div>
+
+  <nav class="awesome-pi-tabs" id="awesome-pi-tabs" aria-label="Category tabs">
+    <button class="awesome-pi-tab active" data-category="all">All</button>
+    <button class="awesome-pi-tab" data-category="extension">🔌 Extensions</button>
+    <button class="awesome-pi-tab" data-category="theme">🎨 Themes</button>
+    <button class="awesome-pi-tab" data-category="video">🎬 Videos & Tutorials</button>
+    <button class="awesome-pi-tab" data-category="article">📰 Articles</button>
+    <button class="awesome-pi-tab" data-category="misc">📦 Miscellaneous</button>
+  </nav>
+
+  <div id="awesome-pi-results" class="awesome-pi-entry-grid"></div>
+  <div id="awesome-pi-empty" class="awesome-pi-empty" style="display:none">
+    <p>No results found.</p>
+  </div>
+</div>
+
+<script src="/assets/awesome-pi.js"></script>

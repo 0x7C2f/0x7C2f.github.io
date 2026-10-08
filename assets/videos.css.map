@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["videos.scss"],"names":[],"mappings":"AAAA,QACI,WACA,aACA,eAEJ,0CACI,QACI","sourcesContent":[".videos {\n width:100%;\n display: flex;\n flex-wrap: wrap;\n}\n@media only screen and (max-width: 600px) {\n .videos {\n display: block; /* or inline-flex */\n }\n}"],"file":"videos.css"}

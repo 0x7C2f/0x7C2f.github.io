@@ -20,16 +20,16 @@ layout: default
       placeholder="Search extensions, themes, videos, articles…"
       autocomplete="off"
     />
-    <span id="awesome-pi-search-count" class="awesome-pi-search-count"></span>
+    <span id="awesome-pi-search-count" class="awesome-pi-search-count" aria-live="polite" aria-atomic="true"></span>
   </div>
 
   <nav class="awesome-pi-tabs" id="awesome-pi-tabs" aria-label="Category tabs">
-    <button class="awesome-pi-tab active" data-category="all">All</button>
-    <button class="awesome-pi-tab" data-category="extension">🔌 Extensions</button>
-    <button class="awesome-pi-tab" data-category="theme">🎨 Themes</button>
-    <button class="awesome-pi-tab" data-category="video">🎬 Videos & Tutorials</button>
-    <button class="awesome-pi-tab" data-category="article">📰 Articles</button>
-    <button class="awesome-pi-tab" data-category="misc">📦 Miscellaneous</button>
+    <button class="awesome-pi-tab active" data-category="all" aria-pressed="true">All</button>
+    <button class="awesome-pi-tab" data-category="extension" aria-pressed="false">🔌 Extensions</button>
+    <button class="awesome-pi-tab" data-category="theme" aria-pressed="false">🎨 Themes</button>
+    <button class="awesome-pi-tab" data-category="video" aria-pressed="false">🎬 Videos & Tutorials</button>
+    <button class="awesome-pi-tab" data-category="article" aria-pressed="false">📰 Articles</button>
+    <button class="awesome-pi-tab" data-category="misc" aria-pressed="false">📦 Miscellaneous</button>
   </nav>
 
   <div id="awesome-pi-results" class="awesome-pi-entry-grid"></div>

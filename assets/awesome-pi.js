@@ -121,8 +121,12 @@ function setupTabs() {
   const tabs = document.querySelectorAll('.awesome-pi-tab');
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
+      tabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-pressed', 'true');
       activeCategory = tab.dataset.category;
       render();
     });

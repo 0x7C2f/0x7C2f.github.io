@@ -1,4 +1,4 @@
-💡 What: Updated the `.skip-link` CSS to use standard visually hidden properties (1px size, clip rect) instead of negative top positioning.
-🎯 Why: Negative positioning (`top: -40px`) can occasionally cause layout shift, be inaccessible on certain devices or configurations, or cause issues with screen readers that incorrectly navigate focus loops. A proper standard visually hidden element handles layout and screen readers smoothly while ensuring exact placement logic when visible.
-📸 Before/After: Visual changes on focus display standard visual link overlaying content. (Tested and verified with Playwright via screenshot)
-♿ Accessibility: The "Skip to main content" link is now fully compliant with modern visually-hidden guidelines and fully accessible to keyboard navigators and screen readers without potential layout bugs.
+💡 What: Updated the global `*:focus` rule in `_sass/base.scss` to use `*:focus-visible`.
+🎯 Why: A global `:focus` rule causes focus rings to appear even when interactive elements are clicked with a mouse, which can be visually distracting and unpolished. Using `:focus-visible` ensures that these essential accessibility outlines are only shown when navigating via keyboard or screen reader, providing an ideal experience for all users.
+📸 Before/After: Clicking anywhere now avoids focus rings, but tabbing correctly outlines elements. (Tested and verified with Playwright via screenshot).
+♿ Accessibility: Maintains perfect keyboard navigation focus states while significantly improving the visual experience for mouse users.

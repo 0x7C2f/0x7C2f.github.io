@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doppler Curve Localization Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', ' system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            slate: {
+              950: '#070b14',
+              925: '#0c1220',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #070b14;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Technical Range Sliders */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #38bdf8;
+      border: 2px solid #0f172a;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      margin-top: -7px;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #7dd3fc;
+    }
+    input[type="range"].primary-slider::-webkit-slider-runnable-track {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.25), rgba(56, 189, 248, 0.35));
+      border-color: #10b981;
+    }
+    input[type="range"].primary-slider::-webkit-slider-thumb {
+      background: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+    }
+
+    /* Subtle technical grid background */
+    .tech-panel {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(51, 65, 85, 0.75);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-slate-950">
+
+  <!-- Top Header Bar -->
+  <header class="border-b border-slate-800/90 bg-slate-950/90 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-sky-500/15 border border-sky-400/40 flex items-center justify-center text-sky-400 shadow-inner">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.348 14.652a3.75 3.75 0 010-5.304m5.304 0a3.75 3.75 0 010 5.304m-7.425 2.121a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.807-3.808-9.98 0-13.788m13.788 0c3.808 3.807 3.808 9.98 0 13.788M12 12h.008v.008H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-100">
+              DOPPLER CURVE LOCALIZATION SIMULATOR
+            </h1>
+            <span class="hidden sm:inline-block text-[11px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              c = 343 m/s (SI Metric)
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Pinpoint observer coordinates <span class="font-mono text-slate-300">(x₀, d)</span> from frequency inflection time <span class="font-mono text-sky-300">t_PCA</span> and slope steepness <span class="font-mono text-emerald-300">|df/dt|_PCA</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Presets & Audio Control -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-mono uppercase tracking-wider text-slate-400 mr-1 hidden xl:inline">Presets:</span>
+        <button id="presetCloseBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Close Pass (10 m · Steep)
+        </button>
+        <button id="presetMedBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 hover:bg-slate-700 text-sky-300 border border-sky-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+          Medium Pass (45 m)
+        </button>
+        <button id="presetFarBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 hover:bg-slate-700 text-amber-300 border border-amber-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          Far Pass (120 m · Gentle)
+        </button>
+
+        <div class="h-5 w-[1px] bg-slate-800 mx-1 hidden sm:block"></div>
+
+        <!-- Audio Siren Toggle -->
+        <button id="audioToggleBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 transition flex items-center gap-2 shadow-sm">
+          <svg id="audioIconMuted" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+          </svg>
+          <svg id="audioIconUnmuted" class="w-4 h-4 text-emerald-400 hidden animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+          </svg>
+          <span id="audioBtnText">Audio Siren: Muted</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace Grid -->
+  <main class="max-w-[1600px] w-full mx-auto px-4 py-4 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+    <!-- Left / Center Visualizations Column (8 cols on large screens) -->
+    <div class="lg:col-span-8 flex flex-col gap-4">
+
+      <!-- 1. Top-Down 2D Spatial Canvas Panel -->
+      <section class="tech-panel rounded-xl p-3 sm:p-4 flex flex-col gap-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
+            <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-200">
+              1. Top-Down 2D Spatial Range & Acoustic Wavefronts
+            </h2>
+            <span class="text-[11px] font-mono text-slate-400 hidden sm:inline">
+              (Drag Observer directly on map)
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Mirror Ghost Toggle -->
+            <button id="mirrorGhostBtn" class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1.5">
+              <span id="mirrorIndicator" class="w-2 h-2 rounded-full bg-slate-500"></span>
+              Show Mirror Ghost (x₀, -d)
+            </button>
+            <!-- Wavefronts Toggle -->
+            <button id="wavefrontsToggleBtn" class="px-2.5 py-1 rounded-md text-xs font-mono bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 transition">
+              Wavefronts: ON
+            </button>
+          </div>
+        </div>
+
+        <!-- Spatial Canvas Container -->
+        <div class="relative w-full h-[270px] sm:h-[310px] rounded-lg overflow-hidden bg-slate-950 border border-slate-800">
+          <canvas id="spatialCanvas"></canvas>
+
+          <!-- Overlay Legend Top-Left -->
+          <div class="absolute top-2.5 left-2.5 pointer-events-none flex flex-col gap-1 bg-slate-950/80 border border-slate-800/90 rounded-md px-2.5 py-1.5 text-[11px] font-mono">
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <span class="text-slate-300">Source x(t): <strong id="overlaySourceX" class="text-amber-300">-120.0 m</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="text-slate-300">Observer (x₀, d): <strong id="overlayObsPos" class="text-emerald-300">(0 m, 45 m)</strong></span>
+            </div>
+            <div id="overlayMirrorRow" class="flex items-center gap-2 hidden">
+              <span class="inline-block w-2.5 h-2.5 rounded-full bg-fuchsia-400"></span>
+              <span class="text-slate-300">Mirror Ghost: <strong id="overlayMirrorPos" class="text-fuchsia-300">(0 m, -45 m)</strong></span>
+            </div>
+          </div>
+
+          <!-- Overlay Vector Legend Bottom-Right -->
+          <div class="absolute bottom-2 right-2.5 pointer-events-none hidden sm:flex items-center gap-3 bg-slate-950/80 border border-slate-800/90 rounded-md px-2.5 py-1 text-[11px] font-mono text-slate-300">
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-amber-400 inline-block"></span> Velocity v</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-rose-400 inline-block"></span> Radial v_r</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-sky-400 inline-block"></span> PCA (x = x₀)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Live Doppler Curve Graph (Frequency f(t) vs Time t) -->
+      <section class="tech-panel rounded-xl p-3 sm:p-4 flex flex-col gap-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"></span>
+            <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-200">
+              2. Live Doppler Curve Analyzer — Frequency f(t) vs. Time t
+            </h2>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="tangentToggleBtn" class="px-2.5 py-1 rounded-md text-xs font-mono bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition">
+              PCA Slope Tangent: ON
+            </button>
+            <button id="pinCurveBtn" class="px-2.5 py-1 rounded-md text-xs font-mono bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+              </svg>
+              <span id="pinCurveBtnText">Pin Reference Curve</span>
+            </button>
+            <button id="clearPinBtn" class="hidden px-2 py-1 rounded-md text-xs font-mono bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 transition">
+              Clear Pin
+            </button>
+          </div>
+        </div>
+
+        <!-- Graph Canvas Container -->
+        <div class="relative w-full h-[260px] sm:h-[295px] rounded-lg overflow-hidden bg-slate-950 border border-slate-800">
+          <canvas id="graphCanvas"></canvas>
+        </div>
+
+        <!-- Playback & Time Scrubber Bar -->
+        <div class="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-slate-900/70 border border-slate-800/80 rounded-lg px-3 py-2">
+          <div class="flex items-center gap-2">
+            <button id="playPauseBtn" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-500 hover:bg-sky-400 text-slate-950 transition flex items-center gap-1.5 shadow">
+              <svg id="pauseIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z" clip-rule="evenodd" />
+              </svg>
+              <svg id="playIcon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+              </svg>
+              <span id="playPauseText">Pause</span>
+            </button>
+
+            <button id="resetTimeBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+              Reset
+            </button>
+
+            <button id="jumpPcaBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-mono bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 transition" title="Jump directly to Time of Closest Approach">
+              Jump to t_PCA
+            </button>
+
+            <button id="loopToggleBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 transition">
+              Loop: ON
+            </button>
+          </div>
+
+          <div class="flex-1 flex items-center gap-3">
+            <span class="text-xs font-mono text-slate-400 whitespace-nowrap">Time t:</span>
+            <input id="timeScrubber" type="range" min="0" max="10" step="0.01" value="0" class="w-full" />
+            <span id="timeReadout" class="text-xs font-mono text-sky-300 w-28 text-right whitespace-nowrap">
+              0.00 / 10.00 s
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Controls & Telemetry Column (4 cols on large screens) -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+
+      <!-- 3. Interactive Parameters Control Panel -->
+      <section class="tech-panel rounded-xl p-4 flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-200">
+              3. Localization & Signal Controls
+            </h2>
+          </div>
+          <span class="text-[11px] font-mono text-slate-400">Metric Units</span>
+        </div>
+
+        <!-- PRIMARY CONTROL: Cross-Track Distance d -->
+        <div class="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/40 shadow-inner flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                Primary Steepness Control
+              </span>
+              <label for="distanceSlider" class="block text-sm font-semibold text-slate-100 mt-1">
+                Cross-Track Distance <span class="font-mono text-emerald-400">d</span>
+              </label>
+            </div>
+            <div class="text-right">
+              <span id="distanceVal" class="text-lg font-mono font-bold text-emerald-300">45.0 m</span>
+              <span id="steepnessBadge" class="block text-[11px] font-mono text-emerald-400/90">Medium Slope</span>
+            </div>
+          </div>
+          <input id="distanceSlider" type="range" min="5" max="150" step="0.5" value="45" class="primary-slider w-full" />
+          <div class="flex justify-between text-[11px] font-mono text-slate-400">
+            <span>5 m (Razor Steep)</span>
+            <span>75 m</span>
+            <span>150 m (Flat/Gentle)</span>
+          </div>
+        </div>
+
+        <!-- Along-Track Position x0 -->
+        <div class="flex flex-col gap-1.5 px-1">
+          <div class="flex justify-between items-baseline">
+            <label for="x0Slider" class="text-xs sm:text-sm font-medium text-slate-200">
+              Along-Track Position <span class="font-mono text-sky-400">x₀</span>
+              <span class="text-[11px] text-slate-400 block font-normal">Shifts curve horizontally in time (t_PCA)</span>
+            </label>
+            <span id="x0Val" class="text-sm font-mono font-semibold text-sky-300">0.0 m</span>
+          </div>
+          <input id="x0Slider" type="range" min="-150" max="150" step="1" value="0" class="w-full" />
+          <div class="flex justify-between text-[11px] font-mono text-slate-500">
+            <span>-150 m (Early Pass)</span>
+            <span>0 m (Center)</span>
+            <span>+150 m (Late Pass)</span>
+          </div>
+        </div>
+
+        <!-- Source Speed v -->
+        <div class="flex flex-col gap-1.5 px-1">
+          <div class="flex justify-between items-baseline">
+            <label for="speedSlider" class="text-xs sm:text-sm font-medium text-slate-200">
+              Source Speed <span class="font-mono text-amber-400">v</span>
+              <span class="text-[11px] text-slate-400 block font-normal">Controls max Doppler shift & pass duration</span>
+            </label>
+            <div class="text-right">
+              <span id="speedVal" class="text-sm font-mono font-semibold text-amber-300">50.0 m/s</span>
+              <span id="machVal" class="block text-[10px] font-mono text-slate-400">180 km/h (0.15 Mach)</span>
+            </div>
+          </div>
+          <input id="speedSlider" type="range" min="15" max="80" step="0.5" value="50" class="w-full" />
+          <div class="flex justify-between text-[11px] font-mono text-slate-500">
+            <span>15 m/s (54 km/h)</span>
+            <span>50 m/s</span>
+            <span>80 m/s (288 km/h)</span>
+          </div>
+        </div>
+
+        <!-- Base Frequency f0 -->
+        <div class="flex flex-col gap-1.5 px-1">
+          <div class="flex justify-between items-baseline">
+            <label for="freqSlider" class="text-xs sm:text-sm font-medium text-slate-200">
+              Transmitted Base Frequency <span class="font-mono text-purple-400">f₀</span>
+            </label>
+            <span id="freqVal" class="text-sm font-mono font-semibold text-purple-300">440 Hz</span>
+          </div>
+          <input id="freqSlider" type="range" min="220" max="660" step="5" value="440" class="w-full" />
+          <div class="flex justify-between text-[11px] font-mono text-slate-500">
+            <span>220 Hz (A3)</span>
+            <span>440 Hz (A4)</span>
+            <span>660 Hz (E5)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Live Telemetry & Localization Math Panel -->
+      <section class="tech-panel rounded-xl p-4 flex flex-col gap-3.5 flex-1">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+            <h2 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-200">
+              4. Live Telemetry & Localization Solver
+            </h2>
+          </div>
+          <span id="passPhaseBadge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            APPROACHING
+          </span>
+        </div>
+
+        <!-- 6-Card Real-Time Telemetry Grid -->
+        <div class="grid grid-cols-2 gap-2.5">
+          <!-- Instantaneous Frequency f(t) -->
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] text-slate-400 block">Received Freq f(t)</span>
+            <span id="telFreq" class="text-base sm:text-lg font-mono font-bold text-emerald-300">512.4 Hz</span>
+          </div>
+
+          <!-- Doppler Shift df -->
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] text-slate-400 block">Doppler Shift Δf</span>
+            <span id="telDeltaF" class="text-base sm:text-lg font-mono font-bold text-sky-300">+72.4 Hz</span>
+          </div>
+
+          <!-- Radial Velocity vr -->
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] text-slate-400 block">Radial Velocity v_r(t)</span>
+            <span id="telVr" class="text-base sm:text-lg font-mono font-bold text-rose-300">+48.2 m/s</span>
+          </div>
+
+          <!-- Time of Closest Approach t_PCA -->
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] text-slate-400 block">Zero-Cross Time t_PCA</span>
+            <span id="telTpca" class="text-base sm:text-lg font-mono font-bold text-amber-300">5.00 s</span>
+          </div>
+
+          <!-- Inflection Slope |df/dt|_PCA -->
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800">
+            <span class="text-[11px] text-slate-400 block">PCA Inflection Slope</span>
+            <span id="telSlope" class="text-base sm:text-lg font-mono font-bold text-rose-400">-71.27 Hz/s</span>
+          </div>
+
+          <!-- Computed Distance d -->
+          <div class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40">
+            <span class="text-[11px] text-emerald-300/90 block">Solved Distance d</span>
+            <span id="telSolvedD" class="text-base sm:text-lg font-mono font-bold text-emerald-300">45.0 m</span>
+          </div>
+        </div>
+
+        <!-- Step-by-Step Localization Math Derivation Box -->
+        <div class="rounded-lg bg-slate-950/90 border border-slate-800/90 p-3 font-mono text-xs flex flex-col gap-2">
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">
+            Inverse Localization Equations from Curve
+          </div>
+
+          <!-- Coordinate 1: Along-Track x0 -->
+          <div class="flex flex-col gap-0.5">
+            <span class="text-slate-400 text-[11px]">① Along-Track Position from f(t_PCA) = f₀:</span>
+            <div class="text-sky-300 bg-slate-900/80 px-2 py-1 rounded border border-slate-800/80 overflow-x-auto">
+              x₀ = x_start + v · t_PCA = <span id="mathX0Calc">-250 + 50.0 × 5.00 = 0.0 m</span>
+            </div>
+          </div>
+
+          <!-- Coordinate 2: Cross-Track Distance d -->
+          <div class="flex flex-col gap-0.5">
+            <span class="text-slate-400 text-[11px]">② Cross-Track Distance from Inflection Slope:</span>
+            <div class="text-emerald-300 bg-slate-900/80 px-2 py-1 rounded border border-slate-800/80 overflow-x-auto">
+              d = (f₀ · v²) / (c · |df/dt|_PCA)
+            </div>
+            <div id="mathDCalc" class="text-slate-300 text-[11px] pl-1 pt-0.5">
+              d = (440 × 50.0²) / (343 × 71.27) = <strong class="text-emerald-400">45.0 m</strong>
+            </div>
+          </div>
+
+          <!-- Mirror Ambiguity Note -->
+          <div class="text-[11px] font-sans text-slate-400 bg-slate-900/50 rounded p-2 border border-slate-800/60 leading-relaxed">
+            <strong class="text-fuchsia-300">Mirror Ambiguity:</strong> Because distance uses <span class="font-mono text-slate-200">d²</span> inside <span class="font-mono text-slate-200">√((x(t)-x₀)² + d²)</span>, an observer at <span class="font-mono text-emerald-300">(x₀, +d)</span> and a mirror ghost at <span class="font-mono text-fuchsia-300">(x₀, -d)</span> experience the exact same radial velocity <span class="font-mono text-slate-200">v_r(t)</span> and identical Doppler curves.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    /********************************************************************
+     * DOPPLER CURVE LOCALIZATION SIMULATOR
+     * Physical Constants & State Management
+     ********************************************************************/
+    const SPEED_OF_SOUND = 343.0; // c = 343 m/s
+    const TRACK_MIN_X = -250.0;   // meters
+    const TRACK_MAX_X = 250.0;    // meters
+    const TRACK_LENGTH = TRACK_MAX_X - TRACK_MIN_X; // 500 m
+
+    const state = {
+      // Primary physical parameters
+      d: 45.0,          // Cross-track distance (5 m to 150 m)
+      x0: 0.0,          // Along-track observer coordinate (-150 m to +150 m)
+      v: 50.0,          // Source velocity along track (15 m/s to 80 m/s)
+      f0: 440.0,        // Base transmitted frequency (220 Hz to 660 Hz)
+      observerSide: 1,  // +1 (above track) or -1 (below track)
+
+      // Playback state
+      t: 2.6,           // Current simulation time in seconds
+      isPlaying: true,
+      loop: true,
+      lastFrameTime: performance.now(),
+
+      // Visual options
+      showMirrorGhost: false,
+      showWavefronts: true,
+      showTangent: true,
+
+      // Pinned reference curve for side-by-side comparison
+      pinnedCurve: null, // { d, x0, v, f0 }
+
+      // Interaction states
+      isDraggingObserver: false,
+      isScrubbingGraph: false,
+
+      // Web Audio API state
+      audioEnabled: false,
+      audioCtx: null,
+      oscFundamental: null,
+      oscHarmonic: null,
+      gainNode: null
+    };
+
+    // DOM Element References
+    const spatialCanvas = document.getElementById('spatialCanvas');
+    const spatialCtx = spatialCanvas.getContext('2d');
+    const graphCanvas = document.getElementById('graphCanvas');
+    const graphCtx = graphCanvas.getContext('2d');
+
+    const distanceSlider = document.getElementById('distanceSlider');
+    const x0Slider = document.getElementById('x0Slider');
+    const speedSlider = document.getElementById('speedSlider');
+    const freqSlider = document.getElementById('freqSlider');
+    const timeScrubber = document.getElementById('timeScrubber');
+
+    const distanceVal = document.getElementById('distanceVal');
+    const steepnessBadge = document.getElementById('steepnessBadge');
+    const x0Val = document.getElementById('x0Val');
+    const speedVal = document.getElementById('speedVal');
+    const machVal = document.getElementById('machVal');
+    const freqVal = document.getElementById('freqVal');
+    const timeReadout = document.getElementById('timeReadout');
+
+    // Telemetry Elements
+    const telFreq = document.getElementById('telFreq');
+    const telDeltaF = document.getElementById('telDeltaF');
+    const telVr = document.getElementById('telVr');
+    const telTpca = document.getElementById('telTpca');
+    const telSlope = document.getElementById('telSlope');
+    const telSolvedD = document.getElementById('telSolvedD');
+    const passPhaseBadge = document.getElementById('passPhaseBadge');
+    const mathX0Calc = document.getElementById('mathX0Calc');
+    const mathDCalc = document.getElementById('mathDCalc');
+
+    // Overlays
+    const overlaySourceX = document.getElementById('overlaySourceX');
+    const overlayObsPos = document.getElementById('overlayObsPos');
+    const overlayMirrorRow = document.getElementById('overlayMirrorRow');
+    const overlayMirrorPos = document.getElementById('overlayMirrorPos');
+
+    /********************************************************************
+     * PHYSICS & DOPPLER FORMULAS
+     ********************************************************************/
+    function getTotalDuration(v = state.v) {
+      return TRACK_LENGTH / v;
+    }
+
+    function getSourceX(t, v = state.v) {
+      return TRACK_MIN_X + v * t;
+    }
+
+    function getTimeOfPCA(x0 = state.x0, v = state.v) {
+      return (x0 - TRACK_MIN_X) / v;
+    }
+
+    /**
+     * Radial velocity v_r(t) toward the observer:
+     * v_r(t) = -v * (x(t) - x0) / sqrt((x(t) - x0)^2 + d^2)
+     */
+    function getRadialVelocity(t, params = state) {
+      const x = getSourceX(t, params.v);
+      const dx = x - params.x0;
+      const dist = Math.hypot(dx, params.d);
+      if (dist < 1e-6) return 0;
+      return -params.v * (dx / dist);
+    }
+
+    /**
+     * Instantaneous Doppler frequency:
+     * f(t) = f0 * (c / (c - v_r(t)))
+     */
+    function getDopplerFrequency(t, params = state) {
+      const vr = getRadialVelocity(t, params);
+      return params.f0 * (SPEED_OF_SOUND / (SPEED_OF_SOUND - vr));
+    }
+
+    /**
+     * Exact derivative df/dt at Point of Closest Approach (x = x0):
+     * df/dt|_PCA = - (f0 * v^2) / (c * d)
+     */
+    function getInflectionSlope(params = state) {
+      return -(params.f0 * params.v * params.v) / (SPEED_OF_SOUND * params.d);
+    }
+
+    /********************************************************************
+     * WEB AUDIO API REAL-TIME DOPPLER SYNTHESIZER
+     ********************************************************************/
+    function initOrToggleAudio() {
+      if (!state.audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        state.audioCtx = new AudioContextClass();
+
+        // Fundamental + 2nd harmonic for a realistic acoustic beacon/siren timbre
+        state.oscFundamental = state.audioCtx.createOscillator();
+        state.oscHarmonic = state.audioCtx.createOscillator();
+        const harmonicGain = state.audioCtx.createGain();
+        state.gainNode = state.audioCtx.createGain();
+
+        state.oscFundamental.type = 'sawtooth';
+        state.oscHarmonic.type = 'triangle';
+
+        // Lowpass filter to warm up the sawtooth
+        const filter = state.audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 1800;
+
+        harmonicGain.gain.value = 0.35;
+        state.gainNode.gain.value = 0.0;
+
+        state.oscFundamental.connect(filter);
+        state.oscHarmonic.connect(harmonicGain);
+        harmonicGain.connect(filter);
+        filter.connect(state.gainNode);
+        state.gainNode.connect(state.audioCtx.destination);
+
+        state.oscFundamental.start();
+        state.oscHarmonic.start();
+      }
+
+      if (state.audioCtx.state === 'suspended') {
+        state.audioCtx.resume();
+      }
+
+      state.audioEnabled = !state.audioEnabled;
+      updateAudioButtonUI();
+      updateAudioSynth();
+    }
+
+    function updateAudioButtonUI() {
+      const btn = document.getElementById('audioToggleBtn');
+      const iconMuted = document.getElementById('audioIconMuted');
+      const iconUnmuted = document.getElementById('audioIconUnmuted');
+      const text = document.getElementById('audioBtnText');
+
+      if (state.audioEnabled) {
+        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 transition flex items-center gap-2 shadow-sm';
+        iconMuted.classList.add('hidden');
+        iconUnmuted.classList.remove('hidden');
+        text.textContent = 'Audio Siren: ON';
+      } else {
+        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 transition flex items-center gap-2 shadow-sm';
+        iconMuted.classList.remove('hidden');
+        iconUnmuted.classList.add('hidden');
+        text.textContent = 'Audio Siren: Muted';
+      }
+    }
+
+    function updateAudioSynth() {
+      if (!state.audioCtx || !state.gainNode) return;
+      const now = state.audioCtx.currentTime;
+
+      if (!state.audioEnabled || !state.isPlaying) {
+        state.gainNode.gain.setTargetAtTime(0.0, now, 0.04);
+        return;
+      }
+
+      const freq = getDopplerFrequency(state.t, state);
+      const x = getSourceX(state.t, state.v);
+      const dist = Math.hypot(x - state.x0, state.d);
+
+      // Realistic inverse-distance amplitude falloff (clamped for comfort)
+      const maxGain = 0.18;
+      const atten = Math.min(1.0, 28.0 / Math.max(12.0, dist));
+      const targetGain = maxGain * Math.pow(atten, 0.85);
+
+      state.oscFundamental.frequency.setTargetAtTime(freq, now, 0.02);
+      state.oscHarmonic.frequency.setTargetAtTime(freq * 1.5, now, 0.02);
+      state.gainNode.gain.setTargetAtTime(targetGain, now, 0.03);
+    }
+
+    /********************************************************************
+     * CANVAS RESIZING & COORDINATE TRANSFORMS
+     ********************************************************************/
+    function resizeCanvases() {
+      const dpr = window.devicePixelRatio || 1;
+
+      [spatialCanvas, graphCanvas].forEach((canvas) => {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          canvas.width = Math.round(rect.width * dpr);
+          canvas.height = Math.round(rect.height * dpr);
+        }
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvases();
+      renderAll();
+    });
+
+    // Convert spatial meters (x, y) to canvas pixels
+    function worldToSpatialPx(xMeters, yMeters) {
+      const w = spatialCanvas.width;
+      const h = spatialCanvas.height;
+      // Horizontal range: -275 m to +275 m
+      const scaleX = w / 550.0;
+      const cx = w * 0.5 + xMeters * scaleX;
+      const cy = h * 0.5 - yMeters * scaleX; // Keep isotropic aspect ratio!
+      return { x: cx, y: cy, scale: scaleX };
+    }
+
+    function spatialPxToWorld(px, py) {
+      const w = spatialCanvas.width;
+      const h = spatialCanvas.height;
+      const scaleX = w / 550.0;
+      const xMeters = (px - w * 0.5) / scaleX;
+      const yMeters = (h * 0.5 - py) / scaleX;
+      return { x: xMeters, y: yMeters };
+    }
+
+    /********************************************************************
+     * 1. RENDER TOP-DOWN 2D SPATIAL CANVAS
+     ********************************************************************/
+    function renderSpatialCanvas() {
+      const ctx = spatialCtx;
+      const w = spatialCanvas.width;
+      const h = spatialCanvas.height;
+      const dpr = window.devicePixelRatio || 1;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Background dark radar grid
+      ctx.fillStyle = '#070b14';
+      ctx.fillRect(0, 0, w, h);
+
+      const origin = worldToSpatialPx(0, 0);
+      const scale = origin.scale; // px per meter
+
+      // Draw metric coordinate grid lines every 50 meters
+      ctx.lineWidth = 1 * dpr;
+      for (let xm = -250; xm <= 250; xm += 50) {
+        const p = worldToSpatialPx(xm, 0);
+        ctx.strokeStyle = xm === 0 ? 'rgba(148, 163, 184, 0.2)' : 'rgba(51, 65, 85, 0.35)';
+        ctx.beginPath();
+        ctx.moveTo(p.x, 0);
+        ctx.lineTo(p.x, h);
+        ctx.stroke();
+      }
+
+      for (let ym = -150; ym <= 150; ym += 50) {
+        if (ym === 0) continue;
+        const p = worldToSpatialPx(0, ym);
+        ctx.strokeStyle = 'rgba(51, 65, 85, 0.35)';
+        ctx.beginPath();
+        ctx.moveTo(0, p.y);
+        ctx.lineTo(w, p.y);
+        ctx.stroke();
+      }
+
+      const sourceX = getSourceX(state.t);
+      const obsY = state.observerSide * state.d;
+      const mirrorY = -obsY;
+
+      // 1A. Draw Expanding Acoustic Wavefronts (Deterministic in time t)
+      if (state.showWavefronts) {
+        // Emit 1 wavefront every ~0.18 seconds
+        const emitInterval = 0.18;
+        const maxWaveAge = 1.9; // seconds before fading out
+        const firstEmitIndex = Math.floor((state.t - maxWaveAge) / emitInterval);
+        const lastEmitIndex = Math.floor(state.t / emitInterval);
+
+        for (let i = firstEmitIndex; i <= lastEmitIndex; i++) {
+          const tEmit = i * emitInterval;
+          const age = state.t - tEmit;
+          if (age < 0 || age > maxWaveAge) continue;
+
+          // Position of the source when this wavefront was emitted
+          const xEmit = getSourceX(tEmit);
+          const radiusMeters = SPEED_OF_SOUND * age;
+          const centerPx = worldToSpatialPx(xEmit, 0);
+          const radiusPx = radiusMeters * scale;
+
+          const alpha = Math.max(0, 1 - age / maxWaveAge) * 0.52;
+          ctx.strokeStyle = `rgba(56, 189, 248, ${alpha.toFixed(3)})`;
+          ctx.lineWidth = 1.4 * dpr;
+          ctx.beginPath();
+          ctx.arc(centerPx.x, centerPx.y, radiusPx, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+
+      // 1B. Draw Horizontal Track (-250m to +250m)
+      const trackStart = worldToSpatialPx(TRACK_MIN_X, 0);
+      const trackEnd = worldToSpatialPx(TRACK_MAX_X, 0);
+
+      // Subtle track roadbed glow
+      ctx.strokeStyle = 'rgba(30, 41, 59, 0.9)';
+      ctx.lineWidth = 8 * dpr;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(trackStart.x, trackStart.y);
+      ctx.lineTo(trackEnd.x, trackEnd.y);
+      ctx.stroke();
+
+      // Centerline track axis
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(trackStart.x, trackStart.y);
+      ctx.lineTo(trackEnd.x, trackEnd.y);
+      ctx.stroke();
+
+      // Track metric ticks & labels
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = `${10 * dpr}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      for (let xm = -250; xm <= 250; xm += 50) {
+        const pt = worldToSpatialPx(xm, 0);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(pt.x, pt.y - 4 * dpr);
+        ctx.lineTo(pt.x, pt.y + 4 * dpr);
+        ctx.stroke();
+
+        // Avoid cluttering right on top of the PCA label if close
+        if (Math.abs(xm - state.x0) > 22) {
+          ctx.fillText(`${xm > 0 ? '+' : ''}${xm}m`, pt.x, pt.y + 16 * dpr);
+        }
+      }
+
+      // 1C. Draw Point of Closest Approach (PCA) Marker at (x0, 0) & Cross-track Line d
+      const pcaPx = worldToSpatialPx(state.x0, 0);
+      const obsPx = worldToSpatialPx(state.x0, obsY);
+      const mirrorPx = worldToSpatialPx(state.x0, mirrorY);
+
+      // Dashed Cross-Track Distance line from PCA (x0, 0) to Observer (x0, d)
+      ctx.save();
+      ctx.setLineDash([5 * dpr, 4 * dpr]);
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 1.8 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(pcaPx.x, pcaPx.y);
+      ctx.lineTo(obsPx.x, obsPx.y);
+      ctx.stroke();
+
+      // Mirror Ghost Cross-Track line if active
+      if (state.showMirrorGhost) {
+        ctx.strokeStyle = 'rgba(232, 121, 249, 0.65)';
+        ctx.beginPath();
+        ctx.moveTo(pcaPx.x, pcaPx.y);
+        ctx.lineTo(mirrorPx.x, mirrorPx.y);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Distance d Label Pill on Cross-Track Line
+      const midDy = (pcaPx.y + obsPx.y) * 0.5;
+      const dLabel = `d = ${state.d.toFixed(1)} m`;
+      ctx.font = `600 ${10.5 * dpr}px "JetBrains Mono", monospace`;
+      const dLabelW = ctx.measureText(dLabel).width + 10 * dpr;
+      ctx.fillStyle = 'rgba(6, 78, 59, 0.92)';
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.7)';
+      ctx.lineWidth = 1 * dpr;
+      ctx.beginPath();
+      ctx.roundRect(pcaPx.x + 6 * dpr, midDy - 9 * dpr, dLabelW, 18 * dpr, 4 * dpr);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = '#6ee7b7';
+      ctx.textAlign = 'left';
+      ctx.fillText(dLabel, pcaPx.x + 11 * dpr, midDy + 3.5 * dpr);
+
+      // PCA Point Diamond on Track
+      ctx.fillStyle = '#38bdf8';
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.beginPath();
+      const dia = 5.5 * dpr;
+      ctx.moveTo(pcaPx.x, pcaPx.y - dia);
+      ctx.lineTo(pcaPx.x + dia, pcaPx.y);
+      ctx.lineTo(pcaPx.x, pcaPx.y + dia);
+      ctx.lineTo(pcaPx.x - dia, pcaPx.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // PCA Label on Track
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = `600 ${10 * dpr}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      const pcaLabelOffset = state.observerSide > 0 ? 17 * dpr : -9 * dpr;
+      ctx.fillText(`PCA (x₀=${state.x0.toFixed(0)}m)`, pcaPx.x, pcaPx.y + pcaLabelOffset);
+
+      // 1D. Line-of-Sight (LOS) Vector & Radial Velocity Projection v_r
+      const srcPx = worldToSpatialPx(sourceX, 0);
+
+      // Draw LOS to Mirror Ghost if enabled
+      if (state.showMirrorGhost) {
+        ctx.save();
+        ctx.setLineDash([4 * dpr, 4 * dpr]);
+        ctx.strokeStyle = 'rgba(232, 121, 249, 0.5)';
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(srcPx.x, srcPx.y);
+        ctx.lineTo(mirrorPx.x, mirrorPx.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Main LOS Line from Source to Observer
+      ctx.save();
+      ctx.setLineDash([3 * dpr, 3 * dpr]);
+      ctx.strokeStyle = 'rgba(226, 232, 240, 0.65)';
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(srcPx.x, srcPx.y);
+      ctx.lineTo(obsPx.x, obsPx.y);
+      ctx.stroke();
+      ctx.restore();
+
+      // Velocity vector v (along track) & Radial projection v_r (along LOS)
+      const vecScale = 0.85 * scale; // Visual vector length scaling
+      const vLenPx = state.v * vecScale;
+      const vxEnd = srcPx.x + vLenPx;
+      const vyEnd = srcPx.y;
+
+      // Unit vector from Source to Observer in canvas coordinates
+      const losDx = obsPx.x - srcPx.x;
+      const losDy = obsPx.y - srcPx.y;
+      const losLen = Math.hypot(losDx, losDy);
+
+      if (losLen > 1e-3) {
+        const ux = losDx / losLen;
+        const uy = losDy / losLen;
+
+        // Dot product of velocity vector (vLenPx, 0) with unit LOS vector (ux, uy)
+        const vrProjPx = vLenPx * ux;
+        const vrEndX = srcPx.x + vrProjPx * ux;
+        const vrEndY = srcPx.y + vrProjPx * uy;
+
+        // Dashed perpendicular projection line from tip of v to tip of v_r
+        ctx.save();
+        ctx.setLineDash([2.5 * dpr, 2.5 * dpr]);
+        ctx.strokeStyle = 'rgba(251, 113, 133, 0.65)';
+        ctx.lineWidth = 1.2 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(vxEnd, vyEnd);
+        ctx.lineTo(vrEndX, vrEndY);
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw Radial Velocity Vector v_r along LOS
+        if (Math.abs(vrProjPx) > 3 * dpr) {
+          drawArrow(ctx, srcPx.x, srcPx.y, vrEndX, vrEndY, '#fb7185', 2.6 * dpr, 7 * dpr);
+        }
+
+        // Also show Mirror Ghost radial projection if enabled
+        if (state.showMirrorGhost) {
+          const mDx = mirrorPx.x - srcPx.x;
+          const mDy = mirrorPx.y - srcPx.y;
+          const mLen = Math.hypot(mDx, mDy);
+          if (mLen > 1e-3) {
+            const mux = mDx / mLen;
+            const muy = mDy / mLen;
+            const mProj = vLenPx * mux;
+            const mEndX = srcPx.x + mProj * mux;
+            const mEndY = srcPx.y + mProj * muy;
+            if (Math.abs(mProj) > 3 * dpr) {
+              drawArrow(ctx, srcPx.x, srcPx.y, mEndX, mEndY, 'rgba(232, 121, 249, 0.85)', 2 * dpr, 6 * dpr);
+            }
+          }
+        }
+      }
+
+      // Draw Source Velocity Vector v along the track
+      drawArrow(ctx, srcPx.x, srcPx.y, vxEnd, vyEnd, '#fbbf24', 2.4 * dpr, 7 * dpr);
+
+      // 1E. Draw Mirror Ghost Marker at (x0, -d) if enabled
+      if (state.showMirrorGhost) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(217, 70, 239, 0.22)';
+        ctx.strokeStyle = '#e879f9';
+        ctx.lineWidth = 2 * dpr;
+        ctx.beginPath();
+        ctx.arc(mirrorPx.x, mirrorPx.y, 9 * dpr, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#f0abfc';
+        ctx.font = `600 ${10 * dpr}px "Inter", sans-serif`;
+        ctx.textAlign = 'center';
+        const mLabelY = mirrorY > 0 ? mirrorPx.y - 14 * dpr : mirrorPx.y + 20 * dpr;
+        ctx.fillText('Mirror Ghost (x₀, -d)', mirrorPx.x, mLabelY);
+        ctx.restore();
+      }
+
+      // 1F. Draw Draggable Primary Observer Marker at (x0, d)
+      // Outer pulse ring
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+      ctx.beginPath();
+      ctx.arc(obsPx.x, obsPx.y, 13 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Solid observer circle
+      ctx.fillStyle = '#10b981';
+      ctx.strokeStyle = '#052e16';
+      ctx.lineWidth = 2 * dpr;
+      ctx.beginPath();
+      ctx.arc(obsPx.x, obsPx.y, 7.5 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Inner white dot
+      ctx.fillStyle = '#ecfdf5';
+      ctx.beginPath();
+      ctx.arc(obsPx.x, obsPx.y, 2.5 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Observer Label
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = `600 ${11 * dpr}px "Inter", sans-serif`;
+      ctx.textAlign = 'center';
+      const obsLabelY = obsY > 0 ? obsPx.y - 16 * dpr : obsPx.y + 22 * dpr;
+      ctx.fillText('OBSERVER (Drag)', obsPx.x, obsLabelY);
+
+      // 1G. Draw Moving Signal Source Marker at (x(t), 0)
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.25)';
+      ctx.beginPath();
+      ctx.arc(srcPx.x, srcPx.y, 12 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#f59e0b';
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2 * dpr;
+      ctx.beginPath();
+      ctx.arc(srcPx.x, srcPx.y, 6.5 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // Helper to draw crisp technical arrows
+    function drawArrow(ctx, x1, y1, x2, y2, color, lineWidth, headLen) {
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const angle = Math.atan2(dy, dx);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = lineWidth;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /********************************************************************
+     * 2. RENDER LIVE DOPPLER CURVE GRAPH (f(t) vs t)
+     ********************************************************************/
+    function getGraphPadding(dpr) {
+      return {
+        left: 58 * dpr,
+        right: 24 * dpr,
+        top: 24 * dpr,
+        bottom: 36 * dpr
+      };
+    }
+
+    function getGraphFreqBounds() {
+      // Compute frequency range that comfortably fits both current and pinned curves
+      const maxV = Math.max(state.v, state.pinnedCurve ? state.pinnedCurve.v : 0, 55);
+      const baseF = state.f0;
+      const fMaxApproach = baseF * (SPEED_OF_SOUND / (SPEED_OF_SOUND - maxV));
+      const fMinRecede = baseF * (SPEED_OF_SOUND / (SPEED_OF_SOUND + maxV));
+      const margin = (fMaxApproach - fMinRecede) * 0.18 + 15;
+
+      let fMin = Math.floor((fMinRecede - margin) / 10) * 10;
+      let fMax = Math.ceil((fMaxApproach + margin) / 10) * 10;
+
+      if (state.pinnedCurve) {
+        const pMax = state.pinnedCurve.f0 * (SPEED_OF_SOUND / (SPEED_OF_SOUND - state.pinnedCurve.v));
+        const pMin = state.pinnedCurve.f0 * (SPEED_OF_SOUND / (SPEED_OF_SOUND + state.pinnedCurve.v));
+        fMin = Math.min(fMin, Math.floor((pMin - 20) / 10) * 10);
+        fMax = Math.max(fMax, Math.ceil((pMax + 20) / 10) * 10);
+      }
+      return { fMin: Math.max(50, fMin), fMax };
+    }
+
+    function renderGraphCanvas() {
+      const ctx = graphCtx;
+      const w = graphCanvas.width;
+      const h = graphCanvas.height;
+      const dpr = window.devicePixelRatio || 1;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#070b14';
+      ctx.fillRect(0, 0, w, h);
+
+      const pad = getGraphPadding(dpr);
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+      if (plotW <= 0 || plotH <= 0) return;
+
+      const tMax = getTotalDuration(state.v);
+      const { fMin, fMax } = getGraphFreqBounds();
+
+      const timeToX = (t) => pad.left + (t / tMax) * plotW;
+      const freqToY = (f) => pad.top + (1 - (f - fMin) / (fMax - fMin)) * plotH;
+
+      // 2A. Grid Lines & Axes Labels
+      ctx.lineWidth = 1 * dpr;
+      ctx.font = `${10 * dpr}px "JetBrains Mono", monospace`;
+
+      // Horizontal frequency grid lines
+      const fStep = fMax - fMin > 260 ? 50 : 25;
+      const firstFreqTick = Math.ceil(fMin / fStep) * fStep;
+      for (let f = firstFreqTick; f <= fMax; f += fStep) {
+        const y = freqToY(f);
+        ctx.strokeStyle = 'rgba(51, 65, 85, 0.4)';
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(w - pad.right, y);
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${f}`, pad.left - 7 * dpr, y + 3.5 * dpr);
+      }
+
+      // Vertical time grid lines
+      const tStep = tMax > 18 ? 2 : 1;
+      for (let t = 0; t <= tMax + 1e-4; t += tStep) {
+        const x = timeToX(t);
+        ctx.strokeStyle = 'rgba(51, 65, 85, 0.4)';
+        ctx.beginPath();
+        ctx.moveTo(x, pad.top);
+        ctx.lineTo(x, h - pad.bottom);
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${t.toFixed(0)}s`, x, h - pad.bottom + 15 * dpr);
+      }
+
+      // Axis Titles
+      ctx.save();
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = `600 ${10.5 * dpr}px "Inter", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('Time t (seconds) — Click or drag graph to scrub pass', pad.left + plotW * 0.5, h - 6 * dpr);
+
+      ctx.translate(14 * dpr, pad.top + plotH * 0.5);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText('Frequency f(t) [Hz]', 0, 0);
+      ctx.restore();
+
+      // Clip inside plot area for curves & tangent lines
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(pad.left, pad.top, plotW, plotH);
+      ctx.clip();
+
+      // 2B. Horizontal True Base Frequency f0 Baseline & Vertical t_PCA Crosshair
+      const yF0 = freqToY(state.f0);
+      const tPCA = getTimeOfPCA(state.x0, state.v);
+      const xPCA = timeToX(tPCA);
+
+      // Horizontal f0 line
+      ctx.save();
+      ctx.setLineDash([5 * dpr, 4 * dpr]);
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.65)';
+      ctx.lineWidth = 1.4 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, yF0);
+      ctx.lineTo(w - pad.right, yF0);
+      ctx.stroke();
+
+      // Vertical t_PCA line
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+      ctx.beginPath();
+      ctx.moveTo(xPCA, pad.top);
+      ctx.lineTo(xPCA, h - pad.bottom);
+      ctx.stroke();
+      ctx.restore();
+
+      // 2C. Draw Pinned Reference Curve (if pinned by user)
+      if (state.pinnedCurve) {
+        ctx.save();
+        ctx.setLineDash([6 * dpr, 4 * dpr]);
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)';
+        ctx.lineWidth = 2.2 * dpr;
+        ctx.beginPath();
+        const samples = 240;
+        for (let i = 0; i <= samples; i++) {
+          const tSample = (i / samples) * tMax;
+          const fSample = getDopplerFrequency(tSample, state.pinnedCurve);
+          const px = timeToX(tSample);
+          const py = freqToY(fSample);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.restore();
+
+        // Pinned curve badge inside plot
+        const pinLabel = `Pinned Reference: d=${state.pinnedCurve.d.toFixed(0)}m, x₀=${state.pinnedCurve.x0.toFixed(0)}m`;
+        ctx.font = `600 ${10 * dpr}px "JetBrains Mono", monospace`;
+        ctx.fillStyle = '#fbbf24';
+        ctx.textAlign = 'right';
+        ctx.fillText(pinLabel, w - pad.right - 8 * dpr, pad.top + 16 * dpr);
+      }
+
+      // 2D. Draw Inflection Point Slope Tangent Line at (t_PCA, f0)
+      const slopeHzPerSec = getInflectionSlope(state);
+      if (state.showTangent) {
+        // Draw tangent line segment around t_PCA: f_tan(t) = f0 + slope * (t - tPCA)
+        const dtSpan = Math.min(tMax * 0.35, (fMax - fMin) / (Math.abs(slopeHzPerSec) * 1.4));
+        const t1 = tPCA - dtSpan;
+        const t2 = tPCA + dtSpan;
+        const f1 = state.f0 + slopeHzPerSec * (t1 - tPCA);
+        const f2 = state.f0 + slopeHzPerSec * (t2 - tPCA);
+
+        ctx.save();
+        ctx.strokeStyle = '#fb7185';
+        ctx.lineWidth = 2.2 * dpr;
+        ctx.beginPath();
+        ctx.moveTo(timeToX(t1), freqToY(f1));
+        ctx.lineTo(timeToX(t2), freqToY(f2));
+        ctx.stroke();
+
+        // Slope callout pill near the inflection point
+        const slopeText = `df/dt|_PCA = ${slopeHzPerSec.toFixed(1)} Hz/s`;
+        ctx.font = `600 ${10 * dpr}px "JetBrains Mono", monospace`;
+        const tw = ctx.measureText(slopeText).width + 12 * dpr;
+        const boxX = Math.min(w - pad.right - tw - 6 * dpr, Math.max(pad.left + 6 * dpr, xPCA + 10 * dpr));
+        const boxY = Math.max(pad.top + 8 * dpr, yF0 - 26 * dpr);
+
+        ctx.fillStyle = 'rgba(136, 19, 55, 0.9)';
+        ctx.strokeStyle = 'rgba(251, 113, 133, 0.8)';
+        ctx.lineWidth = 1 * dpr;
+        ctx.beginPath();
+        ctx.roundRect(boxX, boxY, tw, 18 * dpr, 4 * dpr);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#fecdd3';
+        ctx.textAlign = 'left';
+        ctx.fillText(slopeText, boxX + 6 * dpr, boxY + 12.5 * dpr);
+        ctx.restore();
+      }
+
+      // 2E. Draw Continuous S-Shaped Live Doppler Curve f(t)
+      ctx.save();
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 3 * dpr;
+      ctx.shadowColor = 'rgba(16, 185, 129, 0.35)';
+      ctx.shadowBlur = 8 * dpr;
+      ctx.beginPath();
+
+      const numSteps = 300;
+      for (let i = 0; i <= numSteps; i++) {
+        const tSample = (i / numSteps) * tMax;
+        const fSample = getDopplerFrequency(tSample, state);
+        const px = timeToX(tSample);
+        const py = freqToY(fSample);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.restore();
+
+      // If Mirror Ghost is active, overlay dashed fuchsia trace right on top to prove identical curve!
+      if (state.showMirrorGhost) {
+        ctx.save();
+        ctx.setLineDash([6 * dpr, 6 * dpr]);
+        ctx.strokeStyle = '#e879f9';
+        ctx.lineWidth = 2.2 * dpr;
+        ctx.beginPath();
+        for (let i = 0; i <= numSteps; i++) {
+          const tSample = (i / numSteps) * tMax;
+          const fSample = getDopplerFrequency(tSample, state);
+          const px = timeToX(tSample);
+          const py = freqToY(fSample);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 2F. Draw Inflection Point Marker at (t_PCA, f0)
+      ctx.fillStyle = '#38bdf8';
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2 * dpr;
+      ctx.beginPath();
+      ctx.arc(xPCA, yF0, 5 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Labels for f0 and t_PCA inside plot
+      ctx.font = `600 ${10 * dpr}px "JetBrains Mono", monospace`;
+      ctx.fillStyle = '#c084fc';
+      ctx.textAlign = 'left';
+      ctx.fillText(`f₀ = ${state.f0.toFixed(0)} Hz`, pad.left + 6 * dpr, yF0 - 5 * dpr);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.textAlign = 'left';
+      const pcaLabelX = xPCA + 6 * dpr < w - pad.right - 95 * dpr ? xPCA + 6 * dpr : xPCA - 95 * dpr;
+      ctx.fillText(`t_PCA = ${tPCA.toFixed(2)}s`, pcaLabelX, pad.top + 14 * dpr);
+
+      // 2G. Draw Live Synchronized Playhead Dot at (t, f(t))
+      const curF = getDopplerFrequency(state.t, state);
+      const playX = timeToX(state.t);
+      const playY = freqToY(curF);
+
+      // Vertical playhead hairline
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      ctx.lineWidth = 1.2 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(playX, pad.top);
+      ctx.lineTo(playX, h - pad.bottom);
+      ctx.stroke();
+
+      // Outer glow ring
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.28)';
+      ctx.beginPath();
+      ctx.arc(playX, playY, 10 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Playhead core dot
+      ctx.fillStyle = '#fbbf24';
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 2 * dpr;
+      ctx.beginPath();
+      ctx.arc(playX, playY, 5.5 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore(); // End clip
+
+      // Plot Border
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1.2 * dpr;
+      ctx.strokeRect(pad.left, pad.top, plotW, plotH);
+    }
+
+    /********************************************************************
+     * 3 & 4. UPDATE TELEMETRY, READOUTS & LOCALIZATION MATH
+     ********************************************************************/
+    function updateUIAndTelemetry() {
+      const tMax = getTotalDuration(state.v);
+      if (state.t > tMax) state.t = tMax;
+
+      const curX = getSourceX(state.t, state.v);
+      const curVr = getRadialVelocity(state.t, state);
+      const curF = getDopplerFrequency(state.t, state);
+      const deltaF = curF - state.f0;
+      const tPCA = getTimeOfPCA(state.x0, state.v);
+      const slope = getInflectionSlope(state);
+      const absSlope = Math.abs(slope);
+
+      // Inverse Localization Formula for d from |df/dt|_PCA:
+      // d = (f0 * v^2) / (c * |df/dt|_PCA)
+      const solvedD = (state.f0 * state.v * state.v) / (SPEED_OF_SOUND * absSlope);
+      const solvedX0 = TRACK_MIN_X + state.v * tPCA;
+
+      // Update Control Readouts
+      distanceVal.textContent = `${state.d.toFixed(1)} m`;
+      if (state.d <= 20) {
+        steepnessBadge.textContent = 'Near-Track · Steep Drop';
+        steepnessBadge.className = 'block text-[11px] font-mono text-emerald-400';
+      } else if (state.d <= 75) {
+        steepnessBadge.textContent = 'Medium Slope';
+        steepnessBadge.className = 'block text-[11px] font-mono text-sky-400';
+      } else {
+        steepnessBadge.textContent = 'Far-Track · Gentle Slope';
+        steepnessBadge.className = 'block text-[11px] font-mono text-amber-400';
+      }
+
+      x0Val.textContent = `${state.x0 > 0 ? '+' : ''}${state.x0.toFixed(0)} m`;
+      speedVal.textContent = `${state.v.toFixed(1)} m/s`;
+      const kmh = (state.v * 3.6).toFixed(0);
+      const mach = (state.v / SPEED_OF_SOUND).toFixed(2);
+      machVal.textContent = `${kmh} km/h (${mach} Mach)`;
+      freqVal.textContent = `${state.f0.toFixed(0)} Hz`;
+
+      // Update Scrubber
+      timeScrubber.max = tMax.toFixed(2);
+      timeScrubber.value = state.t;
+      timeReadout.textContent = `${state.t.toFixed(2)} / ${tMax.toFixed(2)} s`;
+
+      // Update Spatial Overlays
+      const obsY = state.observerSide * state.d;
+      overlaySourceX.textContent = `${curX >= 0 ? '+' : ''}${curX.toFixed(1)} m`;
+      overlayObsPos.textContent = `(${state.x0.toFixed(0)} m, ${obsY >= 0 ? '+' : ''}${obsY.toFixed(0)} m)`;
+      if (state.showMirrorGhost) {
+        overlayMirrorRow.classList.remove('hidden');
+        overlayMirrorPos.textContent = `(${state.x0.toFixed(0)} m, ${-obsY >= 0 ? '+' : ''}${(-obsY).toFixed(0)} m)`;
+      } else {
+        overlayMirrorRow.classList.add('hidden');
+      }
+
+      // Update Telemetry Cards
+      telFreq.textContent = `${curF.toFixed(1)} Hz`;
+      telDeltaF.textContent = `${deltaF >= 0 ? '+' : ''}${deltaF.toFixed(1)} Hz`;
+      telDeltaF.className = `text-base sm:text-lg font-mono font-bold ${
+        deltaF > 0.5 ? 'text-sky-300' : deltaF < -0.5 ? 'text-amber-300' : 'text-slate-200'
+      }`;
+
+      telVr.textContent = `${curVr >= 0 ? '+' : ''}${curVr.toFixed(1)} m/s`;
+      telTpca.textContent = `${tPCA.toFixed(2)} s`;
+      telSlope.textContent = `${slope.toFixed(2)} Hz/s`;
+      telSolvedD.textContent = `${solvedD.toFixed(1)} m`;
+
+      // Pass Phase Badge
+      const dx = curX - state.x0;
+      if (Math.abs(dx) < 3.5) {
+        passPhaseBadge.textContent = 'AT PCA (ZERO SHIFT)';
+        passPhaseBadge.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/40';
+      } else if (dx < 0) {
+        passPhaseBadge.textContent = 'APPROACHING (+Δf)';
+        passPhaseBadge.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      } else {
+        passPhaseBadge.textContent = 'RECEDING (-Δf)';
+        passPhaseBadge.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      }
+
+      // Live Substituted Equations in Localization Solver Box
+      mathX0Calc.textContent = `-250 + ${state.v.toFixed(1)} × ${tPCA.toFixed(2)} = ${solvedX0 >= 0 ? '+' : ''}${solvedX0.toFixed(1)} m`;
+      mathDCalc.innerHTML = `d = (${state.f0.toFixed(0)} × ${state.v.toFixed(1)}²) / (343 × ${absSlope.toFixed(2)}) = <strong class="text-emerald-400">${solvedD.toFixed(1)} m</strong>`;
+    }
+
+    function renderAll() {
+      updateUIAndTelemetry();
+      renderSpatialCanvas();
+      renderGraphCanvas();
+      updateAudioSynth();
+    }
+
+    /********************************************************************
+     * INTERACTIVE POINTER EVENTS (DRAGGING OBSERVER & GRAPH SCRUBBING)
+     ********************************************************************/
+    function getCanvasPointerPos(canvas, evt) {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+      const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+      return {
+        x: (clientX - rect.left) * dpr,
+        y: (clientY - rect.top) * dpr
+      };
+    }
+
+    // Spatial Canvas Observer Dragging
+    spatialCanvas.addEventListener('pointerdown', (e) => {
+      const pt = getCanvasPointerPos(spatialCanvas, e);
+      const obsY = state.observerSide * state.d;
+      const obsPx = worldToSpatialPx(state.x0, obsY);
+      const dpr = window.devicePixelRatio || 1;
+
+      // Allow clicking anywhere on the spatial canvas or directly dragging observer
+      const distToObs = Math.hypot(pt.x - obsPx.x, pt.y - obsPx.y);
+      if (distToObs < 36 * dpr || true) {
+        state.isDraggingObserver = true;
+        spatialCanvas.setPointerCapture(e.pointerId);
+        updateObserverFromPointer(pt);
+      }
+    });
+
+    spatialCanvas.addEventListener('pointermove', (e) => {
+      const pt = getCanvasPointerPos(spatialCanvas, e);
+      const obsY = state.observerSide * state.d;
+      const obsPx = worldToSpatialPx(state.x0, obsY);
+      const dpr = window.devicePixelRatio || 1;
+
+      if (!state.isDraggingObserver) {
+        const distToObs = Math.hypot(pt.x - obsPx.x, pt.y - obsPx.y);
+        spatialCanvas.style.cursor = distToObs < 24 * dpr ? 'grab' : 'crosshair';
+        return;
+      }
+
+      spatialCanvas.style.cursor = 'grabbing';
+      updateObserverFromPointer(pt);
+    });
+
+    window.addEventListener('pointerup', () => {
+      state.isDraggingObserver = false;
+      state.isScrubbingGraph = false;
+      spatialCanvas.style.cursor = 'default';
+    });
+
+    function updateObserverFromPointer(pt) {
+      const world = spatialPxToWorld(pt.x, pt.y);
+      // Clamp x0 to [-150, 150] m and d to [5, 150] m
+      state.x0 = Math.round(Math.max(-150, Math.min(150, world.x)));
+      state.d = Math.round(Math.max(5, Math.min(150, Math.abs(world.y))) * 2) / 2;
+      if (Math.abs(world.y) > 2) {
+        state.observerSide = world.y >= 0 ? 1 : -1;
+      }
+
+      distanceSlider.value = state.d;
+      x0Slider.value = state.x0;
+      renderAll();
+    }
+
+    // Graph Canvas Time Scrubbing
+    graphCanvas.addEventListener('pointerdown', (e) => {
+      state.isScrubbingGraph = true;
+      graphCanvas.setPointerCapture(e.pointerId);
+      scrubGraphFromPointer(e);
+    });
+
+    graphCanvas.addEventListener('pointermove', (e) => {
+      if (!state.isScrubbingGraph) {
+        graphCanvas.style.cursor = 'ew-resize';
+        return;
+      }
+      scrubGraphFromPointer(e);
+    });
+
+    function scrubGraphFromPointer(e) {
+      const pt = getCanvasPointerPos(graphCanvas, e);
+      const dpr = window.devicePixelRatio || 1;
+      const pad = getGraphPadding(dpr);
+      const plotW = graphCanvas.width - pad.left - pad.right;
+      const ratio = Math.max(0, Math.min(1, (pt.x - pad.left) / plotW));
+      state.t = ratio * getTotalDuration(state.v);
+      renderAll();
+    }
+
+    /********************************************************************
+     * UI CONTROLS & PRESET HANDLERS
+     ********************************************************************/
+    distanceSlider.addEventListener('input', (e) => {
+      state.d = parseFloat(e.target.value);
+      renderAll();
+    });
+
+    x0Slider.addEventListener('input', (e) => {
+      state.x0 = parseFloat(e.target.value);
+      renderAll();
+    });
+
+    speedSlider.addEventListener('input', (e) => {
+      const oldDuration = getTotalDuration(state.v);
+      const progressRatio = state.t / oldDuration;
+      state.v = parseFloat(e.target.value);
+      state.t = progressRatio * getTotalDuration(state.v);
+      renderAll();
+    });
+
+    freqSlider.addEventListener('input', (e) => {
+      state.f0 = parseFloat(e.target.value);
+      renderAll();
+    });
+
+    timeScrubber.addEventListener('input', (e) => {
+      state.t = parseFloat(e.target.value);
+      renderAll();
+    });
+
+    // Presets
+    function applyPreset(dVal, x0ValNum) {
+      state.d = dVal;
+      if (typeof x0ValNum === 'number') state.x0 = x0ValNum;
+      distanceSlider.value = state.d;
+      x0Slider.value = state.x0;
+      renderAll();
+    }
+
+    document.getElementById('presetCloseBtn').addEventListener('click', () => applyPreset(10));
+    document.getElementById('presetMedBtn').addEventListener('click', () => applyPreset(45));
+    document.getElementById('presetFarBtn').addEventListener('click', () => applyPreset(120));
+
+    // Playback Controls
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const playPauseText = document.getElementById('playPauseText');
+
+    function setPlayingState(playing) {
+      state.isPlaying = playing;
+      if (playing) {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        playPauseText.textContent = 'Pause';
+        state.lastFrameTime = performance.now();
+      } else {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        playPauseText.textContent = 'Play';
+      }
+      updateAudioSynth();
+    }
+
+    playPauseBtn.addEventListener('click', () => {
+      if (!state.isPlaying && state.t >= getTotalDuration(state.v) - 0.05) {
+        state.t = 0;
+      }
+      setPlayingState(!state.isPlaying);
+    });
+
+    document.getElementById('resetTimeBtn').addEventListener('click', () => {
+      state.t = 0;
+      renderAll();
+    });
+
+    document.getElementById('jumpPcaBtn').addEventListener('click', () => {
+      state.t = getTimeOfPCA(state.x0, state.v);
+      setPlayingState(false);
+      renderAll();
+    });
+
+    const loopToggleBtn = document.getElementById('loopToggleBtn');
+    loopToggleBtn.addEventListener('click', () => {
+      state.loop = !state.loop;
+      loopToggleBtn.textContent = `Loop: ${state.loop ? 'ON' : 'OFF'}`;
+      loopToggleBtn.className = state.loop
+        ? 'px-2.5 py-1.5 rounded-lg text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 transition'
+        : 'px-2.5 py-1.5 rounded-lg text-xs font-mono bg-slate-800 text-slate-400 border border-slate-700 transition';
+    });
+
+    // Mirror Ghost Toggle
+    const mirrorGhostBtn = document.getElementById('mirrorGhostBtn');
+    const mirrorIndicator = document.getElementById('mirrorIndicator');
+    mirrorGhostBtn.addEventListener('click', () => {
+      state.showMirrorGhost = !state.showMirrorGhost;
+      if (state.showMirrorGhost) {
+        mirrorGhostBtn.className = 'px-2.5 py-1 rounded-md text-xs font-mono bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/40 transition flex items-center gap-1.5';
+        mirrorIndicator.className = 'w-2 h-2 rounded-full bg-fuchsia-400 shadow-[0_0_6px_#e879f9]';
+      } else {
+        mirrorGhostBtn.className = 'px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1.5';
+        mirrorIndicator.className = 'w-2 h-2 rounded-full bg-slate-500';
+      }
+      renderAll();
+    });
+
+    // Wavefronts Toggle
+    const wavefrontsToggleBtn = document.getElementById('wavefrontsToggleBtn');
+    wavefrontsToggleBtn.addEventListener('click', () => {
+      state.showWavefronts = !state.showWavefronts;
+      wavefrontsToggleBtn.textContent = `Wavefronts: ${state.showWavefronts ? 'ON' : 'OFF'}`;
+      wavefrontsToggleBtn.className = state.showWavefronts
+        ? 'px-2.5 py-1 rounded-md text-xs font-mono bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 transition'
+        : 'px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-400 border border-slate-700 transition';
+      renderAll();
+    });
+
+    // PCA Slope Tangent Toggle
+    const tangentToggleBtn = document.getElementById('tangentToggleBtn');
+    tangentToggleBtn.addEventListener('click', () => {
+      state.showTangent = !state.showTangent;
+      tangentToggleBtn.textContent = `PCA Slope Tangent: ${state.showTangent ? 'ON' : 'OFF'}`;
+      tangentToggleBtn.className = state.showTangent
+        ? 'px-2.5 py-1 rounded-md text-xs font-mono bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition'
+        : 'px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-400 border border-slate-700 transition';
+      renderAll();
+    });
+
+    // Pin Reference Curve Button
+    const pinCurveBtn = document.getElementById('pinCurveBtn');
+    const pinCurveBtnText = document.getElementById('pinCurveBtnText');
+    const clearPinBtn = document.getElementById('clearPinBtn');
+
+    pinCurveBtn.addEventListener('click', () => {
+      state.pinnedCurve = {
+        d: state.d,
+        x0: state.x0,
+        v: state.v,
+        f0: state.f0
+      };
+      pinCurveBtnText.textContent = `Pinned (d=${state.d.toFixed(0)}m)`;
+      clearPinBtn.classList.remove('hidden');
+      renderAll();
+    });
+
+    clearPinBtn.addEventListener('click', () => {
+      state.pinnedCurve = null;
+      pinCurveBtnText.textContent = 'Pin Reference Curve';
+      clearPinBtn.classList.add('hidden');
+      renderAll();
+    });
+
+    // Audio Siren Button
+    document.getElementById('audioToggleBtn').addEventListener('click', initOrToggleAudio);
+
+    /********************************************************************
+     * MAIN ANIMATION LOOP
+     ********************************************************************/
+    function animateLoop(now) {
+      const dt = Math.min(0.1, (now - state.lastFrameTime) / 1000);
+      state.lastFrameTime = now;
+
+      if (state.isPlaying && !state.isScrubbingGraph) {
+        const tMax = getTotalDuration(state.v);
+        state.t += dt;
+        if (state.t >= tMax) {
+          if (state.loop) {
+            state.t = state.t % tMax;
+          } else {
+            state.t = tMax;
+            setPlayingState(false);
+          }
+        }
+        renderAll();
+      }
+
+      requestAnimationFrame(animateLoop);
+    }
+
+    window.onload = function () {
+      resizeCanvases();
+      renderAll();
+      state.lastFrameTime = performance.now();
+      requestAnimationFrame(animateLoop);
+    };
+  </script>
+</body>
+</html>

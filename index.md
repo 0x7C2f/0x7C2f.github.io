@@ -1,6 +1,6 @@
 ---
 layout: false
-title: "~/0x7C2f"
+title: "0x7C2f // command center"
 permalink: /
 ---
 <!DOCTYPE html>
@@ -8,213 +8,366 @@ permalink: /
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="0x7C2f – TUI startpage: search, bookmarks, and quick links." />
+  <meta name="description" content="0x7C2f – terminal startpage: search, bookmarks, and quick links." />
   <meta name="robots" content="index, follow" />
-  <title>~/0x7C2f</title>
-  <style>
-    /* ── Reset & base ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <title>0x7C2f // command center</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
     :root {
-      --bg:      #000;
-      --fg:      #DBDBDB;
-      --dim:     #888;
-      --border:  rgba(219,219,219,0.75);
-      --accent:  #b38aff;
-      --green:   #05ca05;
-      --yellow:  #e4e477;
-      --red:     #f44;
-      --sel-bg:  #DBDBDB;
-      --sel-fg:  #000;
-      --font:    "Courier New", Courier, monospace;
-      --fs:      15px;
-      --fs-sm:   12px;
+      --bg:        #070b14;
+      --bg-1:      #0d1321;
+      --bg-2:      #121a2b;
+      --panel:     rgba(13, 19, 33, 0.72);
+      --fg:        #e2e8f0;
+      --fg-dim:    #94a3b8;
+      --fg-mute:   #64748b;
+      --border:    rgba(148, 163, 184, 0.18);
+      --border-hi: rgba(148, 163, 184, 0.42);
+      --accent:    #22d3ee;
+      --accent-2:  #a78bfa;
+      --amber:     #fbbf24;
+      --green:     #4ade80;
+      --red:       #f87171;
+      --sel-bg:    #22d3ee;
+      --sel-fg:    #070b14;
+      --font:      "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+      --font-ui:   "Inter", system-ui, sans-serif;
+      --fs:        14px;
+      --fs-sm:     12px;
+      --radius:    10px;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-      height: 100%; width: 100%;
+      height: 100%;
       background: var(--bg);
       color: var(--fg);
       font-family: var(--font);
       font-size: var(--fs);
-      line-height: 1.5;
+      line-height: 1.55;
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Outer shell: full viewport ──────────────────────────── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(60% 50% at 15% 10%, rgba(34, 211, 238, 0.10), transparent 60%),
+        radial-gradient(50% 40% at 85% 90%, rgba(167, 139, 250, 0.08), transparent 60%),
+        radial-gradient(40% 30% at 50% 50%, rgba(251, 191, 36, 0.04), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     #shell {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       height: 100vh;
-      width: 100vw;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 12px 4px;
+      padding: 0 20px 12px;
     }
 
-    /* ── Title bar ───────────────────────────────────────────── */
     #titlebar {
       display: flex;
       align-items: center;
-      gap: 0;
-      border-bottom: 1px dashed var(--border);
-      padding: 6px 0;
+      gap: 14px;
+      padding: 14px 0 12px;
+      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
-    #titlebar-left  { font-weight: bold; padding-right: 12px; border-right: 1px dashed var(--border); }
-    #titlebar-nav   { display: flex; flex: 1; gap: 2px; padding: 0 8px; flex-wrap: wrap; }
-    #titlebar-nav a {
-      color: var(--fg); text-decoration: none;
-      padding: 2px 8px; min-height: 24px; line-height: 20px;
+    #titlebar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
-    #titlebar-nav a:hover { background: var(--sel-bg); color: var(--sel-fg); }
-    #titlebar-clock {
-      padding-left: 12px;
-      border-left: 1px dashed var(--border);
-      color: var(--dim);
-      white-space: nowrap;
+    #titlebar-left .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.25);
+    }
+    #titlebar-left a { color: var(--fg); text-decoration: none; }
+    #titlebar-left a:hover { color: var(--accent); }
+
+    #titlebar-nav {
+      display: flex;
+      flex: 1;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    #titlebar-nav a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
       font-size: var(--fs-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+    #titlebar-nav a:hover {
+      color: var(--fg);
+      background: rgba(148, 163, 184, 0.08);
+    }
+    #titlebar-nav a.active { color: var(--accent); }
+
+    #titlebar-clock {
+      color: var(--fg-mute);
+      font-size: var(--fs-sm);
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
     }
 
-    /* ── Main centering area ─────────────────────────────────── */
     #center {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       flex: 1;
-      gap: 10px;
+      gap: 22px;
+      min-height: 0;
+      overflow: hidden;
     }
 
-    /* ── ASCII banner ────────────────────────────────────────── */
-    #banner {
-      color: var(--accent);
+    #wordmark {
       text-align: center;
-      font-size: var(--fs-sm);
-      line-height: 1.2;
-      white-space: pre;
       user-select: none;
     }
+    #wordmark .hex {
+      font-size: 11px;
+      color: var(--fg-mute);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    #wordmark .name {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, var(--fg) 0%, var(--accent) 55%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(34, 211, 238, 0.15);
+    }
+    #wordmark .tag {
+      margin-top: 6px;
+      color: var(--fg-dim);
+      font-size: var(--fs-sm);
+      font-family: var(--font-ui);
+    }
+    #wordmark .tag span { color: var(--accent); }
 
-    /* ── TUI panel (generic bordered box) ────────────────────── */
-    .tui-panel {
-      border: 1px dashed var(--border);
+    .panel {
       width: 100%;
-      max-width: 620px;
+      max-width: 760px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 20px 60px -20px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
     }
-    .tui-panel-title {
-      border-bottom: 1px dashed var(--border);
-      padding: 2px 10px;
-      color: var(--accent);
-      font-weight: bold;
+    .panel-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(148, 163, 184, 0.04);
+    }
+    .panel-head .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--fg-mute);
+    }
+    .panel-head .dot.r { background: var(--red); }
+    .panel-head .dot.y { background: var(--amber); }
+    .panel-head .dot.g { background: var(--green); }
+    .panel-head .title {
+      margin-left: 6px;
+      color: var(--fg-dim);
       font-size: var(--fs-sm);
-      user-select: none;
+      letter-spacing: 0.05em;
     }
-    .tui-panel-body { padding: 8px 10px; }
+    .panel-head .title .accent { color: var(--accent); }
 
-    /* ── Search engine tabs ──────────────────────────────────── */
     #engine-tabs {
       display: flex;
-      gap: 0;
-      border-bottom: 1px dashed var(--border);
+      gap: 2px;
+      padding: 8px 12px 0;
       overflow-x: auto;
       scrollbar-width: none;
     }
     #engine-tabs::-webkit-scrollbar { display: none; }
     .eng-tab {
-      padding: 2px 10px;
+      padding: 6px 12px;
       cursor: pointer;
-      color: var(--dim);
-      border-right: 1px dashed var(--border);
-      user-select: none;
+      color: var(--fg-mute);
+      border: 1px solid transparent;
+      border-radius: 6px 6px 0 0;
       font-size: var(--fs-sm);
+      user-select: none;
       white-space: nowrap;
-      transition: background 0.1s, color 0.1s;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
     }
-    .eng-tab:hover  { background: var(--sel-bg); color: var(--sel-fg); }
-    .eng-tab.active { color: var(--fg); background: var(--bg); font-weight: bold; }
+    .eng-tab:hover {
+      color: var(--fg);
+      background: rgba(148, 163, 184, 0.06);
+    }
+    .eng-tab.active {
+      color: var(--accent);
+      background: rgba(34, 211, 238, 0.08);
+      border-color: var(--border);
+      border-bottom-color: transparent;
+      font-weight: 600;
+    }
 
-    /* ── Search row ──────────────────────────────────────────── */
     #search-row {
       display: flex;
       align-items: center;
-      padding: 8px 10px;
-      gap: 6px;
+      padding: 12px 16px;
+      gap: 12px;
     }
-    #search-prompt { color: var(--green); white-space: nowrap; user-select: none; }
-    #search-input  {
+    #search-prompt {
+      color: var(--green);
+      font-weight: 700;
+      user-select: none;
+    }
+    #search-input {
       flex: 1;
       background: transparent;
       border: none;
       outline: none;
       color: var(--fg);
       font-family: var(--font);
-      font-size: var(--fs);
-      caret-color: var(--fg);
+      font-size: 15px;
+      caret-color: var(--accent);
     }
-    #search-input::placeholder { color: var(--dim); }
+    #search-input::placeholder { color: var(--fg-mute); }
 
-    /* ── Bookmarks grid ──────────────────────────────────────── */
     #bookmarks-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
       width: 100%;
-      max-width: 620px;
-      justify-content: center;
+      max-width: 980px;
     }
     .bm-panel {
-      border: 1px dashed var(--border);
-      min-width: 140px;
-      flex: 1 1 140px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .bm-panel:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-2px);
     }
     .bm-title {
-      border-bottom: 1px dashed var(--border);
-      padding: 1px 8px;
-      font-weight: bold;
-      color: var(--yellow);
+      padding: 8px 14px;
+      font-weight: 600;
+      color: var(--amber);
       font-size: var(--fs-sm);
-      user-select: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      background: rgba(251, 191, 36, 0.04);
     }
     .bm-list {
       list-style: none;
-      padding: 4px 8px;
+      padding: 8px 10px 10px;
     }
-    .bm-list li { padding: 1px 0; }
+    .bm-list li { padding: 3px 4px; }
     .bm-list li a {
-      color: var(--fg);
+      color: var(--fg-dim);
       text-decoration: none;
       font-size: var(--fs-sm);
+      display: block;
+      padding: 3px 6px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
     }
-    .bm-list li a:hover { background: var(--sel-bg); color: var(--sel-fg); }
-    .bm-list li a:focus { outline: 1px solid var(--accent); outline-offset: 1px; }
+    .bm-list li a:hover {
+      color: var(--fg);
+      background: rgba(34, 211, 238, 0.10);
+    }
+    .bm-list li a::before {
+      content: "› ";
+      color: var(--fg-mute);
+    }
 
-    /* ── Status bar ──────────────────────────────────────────── */
     #statusbar {
-      border-top: 1px dashed var(--border);
-      padding: 3px 0;
       display: flex;
-      gap: 16px;
+      gap: 18px;
+      padding: 10px 4px 0;
       font-size: var(--fs-sm);
-      color: var(--dim);
-      flex-shrink: 0;
+      color: var(--fg-mute);
       flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
     }
     #statusbar span { white-space: nowrap; }
-    #statusbar .key { color: var(--fg); }
-    #statusbar #engine-status { margin-left: auto; color: var(--accent); }
+    #statusbar .key {
+      color: var(--fg-dim);
+      background: rgba(148, 163, 184, 0.10);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+      font-size: 11px;
+    }
+    #statusbar #engine-status {
+      margin-left: auto;
+      color: var(--accent);
+      font-weight: 600;
+    }
 
-    /* ── Selection ───────────────────────────────────────────── */
     ::selection { background: var(--sel-bg); color: var(--sel-fg); }
 
-    /* ── Responsive ──────────────────────────────────────────── */
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
       html, body { overflow: auto; }
       #shell { height: auto; min-height: 100vh; }
-      #center { justify-content: flex-start; padding: 8px 0; }
-      #banner { font-size: 9px; }
-      .tui-panel, #bookmarks-grid { max-width: 100%; }
-      .bm-panel { min-width: 120px; }
+      #center { justify-content: flex-start; padding: 16px 0; }
+      #wordmark .name { font-size: 30px; }
+      #bookmarks-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      #bookmarks-grid { grid-template-columns: 1fr; }
+      #titlebar { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -222,58 +375,52 @@ permalink: /
 
 <div id="shell">
 
-  <!-- ── Title bar ─────────────────────────────────────── -->
-  <div id="titlebar">
-    <span id="titlebar-left">[ <a href="/" style="color:inherit;text-decoration:none;">0x7C2f</a> ]</span>
+  <header id="titlebar">
+    <div id="titlebar-left">
+      <span class="logo-mark">0x</span>
+      <a href="/">0x7C2f</a>
+    </div>
     <nav id="titlebar-nav" aria-label="Site navigation">
       <a href="/blog/">blog</a>
       <a href="/files/">files</a>
       <a href="/about/">about</a>
+      <a href="/awesome-pi-coding-agent/">awesome-pi</a>
     </nav>
     <span id="titlebar-clock" aria-live="polite" aria-label="Current date and time">--:--</span>
-  </div>
+  </header>
 
-  <!-- ── Centered content ──────────────────────────────── -->
   <main id="center" role="main">
 
-    <!-- ASCII banner -->
-    <pre id="banner" aria-label="Site logo">
- ██████╗ ██╗  ██╗███████╗ ██████╗██████╗ ███████╗
-██╔═████╗╚██╗██╔╝╚════██║██╔════╝╚════██╗██╔════╝
-██║██╔██║ ╚███╔╝      ██╔╝██║      ████╔╝█████╗  
-████╔╝██║ ██╔██╗     ██╔╝ ██║     ██╔══╝ ██╔══╝  
-╚██████╔╝██╔╝ ██╗    ██║  ╚██████╗███████╗██║     
- ╚═════╝ ╚═╝  ╚═╝    ╚═╝   ╚═════╝╚══════╝╚═╝     </pre>
+    <div id="wordmark">
+      <div class="hex">0x7c2f :: terminal</div>
+      <div class="name">command center</div>
+      <div class="tag">search <span>·</span> bookmarks <span>·</span> quick links</div>
+    </div>
 
-    <!-- Search box -->
-    <div class="tui-panel" role="search" aria-label="Web search">
+    <section class="panel" role="search" aria-label="Web search">
+      <div class="panel-head">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <span class="title"><span class="accent">search</span> :: engine router</span>
+      </div>
       <div id="engine-tabs" role="tablist" aria-label="Search engine selection">
-        <div class="eng-tab active" data-engine="ddg"    data-url="https://duckduckgo.com/?q=" data-label="DuckDuckGo" role="tab" aria-selected="true"  tabindex="0">[1] ddg</div>
-        <div class="eng-tab"        data-engine="google" data-url="https://www.google.com/search?q=" data-label="Google" role="tab" aria-selected="false" tabindex="-1">[2] google</div>
-        <div class="eng-tab"        data-engine="brave"  data-url="https://search.brave.com/search?q=" data-label="Brave" role="tab" aria-selected="false" tabindex="-1">[3] brave</div>
-        <div class="eng-tab"        data-engine="searx"  data-url="https://searx.be/search?q=" data-label="SearXNG" role="tab" aria-selected="false" tabindex="-1">[4] searx</div>
-        <div class="eng-tab"        data-engine="yt"     data-url="https://www.youtube.com/results?search_query=" data-label="YouTube" role="tab" aria-selected="false" tabindex="-1">[5] yt</div>
+        <div class="eng-tab active" data-engine="ddg" data-url="https://duckduckgo.com/?q=" data-label="DuckDuckGo" role="tab" aria-selected="true" tabindex="0">[1] ddg</div>
+        <div class="eng-tab" data-engine="google" data-url="https://www.google.com/search?q=" data-label="Google" role="tab" aria-selected="false" tabindex="-1">[2] google</div>
+        <div class="eng-tab" data-engine="brave" data-url="https://search.brave.com/search?q=" data-label="Brave" role="tab" aria-selected="false" tabindex="-1">[3] brave</div>
+        <div class="eng-tab" data-engine="searx" data-url="https://searx.be/search?q=" data-label="SearXNG" role="tab" aria-selected="false" tabindex="-1">[4] searx</div>
+        <div class="eng-tab" data-engine="yt" data-url="https://www.youtube.com/results?search_query=" data-label="YouTube" role="tab" aria-selected="false" tabindex="-1">[5] yt</div>
       </div>
       <div id="search-row">
         <span id="search-prompt">❯</span>
-        <input
-          id="search-input"
-          type="text"
-          placeholder="type to search..."
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-          aria-label="Search query"
-        />
+        <input id="search-input" type="text" placeholder="type to search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search query" />
       </div>
-    </div>
+    </section>
 
-    <!-- Bookmarks -->
     <div id="bookmarks-grid" aria-label="Bookmarks">
 
       <div class="bm-panel">
-        <div class="bm-title">[ social ]</div>
+        <div class="bm-title">social</div>
         <ul class="bm-list">
           <li><a href="https://twitter.com">twitter</a></li>
           <li><a href="https://reddit.com">reddit</a></li>
@@ -283,7 +430,7 @@ permalink: /
       </div>
 
       <div class="bm-panel">
-        <div class="bm-title">[ dev ]</div>
+        <div class="bm-title">dev</div>
         <ul class="bm-list">
           <li><a href="https://github.com">github</a></li>
           <li><a href="https://wiki.archlinux.org">arch wiki</a></li>
@@ -294,7 +441,7 @@ permalink: /
       </div>
 
       <div class="bm-panel">
-        <div class="bm-title">[ media ]</div>
+        <div class="bm-title">media</div>
         <ul class="bm-list">
           <li><a href="https://youtube.com">youtube</a></li>
           <li><a href="https://open.spotify.com">spotify</a></li>
@@ -304,7 +451,7 @@ permalink: /
       </div>
 
       <div class="bm-panel">
-        <div class="bm-title">[ news ]</div>
+        <div class="bm-title">news</div>
         <ul class="bm-list">
           <li><a href="https://news.ycombinator.com">hacker news</a></li>
           <li><a href="https://reuters.com">reuters</a></li>
@@ -314,7 +461,7 @@ permalink: /
       </div>
 
       <div class="bm-panel">
-        <div class="bm-title">[ tools ]</div>
+        <div class="bm-title">tools</div>
         <ul class="bm-list">
           <li><a href="https://chat.openai.com">chatgpt</a></li>
           <li><a href="https://claude.ai">claude</a></li>
@@ -325,7 +472,7 @@ permalink: /
       </div>
 
       <div class="bm-panel">
-        <div class="bm-title">[ site ]</div>
+        <div class="bm-title">site</div>
         <ul class="bm-list">
           <li><a href="/blog/">blog</a></li>
           <li><a href="/files/">files</a></li>
@@ -338,15 +485,14 @@ permalink: /
     </div>
   </main>
 
-  <!-- ── Status bar ─────────────────────────────────────── -->
-  <div id="statusbar" aria-label="Keyboard shortcuts">
-    <span><span class="key">[type]</span> search</span>
-    <span><span class="key">[tab]</span> switch engine</span>
-    <span><span class="key">[1-5]</span> pick engine</span>
-    <span><span class="key">[esc]</span> clear</span>
-    <span><span class="key">[enter]</span> go</span>
+  <footer id="statusbar" aria-label="Keyboard shortcuts">
+    <span><span class="key">type</span> search</span>
+    <span><span class="key">tab</span> switch engine</span>
+    <span><span class="key">1-5</span> pick engine</span>
+    <span><span class="key">esc</span> clear</span>
+    <span><span class="key">enter</span> go</span>
     <span id="engine-status">ddg</span>
-  </div>
+  </footer>
 
 </div><!-- #shell -->
 
@@ -354,7 +500,6 @@ permalink: /
 (function () {
   'use strict';
 
-  /* ── Clock ─────────────────────────────────────────────── */
   const clock = document.getElementById('titlebar-clock');
   function updateClock() {
     const now = new Date();
@@ -371,7 +516,6 @@ permalink: /
   updateClock();
   setInterval(updateClock, 1000);
 
-  /* ── Engine selection ──────────────────────────────────── */
   const tabs        = Array.from(document.querySelectorAll('.eng-tab'));
   const searchInput = document.getElementById('search-input');
   const engineStatus= document.getElementById('engine-status');
@@ -395,7 +539,6 @@ permalink: /
     });
   });
 
-  /* ── Search submit ─────────────────────────────────────── */
   function doSearch() {
     const q = searchInput.value.trim();
     if (!q) return;
@@ -412,16 +555,13 @@ permalink: /
     }
   });
 
-  /* ── Numeric shortcut: 1-5 to select engine ───────────── */
   document.addEventListener('keydown', e => {
     const active = document.activeElement;
-    /* Ignore if typing in a real input that is NOT our search field */
     if (active && active.tagName === 'INPUT' && active !== searchInput) return;
     if (active && active.tagName === 'TEXTAREA') return;
 
     const num = parseInt(e.key, 10);
     if (num >= 1 && num <= tabs.length && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      /* Only intercept if nothing is typed yet (no partial query) */
       if (active !== searchInput || searchInput.value === '') {
         e.preventDefault();
         setEngine(num - 1);
@@ -430,13 +570,11 @@ permalink: /
       }
     }
 
-    /* Any printable character outside a focused input → focus search */
     if (active !== searchInput && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
       searchInput.focus();
     }
   });
 
-  /* ── Auto-focus on load ────────────────────────────────── */
   searchInput.focus();
 })();
 </script>

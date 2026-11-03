@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/files' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — files', 'out');
       window.cli.print('', 'dim');
       window.cli.print('Curated PDF library. (Full listing coming soon.)', 'out');

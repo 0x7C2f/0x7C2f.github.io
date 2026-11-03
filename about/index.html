@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/about' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — about', 'out');
       window.cli.print('', 'dim');
       window.cli.print('Programmer exploring code, commerce, and consciousness.', 'out');

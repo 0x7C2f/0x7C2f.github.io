@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/doppler-curve-localization-simulator' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — doppler curve localization simulator', 'out');
       window.cli.print('', 'dim');
       window.cli.print('Interactive simulator: /doppler-curve-localization-simulator.html', 'out');

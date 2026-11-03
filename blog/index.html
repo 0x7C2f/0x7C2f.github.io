@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/blog' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — blog', 'out');
       window.cli.print('', 'dim');
       window.cli.print('Posts and writings. (Full blog rendering coming soon.)', 'out');

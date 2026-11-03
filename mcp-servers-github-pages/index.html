@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/mcp-servers-github-pages' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — can you run MCP servers on GitHub Pages?', 'out');
       window.cli.print('', 'dim');
       window.cli.print('Static hosting cannot run MCP servers (no server runtime).', 'out');

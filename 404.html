@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/' });
       startClock();
+      bindViewport();
       window.cli.print('404 — command not found.', 'out');
       window.cli.print('Type `cd /` to return home. Type `help` for commands.', 'out');
     });

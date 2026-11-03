@@ -302,7 +302,38 @@
     setInterval(tick, 1000);
   }
 
-  global.CLI = CLI;
-  global.startClock = startClock;
+  // ── viewport detection ───────────────────────────────────────
+  function detectViewport() {
+    const w = window.innerWidth;
+    const cls = w < 640 ? 'vp-mobile' : (w < 1024 ? 'vp-tablet' : 'vp-desktop');
+    document.body.classList.remove('vp-mobile', 'vp-tablet', 'vp-desktop');
+    document.body.classList.add(cls);
+    // dynamic viewport height (handles mobile browser chrome + virtual keyboard)
+    const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+    // keep input in view when keyboard opens
+    const inputRow = document.getElementById('term-input-row');
+    if (inputRow && window.visualViewport) {
+      const vv = window.visualViewport;
+      const offset = window.innerHeight - vv.height - vv.offsetTop;
+      if (offset > 0) {
+        document.body.style.paddingBottom = offset + 'px';
+      } else {
+        document.body.style.paddingBottom = '';
+      }
+    }
+  }
+
+  function bindViewport() {
+    detectViewport();
+    window.addEventListener('resize', detectViewport);
+    window.addEventListener('orientationchange', function () { setTimeout(detectViewport, 100); });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', detectViewport);
+      window.visualViewport.addEventListener('scroll', detectViewport);
+    }
+  }
+
+  global.detectViewport = detectViewport;
+  global.bindViewport = bindViewport;
 })(window);
-EOF

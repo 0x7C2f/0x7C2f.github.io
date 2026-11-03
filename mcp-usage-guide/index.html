@@ -48,6 +48,7 @@
       };
       window.cli = new CLI({ fs: fs, cwd: '/mcp-usage-guide' });
       startClock();
+      bindViewport();
       window.cli.print('0x7C2f — MCP usage guide', 'out');
       window.cli.print('', 'dim');
       window.cli.print('How to use MCP servers with various clients.', 'out');

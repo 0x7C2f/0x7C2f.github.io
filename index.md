@@ -54,6 +54,7 @@ permalink: /
       };
       window.cli = new CLI({ fs: fs, cwd: '/' });
       startClock();
+      bindViewport();
       window.cli.print('booting 0x7C2f terminal...', 'dim');
       window.cli.print('type `help` for commands, `ls` to explore, `cd <dir>` to navigate.', 'dim');
       window.cli.print('', 'dim');

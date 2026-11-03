@@ -1,15 +1,6 @@
-*.gem
-*.tgz
-.bundle
-.sass-cache
-_site
-.jekyll-cache
-.jekyll-metadata
 .env
 node_modules
 .obsidian
 .trash
 .vscode/
 .pi/
-Gemfile.lock
-vendor/

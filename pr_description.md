@@ -1,0 +1,4 @@
+💡 What: Updated the `.skip-link` CSS to use standard visually hidden properties (1px size, clip rect) instead of negative top positioning.
+🎯 Why: Negative positioning (`top: -40px`) can occasionally cause layout shift, be inaccessible on certain devices or configurations, or cause issues with screen readers that incorrectly navigate focus loops. A proper standard visually hidden element handles layout and screen readers smoothly while ensuring exact placement logic when visible.
+📸 Before/After: Visual changes on focus display standard visual link overlaying content. (Tested and verified with Playwright via screenshot)
+♿ Accessibility: The "Skip to main content" link is now fully compliant with modern visually-hidden guidelines and fully accessible to keyboard navigators and screen readers without potential layout bugs.

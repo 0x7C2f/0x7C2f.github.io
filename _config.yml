@@ -23,6 +23,7 @@ header_pages:
     - pages/files.md
     - pages/about.md
     - pages/awesome-pi-coding-agent.md
+    - pages/doppler-curve-localization-simulator.md
 
 include:
     - 'files'

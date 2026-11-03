@@ -1,8 +1,8 @@
 ---
 ---
 
-@import "dark";
-@import "base";
+@use "dark" as *;
+@use "base" as *;
 
 .search-results {
   color: #ccc;

@@ -334,6 +334,8 @@
     }
   }
 
+  global.CLI = CLI;
+  global.startClock = startClock;
   global.detectViewport = detectViewport;
   global.bindViewport = bindViewport;
 

@@ -63,7 +63,11 @@
       }
     });
     // keep focus
-    document.addEventListener('click', function () { self.input.focus(); });
+    document.addEventListener('click', function () {
+      if (!window.getSelection().toString()) {
+        self.input.focus();
+      }
+    });
     this.updatePrompt();
   };
 

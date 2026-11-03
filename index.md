@@ -14,7 +14,7 @@ permalink: /
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/cli.css" />
-  <script src="/assets/cli.js" defer></script>
+  <script src="/assets/cli.js?v=2" defer></script>
 </head>
 <body>
   <div id="term">
@@ -54,7 +54,7 @@ permalink: /
       };
       window.cli = new CLI({ fs: fs, cwd: '/' });
       startClock();
-      bindViewport();
+      if (typeof bindViewport === 'function') bindViewport();
       window.cli.print('booting 0x7C2f terminal...', 'dim');
       window.cli.print('type `help` for commands, `ls` to explore, `cd <dir>` to navigate.', 'dim');
       window.cli.print('', 'dim');

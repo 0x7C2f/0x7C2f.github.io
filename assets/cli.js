@@ -336,4 +336,14 @@
 
   global.detectViewport = detectViewport;
   global.bindViewport = bindViewport;
+
+  // self-init viewport detection once DOM is available
+  function _initViewport() {
+    if (typeof bindViewport === 'function') bindViewport();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _initViewport);
+  } else {
+    _initViewport();
+  }
 })(window);

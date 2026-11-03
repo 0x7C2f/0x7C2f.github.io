@@ -1,129 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com; connect-src 'self';" />
-
-<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
-<meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="no-referrer" />
-    <!-- CSP here -->
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>0x7C2f // Awesome Pi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css" />
-     <link rel="stylesheet" href="/assets/main-dark.css">
-     <link rel="preload" href="/assets/header-search.js" as="script">
-     <title>Awesome Pi Coding Agent</title>
-    
-    
-    
-    <meta name="description" content="Auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem." />
-    
-    <meta property="og:image" content="/images/profile_picture.jpg" />
-    <meta name="twitter:image" content="/images/profile_picture.jpg" />
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "0x7C2f",
-      "url": "https://0x7c2f.github.io",
-      "publisher": {
-        "@type": "Organization",
-        "name": "0x7C2f",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "/images/profile_picture.jpg"
-        }
-      }
-    }
-    </script>
-    
-    <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>Awesome Pi Coding Agent</title>
-<meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Awesome Pi Coding Agent" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem." />
-<meta name="twitter:description" property="og:description" content="Auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem." />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Awesome Pi Coding Agent" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem.","headline":"Awesome Pi Coding Agent","url":"/awesome-pi-coding-agent/"}</script>
-<!-- End Jekyll SEO tag -->
-
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/cli.css" />
+  <script src="/assets/cli.js" defer></script>
 </head>
-<body><a href="#main-content" class="skip-link">Skip to main content</a>
-<header id="titlebar">
-  <div id="titlebar-left">
-    <a href="/" class="brand"><span class="brand-hex">0x</span>7C2f</a>
-  </div>
-  <nav id="titlebar-nav" aria-label="Site navigation">
-    <a href="/blog/">blog</a>
-    <a href="/files/">files</a>
-    <a href="/about/">about</a>
-    <a href="/awesome-pi-coding-agent/" aria-current="page">awesome-pi</a>
-  </nav>
-  <span id="titlebar-clock" aria-live="polite" aria-label="Current date and time">--:--</span>
-</header>
-<div class="container">
-        <main id="main-content" class="tui-main">
-          <div class="awesome-pi-container">
-  <div class="awesome-pi-header">
-    <h1>Awesome Pi Coding Agent</h1>
-    <p class="awesome-pi-subtitle">
-      An auto-discovered, LLM curated directory of resources for the Pi Coding Agent ecosystem.
-    </p>
-    <div class="awesome-pi-stats">
-      <span id="stats-total">Loading...</span>
-      <span class="awesome-pi-last-updated" id="last-updated"></span>
+<body>
+  <div id="term">
+    <header id="term-header">
+      <span class="brand">0x7C2f</span>
+      <span class="sep">│</span>
+      <span>terminal v1.0</span>
+      <span id="term-clock" class="clock" aria-live="polite">--:--</span>
+    </header>
+    <main id="term-output" aria-live="polite" aria-label="Terminal output"></main>
+    <div id="term-input-row">
+      <span id="term-prompt" aria-hidden="true">user@0x7C2f:/awesome-pi-coding-agent/$ </span>
+      <input id="term-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input" autofocus />
     </div>
   </div>
-
-  <div class="awesome-pi-search">
-    <input
-      type="search"
-      id="awesome-pi-search-input"
-      placeholder="Search extensions, themes, videos, articles…"
-      autocomplete="off"
-    />
-    <span id="awesome-pi-search-count" class="awesome-pi-search-count" aria-live="polite" aria-atomic="true"></span>
-  </div>
-
-  <nav class="awesome-pi-tabs" id="awesome-pi-tabs" aria-label="Category tabs">
-    <button class="awesome-pi-tab active" data-category="all" aria-pressed="true">All</button>
-    <button class="awesome-pi-tab" data-category="extension" aria-pressed="false">🔌 Extensions</button>
-    <button class="awesome-pi-tab" data-category="theme" aria-pressed="false">🎨 Themes</button>
-    <button class="awesome-pi-tab" data-category="video" aria-pressed="false">🎬 Videos & Tutorials</button>
-    <button class="awesome-pi-tab" data-category="article" aria-pressed="false">📰 Articles</button>
-    <button class="awesome-pi-tab" data-category="misc" aria-pressed="false">📦 Miscellaneous</button>
-  </nav>
-
-  <div id="awesome-pi-results" class="awesome-pi-entry-grid"></div>
-  <div id="awesome-pi-empty" class="awesome-pi-empty" style="display:none">
-    <p>No results found.</p>
-  </div>
-</div>
-
-<script src="/assets/awesome-pi.js"></script>
-
-        </main><footer class="tui-footer">
-  <div class="tui-footer-meta">
-    <span class="tui-footer-copy">follow on <a href="https://twitter.com/0x7C2f">Twitter</a>|<a href="/feed.xml">RSS Feed</a></span>
-    <span class="tui-footer-rss"><a href="/feed.xml" title="RSS Feed">[rss]</a></span>
-  </div>
-  </footer>
-</div>
-     <script src="/assets/header-search.js"></script>
-   </body>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var fs = {
+        '/': {
+          type: 'dir',
+          children: {
+            'README.md': { type: 'file', content: '0x7C2f — terminal portfolio.\nType `help` to list commands. Type `ls` to explore.' },
+            'about': { type: 'dir', desc: 'About the author', children: {
+              'about.md': { type: 'file', content: 'Programmer exploring code, commerce, and consciousness.\nStack: arch linux · git · mcp · ai tooling.' }
+            }},
+            'blog': { type: 'dir', desc: 'Posts and writings', children: {
+              'posts.md': { type: 'file', content: 'Visit /blog/ for the full blog. Type `cd blog` to navigate.' }
+            }},
+            'files': { type: 'dir', desc: 'Curated PDF library', children: {
+              'index.md': { type: 'file', content: 'Visit /files/ for the PDF library. Type `cd files` to navigate.' }
+            }},
+            'awesome-pi': { type: 'dir', desc: 'Awesome Pi Coding Agent', children: {
+              'index.md': { type: 'file', content: 'Visit /awesome-pi-coding-agent/. Type `cd awesome-pi`.' }
+            }}
+          }
+        }
+      };
+      window.cli = new CLI({ fs: fs, cwd: '/awesome-pi-coding-agent' });
+      startClock();
+      window.cli.print('0x7C2f — awesome-pi-coding-agent', 'out');
+      window.cli.print('', 'dim');
+      window.cli.print('Awesome Pi Coding Agent resources.', 'out');
+      window.cli.print('Type `cd /` to return home. Type `help` for commands.', 'out');
+    });
+  </script>
+</body>
 </html>

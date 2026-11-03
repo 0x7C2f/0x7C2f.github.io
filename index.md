@@ -1,228 +1,63 @@
 ---
 layout: false
-title: "0x7C2f // command center"
+title: "0x7C2f // terminal"
 permalink: /
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="0x7C2f – terminal startpage: search, bookmarks, and quick links." />
-  <meta name="robots" content="index, follow" />
-  <title>0x7C2f // command center</title>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>0x7C2f // terminal</title>
+  <meta name="description" content="0x7C2f — terminal portfolio. Navigate with commands." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="/assets/site.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/cli.css" />
+  <script src="/assets/cli.js" defer></script>
 </head>
 <body>
-
-<div id="shell">
-
-  <header id="titlebar">
-    <div id="titlebar-left">
-      <a href="/" class="brand"><span class="brand-hex">0x</span>7C2f</a>
+  <div id="term">
+    <header id="term-header">
+      <span class="brand">0x7C2f</span>
+      <span class="sep">│</span>
+      <span>terminal v1.0</span>
+      <span id="term-clock" class="clock" aria-live="polite">--:--</span>
+    </header>
+    <main id="term-output" aria-live="polite" aria-label="Terminal output"></main>
+    <div id="term-input-row">
+      <span id="term-prompt" aria-hidden="true">user@0x7C2f:/$ </span>
+      <input id="term-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input" autofocus />
     </div>
-    <nav id="titlebar-nav" aria-label="Site navigation">
-      <a href="/blog/">blog</a>
-      <a href="/files/">files</a>
-      <a href="/about/">about</a>
-      <a href="/awesome-pi-coding-agent/">awesome-pi</a>
-    </nav>
-    <span id="titlebar-clock" aria-live="polite" aria-label="Current date and time">--:--</span>
-  </header>
-
-  <main id="center" role="main">
-
-    <div id="wordmark">
-      <div class="hex">0x7c2f :: terminal</div>
-      <div class="name">command center</div>
-      <div class="tag">search <span>·</span> bookmarks <span>·</span> quick links</div>
-    </div>
-
-    <section class="panel" role="search" aria-label="Web search">
-      <div class="panel-head">
-        <span class="dot r"></span>
-        <span class="dot y"></span>
-        <span class="dot g"></span>
-        <span class="title"><span class="accent">search</span> :: engine router</span>
-      </div>
-      <div id="engine-tabs" role="tablist" aria-label="Search engine selection">
-        <div class="eng-tab active" data-engine="ddg" data-url="https://duckduckgo.com/?q=" data-label="DuckDuckGo" role="tab" aria-selected="true" tabindex="0">[1] ddg</div>
-        <div class="eng-tab" data-engine="google" data-url="https://www.google.com/search?q=" data-label="Google" role="tab" aria-selected="false" tabindex="-1">[2] google</div>
-        <div class="eng-tab" data-engine="brave" data-url="https://search.brave.com/search?q=" data-label="Brave" role="tab" aria-selected="false" tabindex="-1">[3] brave</div>
-        <div class="eng-tab" data-engine="searx" data-url="https://searx.be/search?q=" data-label="SearXNG" role="tab" aria-selected="false" tabindex="-1">[4] searx</div>
-        <div class="eng-tab" data-engine="yt" data-url="https://www.youtube.com/results?search_query=" data-label="YouTube" role="tab" aria-selected="false" tabindex="-1">[5] yt</div>
-      </div>
-      <div id="search-row">
-        <span id="search-prompt">❯</span>
-        <input id="search-input" type="text" placeholder="type to search..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search query" />
-      </div>
-    </section>
-
-    <div id="bookmarks-grid" aria-label="Bookmarks">
-
-      <div class="bm-panel">
-        <div class="bm-title">social</div>
-        <ul class="bm-list">
-          <li><a href="https://twitter.com">twitter</a></li>
-          <li><a href="https://reddit.com">reddit</a></li>
-          <li><a href="https://4chan.org">4chan</a></li>
-          <li><a href="https://lobste.rs">lobsters</a></li>
-        </ul>
-      </div>
-
-      <div class="bm-panel">
-        <div class="bm-title">dev</div>
-        <ul class="bm-list">
-          <li><a href="https://github.com">github</a></li>
-          <li><a href="https://wiki.archlinux.org">arch wiki</a></li>
-          <li><a href="https://devdocs.io">devdocs</a></li>
-          <li><a href="https://mankier.com">mankier</a></li>
-          <li><a href="https://stackoverflow.com">stack overflow</a></li>
-        </ul>
-      </div>
-
-      <div class="bm-panel">
-        <div class="bm-title">media</div>
-        <ul class="bm-list">
-          <li><a href="https://youtube.com">youtube</a></li>
-          <li><a href="https://open.spotify.com">spotify</a></li>
-          <li><a href="https://twitch.tv">twitch</a></li>
-          <li><a href="https://netflix.com">netflix</a></li>
-        </ul>
-      </div>
-
-      <div class="bm-panel">
-        <div class="bm-title">news</div>
-        <ul class="bm-list">
-          <li><a href="https://news.ycombinator.com">hacker news</a></li>
-          <li><a href="https://reuters.com">reuters</a></li>
-          <li><a href="https://bbc.com/news">bbc news</a></li>
-          <li><a href="https://theguardian.com">the guardian</a></li>
-        </ul>
-      </div>
-
-      <div class="bm-panel">
-        <div class="bm-title">tools</div>
-        <ul class="bm-list">
-          <li><a href="https://chat.openai.com">chatgpt</a></li>
-          <li><a href="https://claude.ai">claude</a></li>
-          <li><a href="https://notion.so">notion</a></li>
-          <li><a href="https://gmail.com">gmail</a></li>
-          <li><a href="https://drive.google.com">drive</a></li>
-        </ul>
-      </div>
-
-      <div class="bm-panel">
-        <div class="bm-title">site</div>
-        <ul class="bm-list">
-          <li><a href="/blog/">blog</a></li>
-          <li><a href="/files/">files</a></li>
-          <li><a href="/about/">about</a></li>
-          <li><a href="https://github.com/0x7C2f">source</a></li>
-          <li><a href="/feed.xml">rss</a></li>
-        </ul>
-      </div>
-
-    </div>
-  </main>
-
-  <footer id="statusbar" aria-label="Keyboard shortcuts">
-    <span><span class="key">type</span> search</span>
-    <span><span class="key">tab</span> switch engine</span>
-    <span><span class="key">1-5</span> pick engine</span>
-    <span><span class="key">esc</span> clear</span>
-    <span><span class="key">enter</span> go</span>
-    <span id="engine-status">ddg</span>
-  </footer>
-
-</div><!-- #shell -->
-
-<script>
-(function () {
-  'use strict';
-
-  const clock = document.getElementById('titlebar-clock');
-  function updateClock() {
-    const now = new Date();
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const day  = days[now.getDay()];
-    const hh   = String(now.getHours()).padStart(2,'0');
-    const mm   = String(now.getMinutes()).padStart(2,'0');
-    const ss   = String(now.getSeconds()).padStart(2,'0');
-    const yyyy = now.getFullYear();
-    const mo   = String(now.getMonth()+1).padStart(2,'0');
-    const dd   = String(now.getDate()).padStart(2,'0');
-    clock.textContent = `${day} ${yyyy}-${mo}-${dd}  ${hh}:${mm}:${ss}`;
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  const tabs        = Array.from(document.querySelectorAll('.eng-tab'));
-  const searchInput = document.getElementById('search-input');
-  const engineStatus= document.getElementById('engine-status');
-  let   activeIdx   = 0;
-
-  function setEngine(idx) {
-    tabs.forEach((t, i) => {
-      const active = (i === idx);
-      t.classList.toggle('active', active);
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-      t.tabIndex = active ? 0 : -1;
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var fs = {
+        '/': {
+          type: 'dir',
+          children: {
+            'README.md': { type: 'file', content: '0x7C2f — terminal portfolio.\nType `help` to list commands. Type `ls` to explore.' },
+            'about': { type: 'dir', desc: 'About the author', children: {
+              'about.md': { type: 'file', content: 'Programmer exploring code, commerce, and consciousness.\nStack: arch linux · git · mcp · ai tooling.' }
+            }},
+            'blog': { type: 'dir', desc: 'Posts and writings', children: {
+              'posts.md': { type: 'file', content: 'Visit /blog/ for the full blog. Type `cd blog` to navigate.' }
+            }},
+            'files': { type: 'dir', desc: 'Curated PDF library', children: {
+              'index.md': { type: 'file', content: 'Visit /files/ for the PDF library. Type `cd files` to navigate.' }
+            }},
+            'awesome-pi': { type: 'dir', desc: 'Awesome Pi Coding Agent', children: {
+              'index.md': { type: 'file', content: 'Visit /awesome-pi-coding-agent/. Type `cd awesome-pi`.' }
+            }}
+          }
+        }
+      };
+      window.cli = new CLI({ fs: fs, cwd: '/' });
+      startClock();
+      window.cli.print('booting 0x7C2f terminal...', 'dim');
+      window.cli.print('type `help` for commands, `ls` to explore, `cd <dir>` to navigate.', 'dim');
+      window.cli.print('', 'dim');
     });
-    activeIdx = idx;
-    engineStatus.textContent = tabs[idx].dataset.label;
-  }
-
-  tabs.forEach((tab, idx) => {
-    tab.addEventListener('click', () => { setEngine(idx); searchInput.focus(); });
-    tab.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { setEngine(idx); searchInput.focus(); }
-    });
-  });
-
-  function doSearch() {
-    const q = searchInput.value.trim();
-    if (!q) return;
-    const base = tabs[activeIdx].dataset.url;
-    window.location.href = base + encodeURIComponent(q);
-  }
-
-  searchInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') doSearch();
-    if (e.key === 'Escape') { searchInput.value = ''; }
-    if (e.key === 'Tab' && !e.shiftKey) {
-      e.preventDefault();
-      setEngine((activeIdx + 1) % tabs.length);
-    }
-  });
-
-  document.addEventListener('keydown', e => {
-    const active = document.activeElement;
-    if (active && active.tagName === 'INPUT' && active !== searchInput) return;
-    if (active && active.tagName === 'TEXTAREA') return;
-
-    const num = parseInt(e.key, 10);
-    if (num >= 1 && num <= tabs.length && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      if (active !== searchInput || searchInput.value === '') {
-        e.preventDefault();
-        setEngine(num - 1);
-        searchInput.focus();
-        return;
-      }
-    }
-
-    if (active !== searchInput && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      searchInput.focus();
-    }
-  });
-
-  searchInput.focus();
-})();
-</script>
+  </script>
 </body>
 </html>

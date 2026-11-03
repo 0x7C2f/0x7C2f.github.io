@@ -1713,5 +1713,17 @@
       requestAnimationFrame(animateLoop);
     };
   </script>
+
+    <div id="terminal" style="height:160px;margin:1rem auto;max-width:960px;"></div>
+    <link rel="stylesheet" href="https://unpkg.com/@xterm/xterm@5.3.0/css/xterm.css" />
+    <script src="https://unpkg.com/@xterm/xterm@5.3.0/lib/xterm.js"></script>
+    <script>
+      (function(){ try {
+        var el=document.getElementById('terminal'); if(!el) return;
+        var term=new Terminal({ theme:{background:'#0f172a',foreground:'#e2e8f0'} });
+        term.open(el); term.writeln('\x1b[1;36m0x7C2f terminal\x1b[0m — xterm.js ready'); term.write('$ ');
+      } catch(e){ console.error(e); } })();
+    </script>
+
 </body>
 </html>

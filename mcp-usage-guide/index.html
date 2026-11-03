@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com; connect-src 'self';" />
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com https://unpkg.com/; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com https://unpkg.com/; connect-src 'self';" />
 
 <meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
 <meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head>
@@ -631,5 +631,17 @@ curl <span class="nt">-s</span> https://0x7c2f.github.io/api/mcp-servers.json | 
   </footer>
 </div>
      <script src="/assets/header-search.js"></script>
-   </body>
+   
+    <div id="terminal" style="height:160px;margin:1rem auto;max-width:960px;"></div>
+    <link rel="stylesheet" href="https://unpkg.com/@xterm/xterm@5.3.0/css/xterm.css" />
+    <script src="https://unpkg.com/@xterm/xterm@5.3.0/lib/xterm.js"></script>
+    <script>
+      (function(){ try {
+        var el=document.getElementById('terminal'); if(!el) return;
+        var term=new Terminal({ theme:{background:'#0f172a',foreground:'#e2e8f0'} });
+        term.open(el); term.writeln('\x1b[1;36m0x7C2f terminal\x1b[0m — xterm.js ready'); term.write('$ ');
+      } catch(e){ console.error(e); } })();
+    </script>
+
+</body>
 </html>

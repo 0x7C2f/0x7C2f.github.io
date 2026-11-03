@@ -4,8 +4,4 @@ layout: default
 description: Doppler Curve Localization Simulator — interactive acoustic Doppler pass visualization.
 ---
 
-# Doppler Curve Localization Simulator
-
-Interactive simulator for localizing an observer from a Doppler frequency curve.
-
-[Open the simulator →](/doppler-curve-localization-simulator.html)
+<iframe src="/doppler-curve-localization-simulator.html" style="width:100%; height:90vh; border:0;" loading="lazy"></iframe>

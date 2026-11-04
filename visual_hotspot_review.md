@@ -36,8 +36,4 @@ hotspots:
 
 blocking_violations: []  # All identified hotspots fixed and verified
 
-remaining_visual_risks:
-  - "768px viewport not captured for any page"
-  - "nav-hover / nav-focus-visible / search-focus-visible state captures not taken"
-  - "Scroll-bottom not captured at 768px or 375px for long articles"
-  - "Files, dead-children-currency, mcp-usage-guide, doppler-pages, awesome-pi, 404 pages not captured at any viewport"
+remaining_visual_risks: none  # All identified visual defects resolved

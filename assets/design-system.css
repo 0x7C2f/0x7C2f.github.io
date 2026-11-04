@@ -1,0 +1,709 @@
+/* ── 0x7C2f unified design system ──
+   Single source of truth for all pages. Replaces inline <style> blocks,
+   orphaned per-page CSS, and the duplicated terminal/xterm markup.
+   Tokens mirror DESIGN.md. Operational direction: near-black ground,
+   cyan accent, JetBrains Mono, dashed borders, radius 10px. ── */
+@layer base, utils, components;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: var(--fs);
+    line-height: var(--line-height);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root {
+    --bg: #070b14;
+    --panel: rgba(13, 19, 33, 0.72);
+    --fg: #e2e8f0;
+    --fg-dim: #94a3b8;
+    --fg-mute: #64748b;
+    --border: rgba(148, 163, 184, 0.18);
+    --border-hi: rgba(148, 163, 184, 0.42);
+    --accent: #22d3ee;
+    --accent-2: #a78bfa;
+    --amber: #fbbf24;
+    --green: #4ade80;
+    --red: #f87171;
+    --sel-bg: #22d3ee;
+    --sel-fg: #070b14;
+    --font: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+    --font-ui: "Inter", system-ui, sans-serif;
+    --fs: 14px;
+    --fs-sm: 12px;
+    --line-height: 1.55;
+    --radius: 10px;
+    --border-width: 1px;
+    --border-style: dashed;
+    --easing: 0.15s ease;
+    --shell-max-width: 1200px;
+    --shell-padding: 0 20px 12px;
+    --titlebar-padding: 14px 0 12px;
+    --terminal-height: 88vh;
+  }
+
+  ::selection {
+    background: var(--sel-bg);
+    color: var(--sel-fg);
+  }
+
+  a {
+    color: var(--fg);
+    text-decoration: none;
+    transition:
+      color var(--easing),
+      background var(--easing);
+  }
+  a:hover {
+    color: var(--accent);
+  }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  /* Focus-visible for all interactive primitives — not just anchors.
+     The universal outline: none reset above strips browser defaults,
+     so every focusable element needs an explicit focus-visible style. */
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role="button"]:focus-visible,
+  [role="tab"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+    .cursor {
+      animation: none !important;
+    }
+  }
+  @media (prefers-contrast: high) {
+    a:focus-visible {
+      outline-width: 3px;
+    }
+  }
+}
+
+/* ── Utilities ── */
+@layer utils {
+  .skip-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--sel-bg);
+    color: var(--sel-fg);
+    z-index: 999;
+    border: 2px solid var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .panel,
+  .tui-panel {
+    background: var(--panel);
+    border: var(--border-width) var(--border-style) var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-bottom: var(--border-width) var(--border-style) var(--border);
+    background: rgba(148, 163, 184, 0.04);
+  }
+  .panel-head .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--fg-mute);
+  }
+  .panel-head .dot.r {
+    background: var(--red);
+  }
+  .panel-head .dot.y {
+    background: var(--amber);
+  }
+  .panel-head .dot.g {
+    background: var(--green);
+  }
+  .panel-head .title {
+    margin-left: 6px;
+    color: var(--fg-dim);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.05em;
+  }
+  .panel-head .title .accent {
+    color: var(--accent);
+  }
+}
+
+/* ── Components ── */
+@layer components {
+  /* Shell */
+  #shell {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    max-width: var(--shell-max-width);
+    margin: 0 auto;
+    padding: var(--shell-padding);
+    overflow: hidden;
+  }
+
+  /* Titlebar */
+  #titlebar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: var(--titlebar-padding);
+    border-bottom: var(--border-width) var(--border-style) var(--border);
+    flex-shrink: 0;
+  }
+  #titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  #titlebar-left .brand {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  #titlebar-left .brand:hover {
+    color: var(--accent);
+  }
+  #titlebar-left .brand-hex {
+    color: var(--accent);
+  }
+
+  #titlebar-nav {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
+  #titlebar-nav a {
+    color: var(--fg-dim);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: var(--fs-sm);
+    transition:
+      color var(--easing),
+      background var(--easing);
+  }
+  #titlebar-nav a:hover {
+    color: var(--fg);
+    background: rgba(148, 163, 184, 0.08);
+  }
+  #titlebar-nav a.active,
+  #titlebar-nav a[aria-current="page"] {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  #titlebar-clock {
+    padding-left: 12px;
+    border-left: var(--border-width) var(--border-style) var(--border);
+    color: var(--fg-mute);
+    white-space: nowrap;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Center */
+  #center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 22px;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Wordmark */
+  #wordmark {
+    text-align: center;
+    user-select: none;
+  }
+  #wordmark .hex {
+    font-size: 11px;
+    color: var(--fg-mute);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #wordmark .name {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  #wordmark .tag {
+    margin-top: 6px;
+    color: var(--fg-dim);
+    font-size: var(--fs-sm);
+    font-family: var(--font-ui);
+  }
+
+  /* Engine tabs */
+  #engine-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 8px 12px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #engine-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .eng-tab {
+    padding: 6px 12px;
+    cursor: pointer;
+    color: var(--fg-dim);
+    border: 1px solid transparent;
+    border-radius: 6px 6px 0 0;
+    font-size: var(--fs-sm);
+    user-select: none;
+    white-space: nowrap;
+    transition:
+      color var(--easing),
+      background var(--easing),
+      border-color var(--easing);
+  }
+  .eng-tab:hover {
+    color: var(--fg);
+    background: rgba(148, 163, 184, 0.06);
+  }
+  .eng-tab.active {
+    color: var(--accent);
+    background: rgba(34, 211, 238, 0.08);
+    border-color: var(--border);
+    border-bottom-color: transparent;
+    font-weight: 600;
+  }
+
+  /* Search row */
+  #search-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  #search-prompt {
+    color: var(--green);
+    font-weight: 700;
+    user-select: none;
+  }
+  #search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 15px;
+    caret-color: var(--accent);
+  }
+  #search-input::placeholder {
+    color: var(--fg-mute);
+  }
+
+  /* Bookmarks grid */
+  #bookmarks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    width: 100%;
+    max-width: 980px;
+  }
+  .bm-panel {
+    background: var(--panel);
+    border: var(--border-width) var(--border-style) var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    transition:
+      border-color var(--easing),
+      transform var(--easing);
+  }
+  .bm-panel:hover {
+    border-color: var(--border-hi);
+    transform: translateY(-2px);
+  }
+  .bm-title {
+    padding: 8px 14px;
+    font-weight: 600;
+    color: var(--amber);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: var(--border-width) var(--border-style) var(--border);
+    background: rgba(251, 191, 36, 0.04);
+  }
+  .bm-list {
+    list-style: none;
+    padding: 8px 10px 10px;
+  }
+  .bm-list li {
+    padding: 3px 4px;
+  }
+  .bm-list li a {
+    color: var(--fg-dim);
+    font-size: var(--fs-sm);
+    display: block;
+    padding: 3px 6px;
+    border-radius: 4px;
+    transition:
+      color var(--easing),
+      background var(--easing);
+  }
+  .bm-list li a:hover {
+    color: var(--fg);
+    background: rgba(34, 211, 238, 0.1);
+  }
+  .bm-list li a::before {
+    content: "› ";
+    color: var(--fg-mute);
+  }
+
+  /* Statusbar */
+  #statusbar {
+    display: flex;
+    gap: 18px;
+    padding: 10px 4px 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-mute);
+    flex-wrap: wrap;
+    border-top: var(--border-width) var(--border-style) var(--border);
+    flex-shrink: 0;
+  }
+  #statusbar span {
+    white-space: nowrap;
+  }
+  #statusbar .key {
+    color: var(--fg-dim);
+    background: rgba(148, 163, 184, 0.1);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 4px;
+    font-size: 11px;
+  }
+  #statusbar #engine-status {
+    margin-left: auto;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Terminal integration */
+  #terminal {
+    height: var(--terminal-height);
+    width: 100%;
+    display: block;
+  }
+
+  /* Shared footer */
+  .tui-footer,
+  footer.tui-footer {
+    border-top: var(--border-width) var(--border-style) var(--border);
+    padding: 6px 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-mute);
+    flex-shrink: 0;
+  }
+  .tui-footer-meta {
+    padding: 4px 10px;
+  }
+
+  /* ── Class-based aliases for section-page markup (tui-*) ──
+     These mirror the #id rules above so both root and section pages
+     consume the same tokens without HTML rewrites. ── */
+  .tui-header {
+    border-bottom: var(--border-width) var(--border-style) var(--border);
+    flex-shrink: 0;
+  }
+  .tui-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: var(--titlebar-padding);
+    flex-shrink: 0;
+  }
+  .tui-titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .tui-titlebar-left a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .tui-titlebar-left a:hover {
+    color: var(--accent);
+  }
+
+  .tui-nav {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
+  .tui-nav-link {
+    color: var(--fg-dim);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: var(--fs-sm);
+    transition:
+      color var(--easing),
+      background var(--easing);
+  }
+  .tui-nav-link:hover {
+    color: var(--fg);
+    background: rgba(148, 163, 184, 0.08);
+  }
+  .tui-nav-link.active,
+  .tui-nav-link[aria-current="page"] {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .tui-search {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tui-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: var(--fs);
+    caret-color: var(--accent);
+  }
+  .tui-search input::placeholder {
+    color: var(--fg-mute);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    max-width: var(--shell-max-width);
+    margin: 0 auto;
+    padding: var(--shell-padding);
+    overflow: hidden;
+  }
+  .tui-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 22px;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .tui-footer {
+    border-top: var(--border-width) var(--border-style) var(--border);
+    padding: 6px 0;
+    font-size: var(--fs-sm);
+    color: var(--fg-mute);
+    flex-shrink: 0;
+  }
+  .tui-footer-meta {
+    padding: 4px 10px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 720px) {
+    html,
+    body {
+      overflow: auto;
+    }
+    #shell {
+      height: auto;
+      min-height: 100vh;
+    }
+    #center {
+      justify-content: flex-start;
+      padding: 16px 0;
+    }
+    #wordmark .name {
+      font-size: 30px;
+    }
+    #bookmarks-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    #titlebar {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    #titlebar-clock {
+      border-left: none;
+      padding-left: 0;
+      padding-top: 8px;
+    }
+  }
+  @media (max-width: 480px) {
+    #bookmarks-grid {
+      grid-template-columns: 1fr;
+    }
+    #titlebar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    #titlebar-nav {
+      padding: 0;
+      justify-content: center;
+    }
+    #titlebar-clock {
+      border-left: none;
+      padding-left: 0;
+      order: 4;
+      width: 100%;
+      text-align: center;
+      padding-top: 8px;
+    }
+  }
+}
+
+/* ── Page-specific overrides (kept minimal; migrate into components) ── */
+/* about.css equivalents */
+.knowledge-title {
+  text-align: center;
+  color: var(--accent-2);
+  text-shadow: 0 0 6px rgba(167, 139, 250, 0.4);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+.knowledge-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 8px 0;
+}
+.badges-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 12px;
+}
+.badges-table td {
+  padding: 8px 12px;
+  vertical-align: middle;
+  border: none;
+}
+.badges-table td:first-child {
+  white-space: nowrap;
+  min-width: 180px;
+  color: var(--amber);
+  font-weight: bold;
+  vertical-align: top;
+  padding-top: 12px;
+}
+.badges-table td:last-child {
+  line-height: 1.8;
+}
+.badges-table img {
+  filter: invert(1) opacity(0.75);
+  margin: 3px 4px;
+  vertical-align: middle;
+  transition:
+    opacity var(--easing),
+    filter var(--easing);
+}
+.badges-table img:hover {
+  filter: invert(1) opacity(1);
+}
+
+/* videos.css equivalents */
+.videos {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media only screen and (max-width: 600px) {
+  .videos {
+    display: block;
+  }
+}
+
+/* p2e-table.css equivalents */
+table {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+th,
+td {
+  padding: 8px;
+}

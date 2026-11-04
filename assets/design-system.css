@@ -561,7 +561,7 @@
     max-width: var(--shell-max-width);
     margin: 0 auto;
     padding: var(--shell-padding);
-    overflow: hidden;
+    overflow: auto;
   }
   .tui-main {
     flex: 1;

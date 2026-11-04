@@ -630,6 +630,29 @@
       text-align: center;
       padding-top: 8px;
     }
+    #search-row {
+      padding: 8px 12px;
+      gap: 8px;
+    }
+    #search-input {
+      font-size: 14px;
+    }
+    #banner {
+      white-space: pre-wrap;
+      font-size: 8px;
+      line-height: 1.1;
+    }
+    .tui-titlebar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tui-titlebar-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
   }
 }
 

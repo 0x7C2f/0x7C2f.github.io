@@ -1,79 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com https://unpkg.com/; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com https://unpkg.com/; connect-src 'self';" />
-
-<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
-<meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="no-referrer" />
-    <!-- CSP here -->
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link rel="stylesheet" href="/assets/design-system.css">
-     <title></title>
-    
-    
-    
-    <meta property="og:image" content="/images/profile_picture.jpg" />
-    <meta name="twitter:image" content="/images/profile_picture.jpg" />
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "0x7C2f",
-      "url": "https://0x7c2f.github.io",
-      "publisher": {
-        "@type": "Organization",
-        "name": "0x7C2f",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "/images/profile_picture.jpg"
-        }
-      }
-    }
-    </script>
-    
-    
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Page not found on 0x7C2f." />
+  <title>404: Page Not Found | 0x7C2f</title>
+  <link rel="stylesheet" href="/assets/design-system.css" />
 </head>
-<body data-webtui-theme="dark"><a href="#main-content" class="skip-link">Skip to main content</a>
-<header class="tui-header">
-  <div class="tui-titlebar">
-    <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
-    <nav class="tui-nav" aria-label="Main navigation"><a href="/blog/" class="tui-nav-link">Blog</a><a href="/files/" class="tui-nav-link">Files</a><a href="/about/" class="tui-nav-link">About</a><a href="/awesome-pi-coding-agent/" class="tui-nav-link">Awesome Pi Coding Agent</a></nav>
-    <div class="tui-search">
-      <input type="text" id="search-input" placeholder="/ search..." aria-label="Search site content" />
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page-shell">
+  <header class="tui-header">
+    <div class="tui-titlebar">
+      <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
+      <nav class="tui-nav" aria-label="Main navigation">
+        <a href="/blog/" class="tui-nav-link">blog</a>
+        <a href="/files/" class="tui-nav-link">files</a>
+        <a href="/about/" class="tui-nav-link">about</a>
+        <a href="/doppler-curve-localization-simulator/" class="tui-nav-link">doppler</a>
+        <a href="/fluid-visualizer/" class="tui-nav-link">fluid</a>
+      </nav>
+      <div class="tui-search">
+        <input type="text" id="search-input" placeholder="/ search site..." aria-label="Search site content" autocomplete="off" />
+      </div>
     </div>
-  </div>
-</header>
-<div class="container">
-        <main id="main-content" class="tui-main">
-          <div class="text_shrug">¯\_(ツ)_/¯</div>
+  </header>
 
-        </main><footer class="tui-footer">
-  <div class="tui-footer-meta">
-  </div>
+  <main id="main-content" class="tui-main">
+    <div class="tui-panel error-panel">
+      <div class="text_shrug" aria-hidden="true">¯\_(ツ)_/¯</div>
+      <h1>404: Not Found</h1>
+      <p class="page-subtitle">The requested path does not exist on this server.</p>
+      <div class="error-actions">
+        <a href="/" class="tui-btn">Return to startpage</a>
+        <a href="/blog/" class="tui-btn">Browse blog</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tui-footer">
+    <span>~/0x7C2f/404</span>
+    <nav class="tui-footer-links" aria-label="Footer navigation">
+      <a href="/">startpage</a>
+      <a href="/blog/">blog</a>
+      <a href="/files/">files</a>
+      <a href="/about/">about</a>
+      <a href="/doppler-curve-localization-simulator/">doppler</a>
+    </nav>
   </footer>
 </div>
-     <script src="/assets/header-search.js"></script>
-   
-    <div id="terminal" style="height:88vh;width:100%;"></div>
-    <link rel="stylesheet" href="https://unpkg.com/@xterm/xterm@5.3.0/css/xterm.css" />
-    <script src="https://unpkg.com/@xterm/xterm@5.3.0/lib/xterm.js"></script>
-    <script>
-      (function(){ try {
-        var el=document.getElementById('terminal'); if(!el) return;
-        var term=new Terminal({ theme:{background:'#0f172a',foreground:'#e2e8f0'} });
-        term.open(el); term.writeln('\x1b[1;36m0x7C2f terminal\x1b[0m — xterm.js ready'); term.write('$ ');
-      } catch(e){ console.error(e); } })();
-    </script>
-
+<script src="/assets/header-search.js"></script>
 </body>
 </html>

@@ -1,190 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com https://unpkg.com/; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com https://unpkg.com/; connect-src 'self';" />
-
-<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
-<meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="no-referrer" />
-    <!-- CSP here -->
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link rel="stylesheet" href="/assets/design-system.css">
-     <title>About</title>
-    
-    
-    
-    <meta name="description" content="Learn about the author, a programmer exploring code, commerce, and consciousness, with a digital library of PDFs and thoughts." />
-    
-    <meta property="og:image" content="/images/profile_picture.jpg" />
-    <meta name="twitter:image" content="/images/profile_picture.jpg" />
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="description" content="About 0x7C2f: programmer exploring code, commerce, and consciousness, with technical notes, interactive WebGL/physics tools, and a curated PDF library." />
+  <meta property="og:image" content="/images/profile_picture.jpg" />
+  <meta name="twitter:image" content="/images/profile_picture.jpg" />
+  <title>About | 0x7C2f</title>
+  <link rel="stylesheet" href="/assets/design-system.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "0x7C2f",
+    "url": "https://0x7c2f.github.io",
+    "publisher": {
+      "@type": "Organization",
       "name": "0x7C2f",
-      "url": "https://0x7c2f.github.io",
-      "publisher": {
-        "@type": "Organization",
-        "name": "0x7C2f",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "/images/profile_picture.jpg"
-        }
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://0x7c2f.github.io/images/profile_picture.jpg"
       }
     }
-    </script>
-    
-    
+  }
+  </script>
 </head>
-<body data-webtui-theme="dark"><a href="#main-content" class="skip-link">Skip to main content</a>
-<header class="tui-header">
-  <div class="tui-titlebar">
-    <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
-    <nav class="tui-nav" aria-label="Main navigation"><a href="/blog/" class="tui-nav-link">Blog</a><a href="/files/" class="tui-nav-link">Files</a><a href="/about/" class="tui-nav-link" aria-current="page">About</a><a href="/awesome-pi-coding-agent/" class="tui-nav-link">Awesome Pi Coding Agent</a></nav>
-    <div class="tui-search">
-      <input type="text" id="search-input" placeholder="/ search..." aria-label="Search site content" />
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page-shell">
+  <header class="tui-header">
+    <div class="tui-titlebar">
+      <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
+      <nav class="tui-nav" aria-label="Main navigation">
+        <a href="/blog/" class="tui-nav-link">blog</a>
+        <a href="/files/" class="tui-nav-link">files</a>
+        <a href="/about/" class="tui-nav-link" aria-current="page">about</a>
+        <a href="/doppler-curve-localization-simulator/" class="tui-nav-link">doppler</a>
+        <a href="/fluid-visualizer/" class="tui-nav-link">fluid</a>
+      </nav>
+      <div class="tui-search">
+        <input type="text" id="search-input" placeholder="/ search site..." aria-label="Search site content" autocomplete="off" />
+      </div>
     </div>
-  </div>
-</header>
-<div class="container">
-        <main id="main-content" class="tui-main">
-          <link rel="stylesheet" type="text/css" href="/assets/about.css">
-<h1 class="knowledge-title">Knowledge Stack</h1>
-<hr class="knowledge-divider">
-<table class="badges-table">
-  <tbody>
-    <tr>
-      <td><strong>Operating Systems</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/archlinux.svg" alt="Arch Linux">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/apple.svg" alt="Mac OS X">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/windows.svg" alt="Windows">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/centos.svg" alt="CentOS">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/ubuntu.svg" alt="Ubuntu">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><hr class="knowledge-divider"></td>
-    </tr>
-    <tr>
-      <td><strong>Version Control</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/git.svg" alt="Git">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/github.svg" alt="GitHub">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/gitlab.svg" alt="GitLab">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/sourcehut.svg" alt="Sourcehut">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/bitbucket.svg" alt="Bitbucket">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><hr class="knowledge-divider"></td>
-    </tr>
-    <tr>
-      <td><strong>Networking</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/ubiquiti.svg" alt="Ubiquiti">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/meraki.svg" alt="Meraki">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/sonicwall.svg" alt="SonicWall">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/cisco.svg" alt="Cisco">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/fortinet.svg" alt="Fortinet">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><hr class="knowledge-divider"></td>
-    </tr>
-    <tr>
-      <td><strong>Virtualization And Cloud</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/vmware.svg" alt="VMware">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/virtualbox.svg" alt="VirtualBox">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/hyperv.svg" alt="Hyper-V">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/amazons3.svg" alt="AWS S3">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/amazonwebservices.svg" alt="AWS">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/cpanel.svg" alt="cPanel">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/googlecloud.svg" alt="Google Cloud Platform">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftazure.svg" alt="Microsoft Azure">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/docker.svg" alt="Docker">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><hr class="knowledge-divider"></td>
-    </tr>
-    <tr>
-      <td><strong>Development</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/java.svg" alt="Java">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/mysql.svg" alt="MySQL">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/sqlite.svg" alt="SQLite">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/postgresql.svg" alt="PostgreSQL">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/python.svg" alt="Python">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/openjdk.svg" alt="OpenJDK">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/bluej.svg" alt="BlueJ">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/powershell.svg" alt="PowerShell">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/gnubash.svg" alt="Bash">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/zsh.svg" alt="ZSH">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/swift.svg" alt="Swift">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/nodedotjs.svg" alt="NodeJS">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/javascript.svg" alt="JavaScript">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/solidity.svg" alt="Solidity">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/html5.svg" alt="HTML">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/xml.svg" alt="XML">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/api.svg" alt="APIs">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/ethereum.svg" alt="Web3">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/jekyll.svg" alt="Jekyll">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/selenium.svg" alt="Selenium">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/ruby.svg" alt="Ruby">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/kotlin.svg" alt="Kotlin">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/flask.svg" alt="Flask">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/typescript.svg" alt="TypeScript">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><hr class="knowledge-divider"></td>
-    </tr>
-    <tr>
-      <td><strong>Applications And Tools</strong></td>
-      <td>
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftexcel.svg" alt="Excel">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftword.svg" alt="Word">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftpowerpoint.svg" alt="PowerPoint">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftoutlook.svg" alt="Outlook">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/microsoftteams.svg" alt="Teams">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/adobephotoshop.svg" alt="Adobe Photoshop">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/salesforce.svg" alt="Salesforce">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/servicenow.svg" alt="ServiceNow">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/zendesk.svg" alt="Zendesk">
-        <img height="32" width="32" src="https://unpkg.com/simple-icons@v13/icons/teamviewer.svg" alt="TeamViewer">
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </header>
 
-        </main><footer class="tui-footer">
-  <div class="tui-footer-meta">
-  </div>
+  <main id="main-content" class="tui-main tui-article">
+    <h1>About 0x7C2f</h1>
+    <p class="page-subtitle">Programmer exploring code, commerce, and consciousness.</p>
+
+    <section class="about-section" aria-labelledby="about-site">
+      <h2 id="about-site">What This Site Is</h2>
+      <p>
+        <strong>0x7C2f.github.io</strong> is a static, hand-written workspace hosted on GitHub Pages with no framework, no analytics, and no build pipeline. The homepage doubles as a daily keyboard-driven startpage, and the rest of the site holds technical guides, interactive browser experiments, and a curated reading archive.
+      </p>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-sections">
+      <h2 id="about-sections">What Lives Here</h2>
+      <div class="about-grid">
+        <div class="tui-panel about-card">
+          <h3><a href="/">Startpage</a></h3>
+          <p>Keyboard-first web search across DuckDuckGo, Google, Brave, SearXNG, and YouTube, paired with categorized quick-launch bookmarks.</p>
+        </div>
+        <div class="tui-panel about-card">
+          <h3><a href="/blog/">Blog &amp; Guides</a></h3>
+          <p>Notes on MCP tooling, static hosting constraints, and essays on economics and opportunity cost.</p>
+        </div>
+        <div class="tui-panel about-card">
+          <h3><a href="/files/">PDF Library</a></h3>
+          <p>A direct-download shelf of reference books and essays on programming, markets, security, and philosophy.</p>
+        </div>
+        <div class="tui-panel about-card">
+          <h3><a href="/doppler-curve-localization-simulator/">Doppler Simulator</a></h3>
+          <p>Interactive acoustic Doppler pass simulator that pinpoints observer coordinates from frequency inflection timing and slope steepness.</p>
+        </div>
+        <div class="tui-panel about-card">
+          <h3><a href="/fluid-visualizer/">Fluid Visualizer</a></h3>
+          <p>GPU WebGL Stable-Fluids simulation paired with a live FFT audio-reactive layer supporting microphone input, local audio files, and a built-in generative beat.</p>
+        </div>
+        <div class="tui-panel about-card">
+          <h3><a href="/api/mcp-servers.json">MCP Servers JSON</a></h3>
+          <p>Static JSON endpoint listing curated Model Context Protocol server repositories for programmatic discovery and tooling.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-links">
+      <h2 id="about-links">Source &amp; Links</h2>
+      <ul>
+        <li>GitHub: <a href="https://github.com/0x7C2f" rel="noopener noreferrer">github.com/0x7C2f</a></li>
+        <li>Site repository: <a href="https://github.com/0x7C2f/0x7C2f.github.io" rel="noopener noreferrer">0x7C2f/0x7C2f.github.io</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="tui-footer">
+    <span>~/0x7C2f/about</span>
+    <nav class="tui-footer-links" aria-label="Footer navigation">
+      <a href="/">startpage</a>
+      <a href="/blog/">blog</a>
+      <a href="/files/">files</a>
+      <a href="/doppler-curve-localization-simulator/">doppler</a>
+      <a href="/fluid-visualizer/">fluid</a>
+      <a href="https://github.com/0x7C2f" rel="noopener noreferrer">github</a>
+    </nav>
   </footer>
 </div>
-     <script src="/assets/header-search.js"></script>
-   
-    <div id="terminal" style="height:88vh;width:100%;"></div>
-    <link rel="stylesheet" href="https://unpkg.com/@xterm/xterm@5.3.0/css/xterm.css" />
-    <script src="https://unpkg.com/@xterm/xterm@5.3.0/lib/xterm.js"></script>
-    <script>
-      (function(){ try {
-        var el=document.getElementById('terminal'); if(!el) return;
-        var term=new Terminal({ theme:{background:'#0f172a',foreground:'#e2e8f0'} });
-        term.open(el); term.writeln('\x1b[1;36m0x7C2f terminal\x1b[0m — xterm.js ready'); term.write('$ ');
-      } catch(e){ console.error(e); } })();
-    </script>
-
+<script src="/assets/header-search.js"></script>
 </body>
 </html>

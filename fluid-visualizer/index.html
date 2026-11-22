@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="icon" href="logo.png" />
+  <title>Fluid Visualizer | 0x7C2f</title>
+  <meta name="description" content="Interactive WebGL Stable-Fluids simulation with live audio-reactive FFT spectrum wheel, beat shock rings, and offline GPU rendering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Fluid Visualizer | 0x7C2f" />
+  <meta property="og:description" content="Interactive WebGL fluid simulation driven by live audio, microphone, audio files, or built-in generative beat." />
+  <meta property="og:image" content="logo.png" />
+  <script type="text/javascript" src="dat.gui.min.js"></script>
+  <style>
+    @font-face {
+      font-family: 'iconfont';
+      src: url('iconfont.ttf') format('truetype');
+    }
+
+    * {
+      user-select: none;
+    }
+
+    html, body {
+      overflow: hidden;
+      background-color: #05070e;
+    }
+
+    body {
+      margin: 0;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .dg {
+      opacity: 0.9;
+    }
+
+    .dg .property-name {
+      overflow: visible;
+    }
+
+    #brand {
+      position: fixed;
+      top: 16px;
+      left: 18px;
+      z-index: 20;
+      font: 600 12px/1.45 "JetBrains Mono", "Fira Code", ui-monospace, Menlo, monospace;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.78);
+      pointer-events: none;
+    }
+    #brand a {
+      pointer-events: auto;
+      color: #22d3ee;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+    #brand a:hover {
+      color: #e2e8f0;
+      text-decoration: underline;
+    }
+    #brand a:focus-visible {
+      outline: 2px solid #22d3ee;
+      outline-offset: 2px;
+    }
+    #brand small {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: 0.1em;
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(148, 163, 184, 0.78);
+      text-transform: none;
+    }
+
+    #dropzone {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(7, 11, 20, 0.72);
+      backdrop-filter: blur(4px);
+      font: 600 15px/1.5 "JetBrains Mono", ui-monospace, monospace;
+      color: #e2e8f0;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      border: 2px dashed rgba(34, 211, 238, 0.55);
+      border-radius: 10px;
+      margin: 12px;
+      pointer-events: none;
+    }
+    #dropzone.on {
+      display: flex;
+    }
+
+    .icon {
+      font-family: 'iconfont';
+      font-size: 130%;
+      float: right;
+    }
+    .twitter:before { content: 'a'; }
+    .github:before { content: 'b'; }
+    .app:before { content: 'c'; }
+    .discord:before { content: 'd'; }
+  </style>
+</head>
+<body>
+  <canvas aria-label="Interactive WebGL Fluid Simulation canvas"></canvas>
+
+  <div id="brand">
+    <a href="/">[ &lt;- 0x7C2f ]</a>fluid visualizer
+    <small>drag audio here · M mic · F file · D demo · H hud · V clean · Space pause</small>
+  </div>
+  <div id="dropzone">drop an audio file</div>
+
+  <script src="./script.js"></script>
+  <script src="./audio-reactor.js"></script>
+</body>
+</html>

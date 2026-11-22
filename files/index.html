@@ -1,134 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com/; style-src 'self' https://fonts.googleapis.com https://unpkg.com/; img-src 'self' https://unpkg.com/; font-src 'self' https://fonts.gstatic.com https://unpkg.com/; connect-src 'self';" />
-
-<meta http-equiv="X-XSS-Protection"  content="1;mode=block" always>
-<meta http-equiv="Referrer-Policy" content="no-referrer, no-referrer"><head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="no-referrer" />
-    <!-- CSP here -->
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link rel="stylesheet" href="/assets/design-system.css">
-     <title>Files</title>
-    
-    
-    
-    <meta name="description" content="Download a collection of PDF files on programming, economics, and conspiracy theories curated by the site author." />
-    
-    <meta property="og:image" content="/images/profile_picture.jpg" />
-    <meta name="twitter:image" content="/images/profile_picture.jpg" />
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="description" content="Download a collection of PDF files on programming, economics, and curated reading." />
+  <meta property="og:image" content="/images/profile_picture.jpg" />
+  <meta name="twitter:image" content="/images/profile_picture.jpg" />
+  <title>Files | 0x7C2f</title>
+  <link rel="stylesheet" href="/assets/design-system.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "0x7C2f",
+    "url": "https://0x7c2f.github.io",
+    "publisher": {
+      "@type": "Organization",
       "name": "0x7C2f",
-      "url": "https://0x7c2f.github.io",
-      "publisher": {
-        "@type": "Organization",
-        "name": "0x7C2f",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "/images/profile_picture.jpg"
-        }
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://0x7c2f.github.io/images/profile_picture.jpg"
       }
     }
-    </script>
-    
-    
+  }
+  </script>
 </head>
-<body data-webtui-theme="dark"><a href="#main-content" class="skip-link">Skip to main content</a>
-<header class="tui-header">
-  <div class="tui-titlebar">
-    <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
-    <nav class="tui-nav" aria-label="Main navigation"><a href="/blog/" class="tui-nav-link">Blog</a><a href="/files/" class="tui-nav-link" aria-current="page">Files</a><a href="/about/" class="tui-nav-link">About</a><a href="/awesome-pi-coding-agent/" class="tui-nav-link">Awesome Pi Coding Agent</a></nav>
-    <div class="tui-search">
-      <input type="text" id="search-input" placeholder="/ search..." aria-label="Search site content" />
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page-shell">
+  <header class="tui-header">
+    <div class="tui-titlebar">
+      <span class="tui-titlebar-left">[ <a href="/">0x7C2f</a> ]</span>
+      <nav class="tui-nav" aria-label="Main navigation">
+        <a href="/blog/" class="tui-nav-link">blog</a>
+        <a href="/files/" class="tui-nav-link" aria-current="page">files</a>
+        <a href="/about/" class="tui-nav-link">about</a>
+        <a href="/doppler-curve-localization-simulator/" class="tui-nav-link">doppler</a>
+        <a href="/fluid-visualizer/" class="tui-nav-link">fluid</a>
+      </nav>
+      <div class="tui-search">
+        <input type="text" id="search-input" placeholder="/ search site..." aria-label="Search site content" autocomplete="off" />
+      </div>
     </div>
-  </div>
-</header>
-<div class="container">
-        <main id="main-content" class="tui-main">
-          
-<h2 id="pdf-files">PDF Files</h2>
-<hr />
-<ul>
+  </header>
 
-  <li>
-    <a href="1984.pdf">1984</a>
-  </li>
+  <main id="main-content" class="tui-main">
+    <h1>PDF Library</h1>
+    <p class="page-subtitle">Curated reference books and documents hosted directly on this site.</p>
 
-  <li>
-    <a href="avoid_the_news.pdf">Avoid the News</a>
-  </li>
+    <ul class="file-list">
+      <li><a href="1984.pdf"><span>1984</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="avoid_the_news.pdf"><span>Avoid the News</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="david_icke_children_of_the_matrix.pdf"><span>Children of the Matrix</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="ddd_update.pdf"><span>DDD Update</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="dddoa.pdf"><span>DDDOA</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="how_to_do_nothing.pdf"><span>How to Do Nothing</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="jolly_rogers_security_guide_for_beginners.pdf"><span>Jolly Rogers Security Guide for Beginners</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="php_cookbook.pdf"><span>PHP Cookbook</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="reminiscences_of_a_stock_operator.pdf"><span>Reminiscences of a Stock Operator</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="the_new_confessions_of_an_economic_hitman.pdf"><span>The New Confessions of an Economic Hitman</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="the_biggest_secret.pdf"><span>The Biggest Secret</span><span class="file-ext">PDF</span></a></li>
+      <li><a href="the_four_agreements.pdf"><span>The Four Agreements</span><span class="file-ext">PDF</span></a></li>
+    </ul>
+  </main>
 
-  <li>
-    <a href="david_icke_children_of_the_matrix.pdf">Children of the Matrix</a>
-  </li>
-
-  <li>
-    <a href="ddd_update.pdf">DDD Update</a>
-  </li>
-
-  <li>
-    <a href="dddoa.pdf">DDDOA</a>
-  </li>
-
-  <li>
-    <a href="how_to_do_nothing.pdf">How to Do Nothing</a>
-  </li>
-
-  <li>
-    <a href="jolly_rogers_security_guide_for_beginners.pdf">Jolly Rogers Security Guide for Beginners</a>
-  </li>
-
-  <li>
-    <a href="php_cookbook.pdf">PHP Cookbook</a>
-  </li>
-
-  <li>
-    <a href="reminiscences_of_a_stock_operator.pdf">Reminiscences of a Stock Operator</a>
-  </li>
-
-  <li>
-    <a href="the_new_confessions_of_an_economic_hitman.pdf">The New Confessions of an Economic Hitman</a>
-  </li>
-
-  <li>
-    <a href="the_biggest_secret.pdf">The Biggest Secret</a>
-  </li>
-
-  <li>
-    <a href="the_four_agreements.pdf">The Four Agreements</a>
-  </li>
-
-</ul>
-
-        </main><footer class="tui-footer">
-  <div class="tui-footer-meta">
-  </div>
+  <footer class="tui-footer">
+    <span>~/0x7C2f/files</span>
+    <nav class="tui-footer-links" aria-label="Footer navigation">
+      <a href="/">startpage</a>
+      <a href="/blog/">blog</a>
+      <a href="/about/">about</a>
+      <a href="/doppler-curve-localization-simulator/">doppler</a>
+      <a href="https://github.com/0x7C2f" rel="noopener noreferrer">github</a>
+    </nav>
   </footer>
 </div>
-     <script src="/assets/header-search.js"></script>
-   
-    <div id="terminal" style="height:88vh;width:100%;"></div>
-    <link rel="stylesheet" href="https://unpkg.com/@xterm/xterm@5.3.0/css/xterm.css" />
-    <script src="https://unpkg.com/@xterm/xterm@5.3.0/lib/xterm.js"></script>
-    <script>
-      (function(){ try {
-        var el=document.getElementById('terminal'); if(!el) return;
-        var term=new Terminal({ theme:{background:'#0f172a',foreground:'#e2e8f0'} });
-        term.open(el); term.writeln('\x1b[1;36m0x7C2f terminal\x1b[0m — xterm.js ready'); term.write('$ ');
-      } catch(e){ console.error(e); } })();
-    </script>
-
+<script src="/assets/header-search.js"></script>
 </body>
 </html>
